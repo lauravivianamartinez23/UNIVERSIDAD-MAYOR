@@ -73,7 +73,9 @@ a{color:var(--accent)}
 
 /* home */
 .hero{padding:72px 0 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(1.9rem,4.2vw,3rem)}
 .hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{font:600 clamp(1.05rem,1.8vw,1.3rem)/1.4 var(--display);color:var(--accent);margin:0 0 18px;max-width:46ch}
 .hero .lead{font-size:1.15rem;max-width:56ch}
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 12px}
 .hero-viz{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:var(--r-l);padding:16px;box-shadow:0 30px 80px -30px rgba(0,30,90,.35)}
@@ -340,7 +342,8 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
     <div class="hero">
       <div>
         <span class="eyebrow">Universidad Colegio Mayor de Cundinamarca · Transferencia de Resultados de Investigación</span>
-        <h1>¿En qué nivel de madurez está tu desarrollo? <em>Respóndelo con hechos, no con intuición.</em></h1>
+        <h1>Evalúa el grado de madurez de tu resultado de investigación</h1>
+        <p class="hero-sub">Metodología internacional KTH Innovation Readiness Level™, adaptada por la Universidad Colegio Mayor de Cundinamarca.</p>
         <p class="lead">Cuéntanos qué has logrado. La página calcula el nivel de tu tecnología, mercado, propiedad intelectual, equipo, financiación e impacto social, y lo dibuja en una telaraña. No necesitas saber de antemano en qué nivel estás.</p>
         <div class="cta-row">
           <button class="btn primary" data-act="start">Comenzar mi diagnóstico →</button>
