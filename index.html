@@ -245,6 +245,23 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
 .drop{border:2px dashed var(--line);border-radius:var(--r-m);padding:26px;text-align:center;color:var(--dim)}
 .print-only{display:none}
 .fig{margin:0}
+.top nav .short{display:none}
+.ruta{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:22px}
+.et{position:relative;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-m);padding:16px 14px;display:grid;gap:6px;align-content:start}
+.et .n{width:34px;height:34px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font:800 1rem var(--display);color:var(--ink)}
+.et b{font:700 .95rem/1.25 var(--display);color:var(--ink)}
+.et small{color:var(--faint);font-size:.78rem;line-height:1.35}
+.et:not(:last-child)::after{content:"›";position:absolute;right:-18px;top:50%;transform:translateY(-50%);width:22px;height:22px;border-radius:50%;background:var(--card);border:1.5px solid var(--line);display:grid;place-items:center;color:var(--faint);font-weight:700;z-index:1}
+.et.aqui{background:var(--accent);border-color:var(--accent);box-shadow:0 18px 40px -18px var(--accent-glow)}
+.et.aqui .n{background:var(--accent-ink);color:var(--accent)}
+.et.aqui b,.et.aqui small{color:var(--accent-ink)}
+.et .tag{justify-self:start;margin-top:4px;font:700 .68rem var(--display);letter-spacing:.06em;text-transform:uppercase;background:var(--accent-ink);color:var(--accent);padding:3px 9px;border-radius:99px}
+.doc{display:flex;gap:16px;align-items:flex-start;margin:6px 0 26px}
+.doc .ic{flex:none;width:52px;height:52px;margin:0;font-size:.8rem}
+.doc h3{margin:0 0 4px}
+.stagelist details.faq{margin-bottom:10px}
+.stagelist details.faq[open]{border-color:var(--accent)}
+.stagelist .ticks{margin:8px 0 10px}
 .steps-do{margin:0 0 12px;padding-left:1.3em;color:var(--dim)}
 .steps-do li{margin:5px 0}
 .foot a{color:var(--accent)}
@@ -271,6 +288,8 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
 
 @media (max-width:980px){
   .split{grid-template-columns:1fr}.split.rev .fig{order:0}
+  .ruta{grid-template-columns:1fr;gap:26px}
+  .et:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-20px;transform:translateX(-50%) rotate(90deg)}
   .hero{grid-template-columns:1fr;padding-top:40px}
   .g3,.g4{grid-template-columns:1fr 1fr}
   .app-grid,.res-grid{grid-template-columns:1fr}
@@ -281,6 +300,7 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
   .divrow{grid-template-columns:1fr}
   dl.kv{grid-template-columns:1fr}
   .top nav button{padding:8px 9px;font-size:.84rem}
+  .top nav .long{display:none}.top nav .short{display:inline}
   .brand small{display:none}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -294,6 +314,15 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
   .card,.radar-box{break-inside:avoid}
   svg .poly{animation:none}
   @page{size:A4;margin:14mm}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #informe h4{font:700 10.5px var(--display);margin:10px 0 4px;color:#3366CC;text-transform:uppercase;letter-spacing:.05em}
+  #informe .ruta{grid-template-columns:repeat(5,1fr);gap:14px;margin:6px 0}
+  #informe .et{padding:7px 8px;border-width:1px;break-inside:avoid;gap:3px}
+  #informe .et b{font-size:9.5px}
+  #informe .et small{font-size:8px}
+  #informe .et .n{width:20px;height:20px;font-size:10px}
+  #informe .et:not(:last-child)::after{right:-13px;width:16px;height:16px;font-size:10px;bottom:auto;left:auto;top:50%;transform:translateY(-50%)}
+  #informe .et .tag{font-size:7px;padding:2px 6px}
   body>*:not(#informe){display:none!important}
   #informe{display:block;font-size:11px;line-height:1.45;color:#111}
   #informe h1{font:800 24px var(--display);margin:0;color:#0a1c46}
@@ -328,6 +357,7 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
     </button>
     <nav aria-label="Principal">
       <button data-act="home" id="nav-home" class="on">Inicio</button>
+      <button data-act="ruta" id="nav-ruta"><span class="long">Ruta de transferencia</span><span class="short">Ruta</span></button>
       <button data-act="start" id="nav-app">Mi diagnóstico</button>
       <button data-act="review" id="nav-rv" hidden>Modo revisión</button>
       <button data-act="theme" class="theme" id="nav-theme" aria-label="Cambiar entre modo claro y oscuro">☾ Oscuro</button>
@@ -341,7 +371,7 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
   <div class="wrap">
     <div class="hero">
       <div>
-        <span class="eyebrow">Universidad Colegio Mayor de Cundinamarca · Transferencia de Resultados de Investigación</span>
+        <span class="eyebrow">Universidad Colegio Mayor de Cundinamarca · Área de Transferencia de Resultados de Investigación (ATRI)</span>
         <h1>Evalúa el grado de madurez de tu resultado de investigación</h1>
         <p class="hero-sub">Metodología internacional KTH Innovation Readiness Level™, adaptada por la Universidad Colegio Mayor de Cundinamarca.</p>
         <p class="lead">Cuéntanos qué has logrado. La página calcula el nivel de tu tecnología, mercado, propiedad intelectual, equipo, financiación e impacto social, y lo dibuja en una telaraña. No necesitas saber de antemano en qué nivel estás.</p>
@@ -361,8 +391,15 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
       <div class="card"><div class="step-n">01</div><h3>Describe tu desarrollo</h3><p>Diligencias la ficha de caracterización: quiénes son los creadores, qué problema resuelve, qué propiedad intelectual tiene y qué redes conoces.</p></div>
       <div class="card"><div class="step-n">02</div><h3>Dinos qué tipo de resultado es</h3><p>Área de conocimiento y tipo de resultado: un protocolo clínico, un prototipo o una metodología no se miden igual. Adaptamos la escala y ponemos ejemplos de tu campo.</p></div>
       <div class="card"><div class="step-n">03</div><h3>Responde con ejemplos y sube evidencia</h3><p>Preguntas de Sí o No, cada una con un ejemplo. Si respondes «Sí», adjuntas el soporte: un informe, un acta, un radicado o un enlace.</p></div>
-      <div class="card"><div class="step-n">04</div><h3>Recibe tu telaraña</h3><p>Ves tu nivel en cada dimensión, qué te falta para subir y descargas el paquete para enviarlo a Transferencia.</p></div>
+      <div class="card"><div class="step-n">04</div><h3>Recibe tu telaraña</h3><p>Ves tu nivel en cada dimensión, qué te falta para subir y descargas el paquete para entregarlo a ATRI.</p></div>
     </div>
+  </div></div>
+
+  <div class="section alt"><div class="wrap">
+    <div class="center"><span class="eyebrow">Ruta de transferencia</span><h2>Este diagnóstico es una etapa de la ruta de transferencia de la universidad</h2>
+    <p>El Modelo de Transferencia de Conocimiento e Innovación, adoptado por el Acuerdo 041 de 2026, tiene cinco etapas. Aquí se realiza la segunda: el diagnóstico de madurez de tu resultado.</p></div>
+    <div id="ruta-home" style="margin-top:30px"></div>
+    <div class="center" style="margin-top:22px"><button class="btn" data-act="ruta">Conocer la ruta completa y descargar el Acuerdo</button></div>
   </div></div>
 
   <div class="section"><div class="wrap">
@@ -389,8 +426,8 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
       <div>
         <span class="eyebrow">Respaldo de tus respuestas</span>
         <h2>Tu «Sí» vale más con evidencia</h2>
-        <p>Cada vez que respondes «Sí», puedes adjuntar el soporte: un informe, un acta, un radicado, una foto del prototipo o un enlace. La Oficina de Transferencia revisa los soportes y confirma los que verifica.</p>
-        <ul class="ticks"><li>Sin evidencia, tu respuesta queda como declarada.</li><li>Con evidencia, queda respaldada.</li><li>Verificada por Transferencia, queda confirmada.</li></ul>
+        <p>Cada vez que respondes «Sí», puedes adjuntar el soporte: un informe, un acta, un radicado, una foto del prototipo o un enlace. ATRI revisa los soportes y confirma los que verifica.</p>
+        <ul class="ticks"><li>Sin evidencia, tu respuesta queda como declarada.</li><li>Con evidencia, queda respaldada.</li><li>Verificada por ATRI, queda confirmada.</li></ul>
       </div>
     </div>
   </div></div>
@@ -412,14 +449,19 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
     <details class="faq"><summary>Mi desarrollo no es tecnológico (psicología, derecho, sociales…). ¿Aplica?</summary><p>Sí. Al elegir tu área y tu tipo de resultado, las preguntas se acompañan de ejemplos de tu campo y la escala tecnológica se traduce a tu lenguaje: por ejemplo, «prototipo» pasa a ser la versión piloto de tu protocolo, instrumento o metodología.</p></details>
     <details class="faq"><summary>¿Cómo guardo mi diagnóstico y lo retomo después?</summary><p>Al final pulsa «Guardar mi avance (archivo)»: se descarga un archivo en tu computador, no tienes que abrirlo. Cuando quieras seguir, entra otra vez, pulsa «Continuar un avance guardado» y súbelo: recuperas tu ficha, tus respuestas y tus evidencias para editarlas. El informe en PDF es aparte: sirve para leer y compartir, no para editar.</p></details>
     <details class="faq"><summary>¿Es obligatorio subir evidencia?</summary><p>No para avanzar, pero sí para que tu «Sí» cuente en la capa «Con evidencia» y pueda ser verificado. Un «Sí» sin soporte queda marcado como pendiente.</p></details>
-    <details class="faq"><summary>¿Dónde quedan mis datos y archivos?</summary><p>Mientras diligencias, todo queda guardado solo en tu navegador, en este equipo. Tus datos y archivos salen de tu equipo únicamente cuando tú pulsas «Enviar» (o descargas el paquete) para entregarlos a la Oficina de Transferencia, y antes debes autorizar el tratamiento de tus datos.</p></details>
+    <details class="faq"><summary>¿Dónde quedan mis datos y archivos?</summary><p>Mientras diligencias, todo queda guardado solo en tu navegador, en este equipo. Tus datos y archivos salen de tu equipo únicamente cuando tú pulsas «Enviar» (o descargas el paquete) para entregarlos a ATRI, y antes debes autorizar el tratamiento de tus datos.</p></details>
     <details class="faq"><summary>¿Qué pasa si respondo «No» en un nivel?</summary><p>Ahí queda tu nivel actual en esa dimensión. La página te muestra qué criterios te faltan para subir al siguiente. Los niveles superiores se habilitan cuando cumples el actual.</p></details>
   </div></div>
   <footer class="foot"><div class="wrap">Basado en el <b>KTH Innovation Readiness Level™</b>, desarrollado por KTH Innovation (KTH Royal Institute of Technology), modelo original bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer">Creative Commons BY-NC-SA 4.0</a>. Esta versión fue adaptada por la Universidad Colegio Mayor de Cundinamarca: se unen cliente y negocio en una dimensión de mercado, se añade la madurez social y los criterios se redactan como preguntas con ejemplos por disciplina. Los niveles de TRL se describen con definiciones de MINCIENCIAS (2019) y de la ESA.
-    <p style="margin:14px 0 0"><a href="#revision" data-act="review" style="color:inherit;opacity:.7">Acceso del equipo de Transferencia</a></p></div></footer>
+    </div></footer>
 </section>
 
 <!-- ───────────────────────── DIAGNÓSTICO ───────────────────────── -->
+<!-- ───────────────────────── RUTA DE TRANSFERENCIA ───────────────────────── -->
+<section id="v-ruta" class="view" hidden>
+  <div class="wrap" style="padding-top:34px;padding-bottom:80px"><div id="ruta-page"></div></div>
+</section>
+
 <section id="v-app" class="view" hidden>
   <div class="wrap">
     <div class="toolbar no-print">
@@ -445,7 +487,7 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
 <!-- ───────────────────────── REVISIÓN ───────────────────────── -->
 <section id="v-review" class="view" hidden>
   <div class="wrap" style="padding-top:34px;padding-bottom:90px">
-    <span class="eyebrow">Oficina de Transferencia</span>
+    <span class="eyebrow">ATRI · Área de Transferencia de Resultados de Investigación</span>
     <h1 style="font-size:clamp(1.8rem,4vw,2.6rem)">Modo revisión</h1>
     <p>Importa los paquetes que envían los investigadores, revisa la evidencia de cada respuesta y marca si la verificas. La telaraña se actualiza con lo que confirmes.</p>
     <div class="actions" style="margin-bottom:22px">
@@ -470,11 +512,14 @@ const GLOSS={"tec":[],"sal":[["Prototipo","versión piloto del protocolo o instr
 /* ════════ Configuración ════════ */
 const CONFIG={
   institucion:'Universidad Colegio Mayor de Cundinamarca',
-  oficina:'Oficina de Transferencia de Resultados de Investigación',
+  oficina:'Área de Transferencia de Resultados de Investigación (ATRI)',
   correoTransferencia:'',   // p. ej. 'transferencia@…' — si se deja vacío no se muestra el botón de correo
   maxFileMB:8,
   umbralDesequilibrio:3,
   // ── Entrega por formulario (recomendado): el investigador descarga sus archivos y los sube ahí ──
+  revisionHabilitada:false, // Solo el archivo privado de ATRI la activa. En el sitio público siempre es false.
+  abrirEnRevision:false,    // El archivo privado de ATRI abre directamente en la revisión.
+  codigoAccesoHash:'',      // Opcional: huella SHA-256 del código de acceso de ATRI (ver LEEME_ATRI). Vacío = sin código.
   formularioUrl:'',         // Dirección del formulario de entrega (Google Forms, Microsoft Forms…). Si está vacía, se indica entregar a la Oficina.
   // ── Envío automático opcional (n8n). El diagnóstico NO depende de esto: sin dirección, el botón no aparece ──
   webhookUrl:'',            // URL de producción del webhook de n8n. Si está vacía, no se muestra el botón «Enviar».
@@ -872,7 +917,7 @@ function renderQ(st,d,L,i,mode){
   if(mode==='edit'){
     body=`<div class="seg" role="group" aria-label="Respuesta"><button data-act="ans" data-k="${k}" data-v="si" aria-pressed="${a.v==='si'}">Sí</button><button data-act="ans" data-k="${k}" data-v="no" aria-pressed="${a.v==='no'}">No</button></div>`;
     if(a.v==='si') body+=evBlock(st,k,mode,d.k);
-    if(rv&&rv.s) body+=`<div class="rvbar"><span class="badge ${rv.s==='ok'?'ok':'bad'}">${rv.s==='ok'?'Verificado por Transferencia':'No verificado'}</span>${rv.c?`<span class="muted">${esc(rv.c)}</span>`:''}</div>`;
+    if(rv&&rv.s) body+=`<div class="rvbar"><span class="badge ${rv.s==='ok'?'ok':'bad'}">${rv.s==='ok'?'Verificado por ATRI':'No verificado'}</span>${rv.c?`<span class="muted">${esc(rv.c)}</span>`:''}</div>`;
   }else{
     const ans=a.v==='si'?'<span class="badge mint">Responde Sí</span>':a.v==='no'?'<span class="badge">Responde No</span>':'<span class="badge">Sin responder</span>';
     body=ans;
@@ -889,7 +934,7 @@ function renderDim(i,mode){
   let h=`<div class="dimhead"><span class="k">${mode==='edit'?`PASO ${i+3} DE 9 · `:''}${d.k} · ${esc(d.long.toUpperCase())}</span><h2>${esc(d.name)}</h2><p>${esc(DEFS[d.k])}</p>
     <div class="meter" aria-label="Nivel alcanzado ${res.reached} de 9">${meter}</div>
     <p class="muted" style="margin:0">${res.reached===0?'Aún no alcanza el nivel 1':`Nivel actual: <b style="color:var(--ink)">${d.k} ${res.reached}</b> · ${esc(lvT(st,d,levelInfo(d,res.reached)).title)}`}</p></div>`;
-  if(mode==='edit') h+=`<div class="tip"><b>Cómo responder:</b> marque <b>Sí</b> solo si puede demostrarlo. Cada «Sí» abre un espacio para adjuntar la evidencia; sin ella, Transferencia no podrá verificarlo. Verá el siguiente nivel cuando cumpla el actual.</div>`;
+  if(mode==='edit') h+=`<div class="tip"><b>Cómo responder:</b> marque <b>Sí</b> solo si puede demostrarlo. Cada «Sí» abre un espacio para adjuntar la evidencia; sin ella, ATRI no podrá verificarlo. Verá el siguiente nivel cuando cumpla el actual.</div>`;
   h+=glossBlock(st,d);
   d.levels.forEach(L=>{
     const tt=lvT(st,d,L);
@@ -940,10 +985,10 @@ function renderResult(){
     <div class="radar-box">${radarSVG(seriesOf(sm))}
       <div class="legend-row" style="margin:0 0 10px"><span class="lg"><i style="background:var(--c-decl)"></i>Declarado</span><span class="lg"><i style="background:var(--c-evid)"></i>Con evidencia</span>${sm.rev?'<span class="lg"><i style="background:var(--c-ver)"></i>Verificado</span>':''}</div></div>
     <div><table class="t"><thead><tr><th>Dimensión</th><th class="c">Declarado</th><th class="c">Con evid.</th>${sm.rev?'<th class="c">Verif.</th>':''}<th>Nivel declarado alcanzado</th></tr></thead><tbody>${resultRows(sm,S)}</tbody></table>
-    <p class="muted" style="margin-top:12px">«Declarado» cuenta tus respuestas «Sí». «Con evidencia» solo cuenta los «Sí» que tienen un archivo o enlace adjunto. ${sm.rev?'«Verificado» es lo que Transferencia confirmó.':'«Verificado» lo completa la Oficina de Transferencia al revisar.'}</p></div>
+    <p class="muted" style="margin-top:12px">«Declarado» cuenta tus respuestas «Sí». «Con evidencia» solo cuenta los «Sí» que tienen un archivo o enlace adjunto. ${sm.rev?'«Verificado» es lo que ATRI confirmó.':'«Verificado» lo completa ATRI al revisar.'}</p></div>
   </div>
   <h3 style="margin:30px 0 12px">Qué te falta para subir al siguiente nivel</h3><div class="next">${nextSteps(S)}</div>
-  <h3 style="margin:30px 0 12px" class="no-print">Enviar a Transferencia</h3>
+  <h3 style="margin:30px 0 12px" class="no-print">Enviar a ATRI</h3>
   <div class="card no-print">
     <ul class="checks">
       <li class="${miss.length?'':'ok'}">Ficha de caracterización ${miss.length?`incompleta: falta ${miss.map(esc).join(', ').toLowerCase()}`:'con los datos mínimos'}</li>
@@ -951,11 +996,11 @@ function renderResult(){
       <li class="${unresolved.length?'':'ok'}">Dimensiones respondidas ${unresolved.length?`(faltan por completar: ${unresolved.join(', ')})`:'por completo'}</li>
       <li class="${noEv?'':'ok'}">Evidencia adjunta en ${sm.conEv} de ${sm.si} respuestas «Sí» ${noEv?`(${noEv} sin soporte)`:''}</li>
     </ul>
-    <ol class="steps-do"><li>Descarga tu <b>informe en PDF</b>.</li><li>Pulsa <b>Guardar mi avance (archivo)</b>: descarga un archivo con tu ficha, tus respuestas y tus evidencias.</li><li>${CONFIG.formularioUrl?`Entrega los dos archivos en el <a href="${esc(CONFIG.formularioUrl)}" target="_blank" rel="noopener noreferrer">formulario de entrega</a> de la ${esc(CONFIG.oficina)}.`:`Entrega los dos archivos a la ${esc(CONFIG.oficina)}.`}</li></ol>    <p class="muted"><b>Guardar mi avance</b> descarga un archivo con toda tu información (ficha, respuestas y evidencias). No necesitas abrirlo: guárdalo en tu computador y, si después quieres editar, pulsa <b>Continuar un avance guardado</b> y súbelo.</p>
+    <ol class="steps-do"><li>Descarga tu <b>informe en PDF</b>.</li><li>Pulsa <b>Guardar mi avance (archivo)</b>: descarga un archivo con tu ficha, tus respuestas y tus evidencias.</li><li>${CONFIG.formularioUrl?`Entrega los dos archivos en el <a href="${esc(CONFIG.formularioUrl)}" target="_blank" rel="noopener noreferrer">formulario de entrega</a> del ${esc(CONFIG.oficina)}.`:`Entrega los dos archivos al ${esc(CONFIG.oficina)}.`}</li></ol>    <p class="muted"><b>Guardar mi avance</b> descarga un archivo con toda tu información (ficha, respuestas y evidencias). No necesitas abrirlo: guárdalo en tu computador y, si después quieres editar, pulsa <b>Continuar un avance guardado</b> y súbelo.</p>
     ${CONFIG.webhookUrl?`<div class="sendbox" style="margin:6px 0 18px">
       ${S.enviado?`<div class="alert" style="margin:0 0 12px">Ya enviaste este diagnóstico el ${esc(S.enviado.fecha.slice(0,10))}. Si hiciste cambios, puedes volver a enviarlo.</div>`:''}
       <label class="chk"><input type="checkbox" data-ui="consent" ${UI.consent?'checked':''}><span>${esc(CONSENT_TEXT)}${CONFIG.politicaDatosUrl?` <a href="${esc(CONFIG.politicaDatosUrl)}" target="_blank" rel="noopener noreferrer">Política de datos</a>`:''}</span></label>
-      <div class="actions"><button class="btn primary" data-act="send">Enviar a Transferencia</button></div>
+      <div class="actions"><button class="btn primary" data-act="send">Enviar a ATRI</button></div>
       <p id="send-msg" role="status" aria-live="polite" class="muted" style="margin:8px 0 0"></p></div>`:''}
     <div class="actions">${CONFIG.formularioUrl?`<a class="btn primary" href="${esc(CONFIG.formularioUrl)}" target="_blank" rel="noopener noreferrer">Ir al formulario de entrega</a>`:''}
       <button class="btn ${CONFIG.formularioUrl?'':'primary'}" data-act="pdf">Descargar informe en PDF</button>
@@ -963,6 +1008,48 @@ function renderResult(){
       ${CONFIG.correoTransferencia?`<a class="btn" href="mailto:${esc(CONFIG.correoTransferencia)}?subject=${encodeURIComponent('Diagnóstico de madurez: '+(S.ficha.nombre||''))}">Abrir correo</a>`:''}</div>
   </div>
   <div class="print-only" style="margin-top:20px"><p>Diligenciado el ${esc(S.ficha.fecha||'')} · ${esc(CONFIG.institucion)} · Este informe es una autoevaluación pendiente de verificación.</p></div>`;
+}
+
+/* ════════ Ruta de transferencia (Acuerdo 041 de 2026, art. 7) ════════ */
+const ETAPAS=[{"n":1,"corto":"Identificación y declaración","sub":"de activos transferibles","t":"Identificación y declaración de activos transferibles","res":"Se identifican, reconocen y consolidan los resultados de investigación, desarrollo tecnológico, innovación, creación artística y cultural con potencial de transferencia.","items":["Los miembros de la comunidad universitaria declaran formalmente invenciones, creaciones y demás activos, para determinar autoría, titularidad, estado de desarrollo y potencial de aprovechamiento.","Incluye inventarios de activos de conocimiento y su caracterización según naturaleza y tipología de transferencia.","Incluye una evaluación preliminar de pertinencia frente a las necesidades y oportunidades del entorno."]},{"n":2,"corto":"Diagnóstico de madurez","sub":"y valoración económica del activo","t":"Diagnóstico de madurez y valoración económica del activo","aqui":true,"res":"Evaluación técnica, estratégica, social, comercial y económica del activo, para determinar su potencial de transferencia y definir las acciones que lo fortalecen.","items":["a) Viabilidad técnica y medición de madurez: vigilancia tecnológica e inteligencia competitiva, estado de la técnica, libertad de operación y aplicación de escalas de madurez reconocidas, para identificar brechas, oportunidades y rutas de fortalecimiento.","b) Valoración económica del activo: análisis del potencial de generación de valor y estimación del valor económico, a cargo de profesionales o entidades especializadas que coordina la Subdirección."]},{"n":3,"corto":"Gestión de la propiedad","sub":"intelectual","t":"Gestión de la propiedad intelectual","res":"Estrategias institucionales para proteger, administrar, usar y aprovechar los activos intangibles que genera la universidad.","items":["Mecanismos de propiedad industrial, derechos de autor y demás instrumentos de protección aplicables.","También esquemas de conocimiento abierto, ciencia abierta o licenciamiento abierto, cuando correspondan a la naturaleza del activo.","La Subdirección coordina con la Oficina Jurídica la protección, la gestión de los derechos y los acuerdos de confidencialidad."]},{"n":4,"corto":"Maduración y escalamiento","sub":"del activo","t":"Maduración y escalamiento del activo","res":"Acciones para fortalecer, validar y aumentar el nivel de desarrollo del activo y mejorar sus condiciones de adopción, implementación o comercialización.","items":["Avance progresivo desde la validación temprana y la prueba de concepto hasta niveles superiores de madurez tecnológica, comercial, organizacional o social.","Alianzas con centros de investigación e innovación, laboratorios, incubadoras, aceleradoras, organizaciones sociales, entidades públicas y empresas.","Gestión de recursos de financiación, cofinanciación y otras fuentes de apoyo."]},{"n":5,"corto":"Estrategia de transferencia","sub":"y articulación","t":"Estrategia de transferencia y articulación","res":"Se definen las estrategias, mecanismos e instrumentos para vincular a la universidad con los actores del entorno y facilitar el uso de los resultados.","items":["Se identifican los posibles beneficiarios o receptores y las modalidades de transferencia más adecuadas para cada activo.","Se adelantan la negociación, estructuración y formalización de los instrumentos jurídicos requeridos.","Entre otros: licenciamiento, transferencia de tecnología, asistencia técnica o consultoría, convenios, investigación colaborativa, acuerdos de confidencialidad y empresas de base tecnológica (spin-off)."]}];
+const TIPOS_TRANSF=[{"t":"Transferencia con fines comerciales","d":"Soluciones, tecnologías, invenciones y otros resultados con potencial de explotación económica hacia el sector productivo, empresarial o estatal: licenciamiento, empresas de base tecnológica (spin-off), emprendimientos y transferencia de conocimiento especializado (know-how)."},{"t":"Transferencia para la apropiación social","d":"Intercambio y aplicación de conocimientos, saberes y resultados con comunidades, organizaciones sociales y entidades públicas, para atender problemáticas sociales, territoriales, culturales o ambientales: metodologías, modelos de intervención, obras artísticas, innovación social y asesorías sustentadas en evidencia."}];
+const DOC_ACUERDO='docs/Acuerdo-041-de-2026-Modelo-de-Transferencia.pdf';
+function rutaGraph(compact){
+  return '<ol class="ruta">'+ETAPAS.map(e=>'<li class="et'+(e.aqui?' aqui':'')+'"><span class="n">'+e.n+'</span><b>'+esc(e.corto)+'</b>'+(e.sub?'<small>'+esc(e.sub)+'</small>':'')+(e.aqui?'<span class="tag">Esta herramienta</span>':'')+'</li>').join('')+'</ol>';
+}
+function rutaPage(){
+  return '<span class="eyebrow">Modelo de Transferencia de Conocimiento e Innovación</span>'+
+  '<h1 style="font-size:clamp(1.8rem,4vw,2.8rem)">Ruta de transferencia de la Universidad Colegio Mayor de Cundinamarca</h1>'+
+  '<p class="lead" style="max-width:72ch;font-size:1.1rem">El Consejo Académico adoptó el Modelo de Transferencia de Conocimiento e Innovación mediante el <b>Acuerdo 041 de 2026</b> (17 de julio de 2026). El modelo recorre <b>cinco etapas operativas</b>. Este diagnóstico de madurez corresponde a la <b>etapa 2</b>.</p>'+
+  '<div style="margin:30px 0 34px">'+rutaGraph()+'</div>'+
+  '<div class="card doc"><div class="ic">PDF</div><div><h3>Acuerdo 041 de 2026 · Consejo Académico</h3><p style="margin:0 0 12px">Por medio del cual se adopta el Modelo de Transferencia de Conocimiento e Innovación de la Universidad Colegio Mayor de Cundinamarca. 11 páginas.</p><div class="actions"><a class="btn primary" href="'+DOC_ACUERDO+'" download>Descargar el Acuerdo (PDF)</a><a class="btn" href="'+DOC_ACUERDO+'" target="_blank" rel="noopener noreferrer">Abrir en una pestaña nueva</a></div></div></div>'+
+  '<h2 style="font-size:1.5rem">Las cinco etapas, según el Acuerdo</h2>'+
+  '<div class="stagelist">'+ETAPAS.map(e=>'<details class="faq"'+(e.aqui?' open':'')+'><summary>Etapa '+e.n+' · '+esc(e.t)+(e.aqui?' <span class="badge mint" style="margin-left:6px">Esta herramienta</span>':'')+'</summary><p>'+esc(e.res)+'</p><ul class="ticks">'+e.items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><p class="muted" style="margin:0">Acuerdo 041 de 2026, artículo 7, numeral '+e.n+'.</p></details>').join('')+'</div>'+
+  '<div class="card" style="margin-top:24px;border-color:var(--accent)"><h3>¿Qué parte de la etapa 2 cubre esta herramienta?</h3>'+
+  '<p>Cubre la <b>medición de madurez</b> (literal a): el investigador se autoevalúa en seis dimensiones, adjunta la evidencia y obtiene un informe. La aplicación oficial de las escalas está a cargo de la Subdirección de Investigación, Innovación y Desarrollo o de quien esta designe (artículo 8, parágrafo primero); por eso ATRI revisa y verifica los soportes. La <b>valoración económica</b> (literal b) no hace parte de esta herramienta.</p>'+
+  '<div class="actions"><button class="btn primary" data-act="start">Comenzar mi diagnóstico →</button></div></div>'+
+  '<h2 style="font-size:1.5rem;margin-top:34px">Dos tipos de transferencia</h2><div class="grid g2">'+TIPOS_TRANSF.map(x=>'<div class="card"><h3>'+esc(x.t)+'</h3><p style="margin:0">'+esc(x.d)+'</p></div>').join('')+'</div>'+
+  '<p class="muted" style="margin-top:12px">Fuente: Acuerdo 041 de 2026, artículo 3.</p>';
+}
+function resumenFicha(st){
+  const f=st.ficha||{};
+  const pick=(arr,o)=>arr.filter((_,i)=>o&&o[i]===true).join(', ');
+  const lista=(a,fn)=>(a||[]).filter(x=>x&&x.nombre).map(fn).join('; ');
+  const div=DIV.map((x,i)=>f.div&&f.div[i]&&f.div[i].on?x+(f.div[i].det?' ('+f.div[i].det+')':''):null).filter(Boolean).join('; ');
+  const per=[f.percepcion,f.percepcionDesc].filter(Boolean).join('. ');
+  const enf=[pick(ENFOQUE.map(e=>e[0]),f.enfoque),f.enfoqueJust].filter(Boolean).join('. ');
+  const part=[f.participacion,f.participacionDesc].filter(Boolean).join('. ');
+  const secs=[
+   ['Identificación',[['Creadores',lista(f.creadores,c=>c.nombre+(c.relacion?' ('+c.relacion+')':''))],['Facultad o programa',efectivo(f,'facultad')],['Grupo de investigación',efectivo(f,'grupo')],['Línea de investigación',efectivo(f,'linea')],['Semillero',f.semillero],['Proyecto de origen',f.proyectoOrigen],['Tipo de proyecto',f.tipoProyecto],['Entidades participantes',lista(f.entidades,e=>e.nombre+(e.origen?' ('+e.origen+')':''))],['Fecha de diligenciamiento',f.fecha]]],
+   ['Perfil del desarrollo',[['Área y tipo de resultado',perfilLabel(st)],['Cómo percibe hoy su desarrollo',per]]],
+   ['Qué es y qué problema resuelve',[['Descripción',f.descripcion],['Problema que resuelve',f.problema],['Palabras clave',f.claves],['Importancia de la solución',f.importancia],['Ventajas o beneficios',f.ventajas],['Productos transferibles',f.transferibles]]],
+   ['Impacto social',[['Enfoque social',enf],['Objetivos de Desarrollo Sostenible',pick(ODS.map((o,i)=>(i+1)+'. '+o),f.ods)]]],
+   ['Mercado y aplicaciones',[['Creaciones similares o sustitutas',f.similares],['Qué la hace diferente',f.diferencia],['Barreras y desventajas',f.barreras],['Aplicaciones',f.aplicaciones],['Destinatarios de la solución',f.destinatarios],['Participación deseada del investigador',part]]],
+   ['Propiedad intelectual y divulgación',[['Mecanismos de protección',pick(PI,f.pi)],['Estado de la protección',f.piEstado],['Divulgación realizada',div],['Divulgación prevista',f.divProx],['Confidencialidad',f.confid],['Cesión de derechos',f.cesion],['Uso o comercialización previa',f.usoCom],['Aportes intelectuales por autor',f.aportes],['Observaciones',f.piObs]]],
+   ['Redes de valor',[['Contactos identificados',lista(f.redes,r=>(r.tipo?r.tipo+': ':'')+r.nombre+(r.obs?' ('+r.obs+')':''))]]],
+  ];
+  const body=secs.map(([ti,rows])=>{const r=rows.filter(x=>x[1]&&String(x[1]).trim()); return r.length?'<h4>'+ti+'</h4><dl class="kv">'+r.map(x=>'<dt>'+x[0]+'</dt><dd>'+esc(x[1])+'</dd>').join('')+'</dl>':''}).join('');
+  return '<h3>Resumen del desarrollo</h3>'+(body||'<p>Sin información de la ficha.</p>');
 }
 
 /* ════════ Informe en PDF (se guarda desde el diálogo de impresión) ════════ */
@@ -981,14 +1068,15 @@ function buildReport(st,forceRev){
   const leyenda='<div class="legend-row" style="margin:0 0 6px"><span class="lg"><i style="background:var(--c-decl)"></i>Declarado</span><span class="lg"><i style="background:var(--c-evid)"></i>Con evidencia</span>'+(sm.rev?'<span class="lg"><i style="background:var(--c-ver)"></i>Verificado</span>':'')+'</div>';
   return '<div class="rp-head"><div><div class="rp-inst">'+esc(CONFIG.institucion)+'</div><h1>Informe de madurez</h1></div><div class="rp-date">'+esc(hoy)+'</div></div>'+
     '<h2>'+esc(f.nombre||'Resultado de investigación sin nombre')+'</h2>'+
-    '<dl class="kv">'+kv('Creadores',cr)+kv('Facultad o programa',efectivo(f,'facultad'))+kv('Grupo de investigación',efectivo(f,'grupo'))+kv('Línea de investigación',efectivo(f,'linea'))+kv('Área y tipo de resultado',perfilLabel(st))+kv('Descripción',f.descripcion)+kv('Problema que resuelve',f.problema)+'</dl>'+
+    resumenFicha(st)+'<h3 style="break-before:page">Resultado del diagnóstico</h3>'+
     '<div class="res-head">'+headline(sm,'Resultado',st)+'</div>'+
     '<div class="radar-box">'+radarSVG(seriesOf(sm))+leyenda+'</div>'+
     '<table class="t"><thead><tr><th>Dimensión</th><th class="c">Declarado</th><th class="c">Con evid.</th>'+(sm.rev?'<th class="c">Verif.</th>':'')+'<th>Nivel declarado alcanzado</th></tr></thead><tbody>'+resultRows(sm,st)+'</tbody></table>'+
     '<p>Respuestas «Sí» con evidencia adjunta: <b>'+sm.conEv+' de '+sm.si+'</b>.</p>'+
     '<h3>Qué falta para subir al siguiente nivel</h3><div class="next">'+nextSteps(st)+'</div>'+
     (rows.length?'<div style="break-before:page"><h3>Anexo: evidencias adjuntas</h3><table class="t"><thead><tr><th>Pregunta</th><th>Criterio</th><th>Evidencia</th>'+(sm.rev?'<th>Verificación</th>':'')+'</tr></thead><tbody>'+rows.join('')+'</tbody></table></div>':'')+
-    '<p class="rp-foot">'+(sm.rev?'Este informe incluye la verificación realizada por la '+esc(CONFIG.oficina)+'.':'Autoevaluación diligenciada por el investigador, pendiente de verificación por la '+esc(CONFIG.oficina)+'.')+' Basado en el KTH Innovation Readiness Level™ (KTH Innovation, KTH Royal Institute of Technology; licencia CC BY-NC-SA 4.0), adaptado por la Universidad Colegio Mayor de Cundinamarca.</p>';
+    '<h3>Lugar en la ruta de transferencia</h3>'+rutaGraph(true)+'<p style="margin-top:8px">Este informe corresponde a la <b>etapa 2</b> del Modelo de Transferencia de Conocimiento e Innovación (Acuerdo 041 de 2026, artículo 7): <i>Diagnóstico de madurez y valoración económica del activo</i>, en lo relativo a la medición de madurez.</p>'+
+    '<p class="rp-foot">'+(sm.rev?'Este informe incluye la verificación realizada por el '+esc(CONFIG.oficina)+'.':'Autoevaluación diligenciada por el investigador, pendiente de verificación por el '+esc(CONFIG.oficina)+'.')+' Basado en el KTH Innovation Readiness Level™ (KTH Innovation, KTH Royal Institute of Technology; licencia CC BY-NC-SA 4.0), adaptado por la Universidad Colegio Mayor de Cundinamarca.</p>';
 }
 function printReport(html,title){
   const box=$('#informe'); box.innerHTML=html;
@@ -1035,10 +1123,30 @@ function renderApp(keepScroll){
   $('#nav-info').textContent=S.step<=1?'':S.step<=7?`${BANK[S.step-2].k} ${dimLevel(S,BANK[S.step-2],'decl').reached} de 9`:'';
   if(keepScroll) window.scrollTo(0,y);
 }
+async function pedirCodigo(){
+  return new Promise(res=>{
+    const ov=document.createElement('div');
+    ov.style.cssText='position:fixed;inset:0;z-index:200;background:rgba(5,14,38,.82);display:grid;place-items:center;padding:20px';
+    ov.innerHTML='<form style="background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:26px;max-width:380px;width:100%;display:grid;gap:12px"><h3 style="margin:0">Acceso de ATRI</h3><p style="margin:0;color:var(--dim);font-size:.92rem">Esta sección es para el equipo del Área de Transferencia de Resultados de Investigación. Escribe el código de acceso.</p><input type="password" autocomplete="off" aria-label="Código de acceso" style="padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg2);color:var(--ink);font:inherit"><p class="gerr" style="margin:0;color:var(--danger);font-size:.88rem;min-height:1.2em"></p><div style="display:flex;gap:10px"><button class="btn primary" type="submit">Entrar</button><button class="btn ghost" type="button" data-x>Cancelar</button></div></form>';
+    document.body.appendChild(ov);
+    const inp=ov.querySelector('input'),err=ov.querySelector('.gerr');inp.focus();
+    ov.querySelector('[data-x]').onclick=()=>{ov.remove();res(false)};
+    ov.querySelector('form').onsubmit=async e=>{e.preventDefault();
+      try{
+        if(!(window.crypto&&crypto.subtle)){err.textContent='Este navegador no permite verificar el código. Abre el archivo desde Chrome o Edge.';return}
+        const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('atri:'+inp.value));
+        const hex=[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+        if(hex===CONFIG.codigoAccesoHash){ov.remove();res(true)}else{err.textContent='Código incorrecto.';inp.select()}
+      }catch(x){err.textContent='No se pudo verificar el código.'}
+    };
+  });
+}
 function show(v){
+  if(v==='review'&&!CONFIG.revisionHabilitada) v='home';
+  if(v==='review'&&CONFIG.codigoAccesoHash&&!UI.revOk){pedirCodigo().then(ok=>{if(ok){UI.revOk=true;show('review')}else show('home')});return}
   mode=v;
-  ['home','app','review'].forEach(x=>{$('#v-'+x).hidden=x!==v;});
-  $('#nav-home').classList.toggle('on',v==='home');$('#nav-app').classList.toggle('on',v==='app');$('#nav-rv').classList.toggle('on',v==='review');$('#nav-rv').hidden=v!=='review';if(v!=='review'&&location.hash==='#revision')history.replaceState(null,'',location.pathname+location.search);
+  ['home','ruta','app','review'].forEach(x=>{$('#v-'+x).hidden=x!==v;});
+  $('#nav-home').classList.toggle('on',v==='home');$('#nav-ruta').classList.toggle('on',v==='ruta');$('#nav-app').classList.toggle('on',v==='app');$('#nav-rv').classList.toggle('on',v==='review');$('#nav-rv').hidden=v!=='review';if(v!=='review'&&location.hash==='#revision')history.replaceState(null,'',location.pathname+location.search);
   window.scrollTo(0,0);
   if(v==='app') renderApp();
   if(v==='review') renderReview();
@@ -1147,6 +1255,7 @@ document.addEventListener('click',async e=>{
   if(t.tagName==='INPUT') return;
   switch(act){
     case 'home': show('home');break;
+    case 'ruta': show('ruta');break;
     case 'start': show('app');break;
     case 'review': show('review');break;
     case 'theme': setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');break;
@@ -1183,7 +1292,7 @@ document.addEventListener('click',async e=>{
         let data={}; try{data=await res.json()}catch(e){}
         if(data&&data.ok===false) throw new Error(data.error||'el servidor rechazó el envío');
         S.enviado={fecha:new Date().toISOString(),carpeta:(data&&data.carpeta)||''};save();
-        renderApp(true);say('✓ Enviado a Transferencia. Gracias.','var(--c-ver)');
+        renderApp(true);say('✓ Enviado a ATRI. Gracias.','var(--c-ver)');
       }catch(err){
         say('No se pudo enviar ('+(err.name==='AbortError'?'tardó demasiado':err.message)+'). Tu avance sigue guardado: descarga el paquete y envíalo manualmente.','var(--danger)');
       }finally{t.disabled=false;t.textContent=prev}
@@ -1240,8 +1349,9 @@ document.addEventListener('mousemove',e=>{if(!tip.hidden){tip.style.left=e.clien
 $('#dimcards').innerHTML=BANK.map(d=>`<div class="card dimcard"><div class="k">${d.k}</div><h3>${esc(d.name)}</h3><p style="margin:0">${esc(DEFS[d.k])}</p></div>`).join('');
 setTheme(document.documentElement.getAttribute('data-theme')||'light');
 drawHero();
-if(location.hash==='#revision') show('review');
-window.addEventListener('hashchange',()=>{if(location.hash==='#revision') show('review')});
+$('#ruta-home').innerHTML=rutaGraph(); $('#ruta-page').innerHTML=rutaPage();
+if(CONFIG.abrirEnRevision) show('review'); else if(location.hash==='#ruta') show('ruta');
+window.addEventListener('hashchange',()=>{if(location.hash==='#ruta') show('ruta')});
 </script>
 </body>
 </html>
