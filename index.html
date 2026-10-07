@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){var t=null;try{t=localStorage.getItem("madurez-unimayor:tema")}catch(e){}if(!t){t="light"}document.documentElement.setAttribute("data-theme",t)})();</script>
-<title>Ruta de Madurez · UNIMAYOR</title>
+<title>Ruta de Madurez · Universidad Colegio Mayor de Cundinamarca</title>
 <meta name="description" content="Diagnóstico de madurez de resultados de investigación de la Universidad Colegio Mayor de Cundinamarca, basado en el modelo KTH Innovation Readiness Level.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ── Identidad institucional (UNIMAYOR): azul #3366CC / #004EC4, amarillo #FFCE21, azul claro #6193DA ── */
+/* ── Identidad institucional (Universidad Colegio Mayor de Cundinamarca): azul #3366CC / #004EC4, amarillo #FFCE21, azul claro #6193DA ── */
 :root{
   --bg:#ffffff; --bg2:#f3f6fc; --card:#ffffff; --card2:#eef2fa; --line:rgba(0,40,120,.16); --soft:rgba(0,40,120,.08);
   --ink:#0a1c46; --dim:#37476f; --faint:#5b6a94;
@@ -106,10 +106,20 @@ footer.foot{border-top:1px solid var(--line);padding:32px 0 60px;color:var(--fai
 .pill b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft);font-size:.72rem}
 .pill.on{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
 .pill.done b{background:var(--accent);color:var(--accent-ink)}
-.app-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start;padding-bottom:110px}
+.app-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(380px,40vw,500px);gap:28px;align-items:start;padding-bottom:110px}
 .app-grid.full{grid-template-columns:1fr}.app-grid.full .live{display:none}
 .live{position:sticky;top:84px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:18px}
 .live h3{font-size:1rem;margin-bottom:6px}
+.live .radar-box{border:0;background:none;padding:0}
+.gloss{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:6px}
+.gloss th{font:600 .68rem var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);text-align:left;padding:4px 6px}
+.gloss td{padding:7px 6px;border-top:1px solid var(--line);vertical-align:middle;color:var(--dim)}
+.gloss td b{color:var(--ink)}
+.gloss small{display:block;color:var(--faint);font-size:.7rem}
+.gloss .lvl-cell{display:flex;align-items:center;gap:8px;min-width:96px}
+.gloss .bar{flex:1;height:7px;border-radius:99px;background:var(--soft);overflow:hidden}
+.gloss .bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .4s}
+.gloss .lvl-cell b{font:700 1.15rem var(--display);min-width:1ch;text-align:right}
 .livelist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
 .livelist li{display:grid;grid-template-columns:44px 1fr 28px;gap:8px;align-items:center;font-size:.85rem;color:var(--dim)}
 .livelist .bar{height:6px;border-radius:99px;background:var(--soft);overflow:hidden}
@@ -309,7 +319,7 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
     <button class="brand" data-act="home" aria-label="Ir al inicio">
       <!-- Reemplace este símbolo por el logo de la Universidad -->
       <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="10" fill="#004EC4" stroke="#FFCE21" stroke-width="1.5"/><g fill="none" stroke="#FFCE21" stroke-width="1.6"><path d="M17 6l9 5v10l-9 5-9-5V11z"/><path d="M17 11l5 3v5l-5 3-5-3v-5z" opacity=".75"/></g><circle cx="17" cy="16.5" r="1.8" fill="#fff"/></svg>
-      <span>Ruta de Madurez<small>UNIMAYOR · Transferencia</small></span>
+      <span>Ruta de Madurez<small>Universidad Colegio Mayor de Cundinamarca</small></span>
     </button>
     <nav aria-label="Principal">
       <button data-act="home" id="nav-home" class="on">Inicio</button>
@@ -655,24 +665,24 @@ function summary(st){
 
 /* ════════ Radar (telaraña) ════════ */
 function radarSVG(series,o={}){
-  const size=o.size||440,pad=o.pad??80,cx=size/2+pad,cy=size/2,R=size*.36,n=BANK.length;
+  const size=o.size||440,pad=o.pad??80,cx=size/2+pad,cy=size/2,R=size*(o.rf||.36),n=BANK.length;
   const ang=i=>-Math.PI/2+i*2*Math.PI/n;
   const pt=(i,v)=>[cx+R*(v/9)*Math.cos(ang(i)),cy+R*(v/9)*Math.sin(ang(i))];
   const ring=v=>BANK.map((_,i)=>pt(i,v).map(x=>x.toFixed(1)).join(',')).join(' ');
   let s=`<svg viewBox="0 0 ${size+pad*2} ${size}" role="img" aria-label="Telaraña de madurez con ${n} dimensiones">`;
   for(let v=1;v<=9;v++) s+=`<polygon class="ring ${v%3===0?'m':''}" points="${ring(v)}"/>`;
   BANK.forEach((d,i)=>{const [x,y]=pt(i,9);s+=`<line class="axis" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`});
-  [3,6,9].forEach(v=>{s+=`<text x="${cx+4}" y="${(cy-R*v/9-3).toFixed(1)}" font-size="${o.small?8:10}" style="fill:var(--faint)">${v}</text>`});
+  [3,6,9].forEach(v=>{s+=`<text x="${cx+4}" y="${(cy-R*v/9-3).toFixed(1)}" font-size="${o.ringfs||(o.small?8:10)}" style="fill:var(--faint)">${v}</text>`});
   BANK.forEach((d,i)=>{
-    const c=Math.cos(ang(i)),[x,y]=[cx+(R+(o.small?14:20))*c,cy+(R+(o.small?14:20))*Math.sin(ang(i))];
+    const c=Math.cos(ang(i)),[x,y]=[cx+(R+(o.ld||(o.small?14:20)))*c,cy+(R+(o.ld||(o.small?14:20)))*Math.sin(ang(i))];
     const anchor=c>.3?'start':c<-.3?'end':'middle';
-    s+=`<text class="k" x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="${anchor}" font-size="${o.small?11:15}">${d.k}</text>`;
+    s+=`<text class="k" x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="${anchor}" font-size="${o.fs||(o.small?11:15)}">${d.k}</text>`;
     if(!o.small) s+=`<text x="${x.toFixed(1)}" y="${(y+19).toFixed(1)}" text-anchor="${anchor}" font-size="11">${esc(d.name)}</text>`;
   });
   series.forEach((sr,si)=>{
     const pts=sr.vals.map((v,i)=>pt(i,v)), poly=pts.map(p=>p.map(x=>x.toFixed(1)).join(',')).join(' ');
-    s+=`<g class="poly" style="transform-origin:${cx}px ${cy}px;animation-delay:${si*.12}s"><polygon points="${poly}" style="fill:${sr.color};fill-opacity:${sr.fill??.16};stroke:${sr.color}" stroke-width="${o.small?1.6:2.4}" ${sr.dash?`stroke-dasharray="${sr.dash}"`:''} stroke-linejoin="round"/>`;
-    pts.forEach((p,i)=>{s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${o.small?3:4.5}" style="fill:${sr.color};stroke:var(--card)" stroke-width="1.5" data-tip="${esc(sr.name)} · ${BANK[i].k} ${sr.vals[i]}"/>`});
+    s+=`<g class="poly" style="transform-origin:${cx}px ${cy}px;animation-delay:${si*.12}s"><polygon points="${poly}" style="fill:${sr.color};fill-opacity:${sr.fill??.16};stroke:${sr.color}" stroke-width="${o.sw||(o.small?1.6:2.4)}" ${sr.dash?`stroke-dasharray="${sr.dash}"`:''} stroke-linejoin="round"/>`;
+    pts.forEach((p,i)=>{s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${o.dot||(o.small?3:4.5)}" style="fill:${sr.color};stroke:var(--card)" stroke-width="1.5" data-tip="${esc(sr.name)} · ${BANK[i].k} ${sr.vals[i]}"/>`});
     s+='</g>';
   });
   return s+'</svg>';
@@ -697,6 +707,30 @@ const OPT={
   conf:['Sí','No','Parcialmente'],
   stake:['Proveedores','Fabricantes','Comercializadores','Compradores','Usuario','Cliente','Sustituto','Competidores','Entidad gubernamental','Expertos'],
 };
+/* Fuente: sitio oficial de la Universidad Colegio Mayor de Cundinamarca (Subdirección de Investigación e Innovación; líneas según Acuerdo 069 de 2022). Revisar contra la actualización vigente. */
+const GRUPOS={
+  'Facultad de Administración y Economía':['Estudios del lenguaje y la educación','Atenesis','Administración de Empresas Comerciales - AEC','Administración y Emprendimiento - AEC','OCCICUN','Investigación en Economía y Pensamiento Crítico'],
+  'Facultad de Ciencias de la Salud':['Calidad de Aguas','CEPARIUM','Eritrón','Relaciones Microbianas y Epidemiologicas Aplicadas al Laboratorio Clínico y Molecular','Bioprocesos y Control','Enfermedades Crónicas Zoonoticas Adquiridas ECZA','Biotecnología y Genética UCMC','GELABS'],
+  'Facultad de Ciencias Sociales':['Los Estudios Ciencia - Tecnología - Sociedad y la Responsabilidad Social Profesional','Nuevas Perspectivas en Salud Mental','Odisea','Trabajo sin Riesgos','Educar para el Desarrollo Humano','Vejez y Envejecimiento','Investigación Disciplinar en Trabajo Social y Tendencias Contemporáneas','Sociedades, Territorios y Turismo','TUCOLOMBIA (Turismo Colombia)','GENESIS','Desarrollo Social y Contextos Sociales - DCONTEXTO','Grupo de Estudios sobre Estado, Sociedad Civil y Globalización','Grupo de Perspectiva Pedagógica y Curricular COMENIUS','Hermeneusis: Estudios sobre Diversidad Cultural y Desarrollo','Quysqua Misqua','Sociedad, Cultura, Desarrollo Comunitario y Familia - SOCUDECOFA'],
+  'Facultad de Derecho':['Análisis Jurídico','Pedagogía y Derecho','Cultura Interdisciplinaria'],
+  'Facultad de Ingeniería y Arquitectura':['Representación Gráfica','Construcción y Gestión en Arquitectura','Ecoedificación','Patrimonio Construido: Texto y Contexto','Grupo de Estudios en Gerencia de Proyectos de Construcción - GEGPC','Diseño, Visualización y Multimedia','Edificación y Territorio'],
+  'Programa de Ciencias Básicas':['Planificación en Gestión Ambiental Eficiente','BIOMA - Beginning to Inquire On Mathematics Arts','Música Colombiana','Simbología & Contextos'],
+};
+const LINEAS=['Línea 01. Paz y convivencia social','Línea 02. Estado, sociedad y cultura','Línea 03. Desarrollo Humano Sostenible','Línea 04. Ecología, biotecnología y ambiente','Línea 05. Vida y Salud','Línea 06. Educación, ética y bioética','Línea 07. Arte y patrimonio cultural','Línea 08. Emprendimiento, innovación y transferencia tecnológica','Línea 09. Productividad y competitividad en las organizaciones'];
+const OTRO='__otro', SIN_GRUPO='Sin grupo de investigación';
+const efectivo=(f,k)=>f[k]===OTRO?(f[k+'Otro']||''):(f[k]||'');
+function selList(p,label,list,cur,otro){
+  const extra=(!cur||list.includes(cur)||cur===OTRO)?'':'<option selected>'+esc(cur)+'</option>';
+  return '<label class="fld"><span>'+label+'</span><select data-f="'+p+'" data-rr="1"><option value="">Seleccione…</option>'+list.map(x=>'<option '+(cur===x?'selected':'')+'>'+esc(x)+'</option>').join('')+extra+'<option value="'+OTRO+'" '+(cur===OTRO?'selected':'')+'>'+otro+'</option></select></label>'+(cur===OTRO?F.inp(p+'Otro','Escriba el nombre'):'');
+}
+function selGrupo(f){
+  const cur=f.grupo||'', fac=GRUPOS[f.facultad]?f.facultad:'';
+  const keys=fac?[fac]:Object.keys(GRUPOS), shown=keys.flatMap(k=>GRUPOS[k]);
+  const op=x=>'<option '+(cur===x?'selected':'')+'>'+esc(x)+'</option>';
+  const body=keys.map(k=>fac?GRUPOS[k].map(op).join(''):'<optgroup label="'+esc(k)+'">'+GRUPOS[k].map(op).join('')+'</optgroup>').join('');
+  const extra=(!cur||shown.includes(cur)||cur===OTRO||cur===SIN_GRUPO)?'':'<option selected>'+esc(cur)+'</option>';
+  return '<label class="fld"><span>Grupo de investigación</span><select data-f="grupo" data-rr="1"><option value="">Seleccione…</option>'+body+extra+'<option '+(cur===SIN_GRUPO?'selected':'')+'>'+SIN_GRUPO+'</option><option value="'+OTRO+'" '+(cur===OTRO?'selected':'')+'>Otro grupo (escribir)</option></select></label>'+(cur===OTRO?F.inp('grupoOtro','Escriba el nombre del grupo'):'');
+}
 const ENFOQUE=[
   ['Impacto y transformación social','Efecto del resultado sobre la comunidad: resuelve un problema social desde lo ambiental, ético, económico o todos.'],
   ['Colaboración intersectorial','La innovación se da en colaboración con el sector privado, público y otros colectivos.'],
@@ -734,8 +768,8 @@ function renderFicha(){
     ${F.inp('fecha','Fecha de diligenciamiento',{type:'date'})}
     ${creators}
     <div><button class="btn small" data-act="addrow" data-list="creadores" ${f.creadores.length>=7?'disabled':''}>+ Agregar creador</button></div>
-    <div class="row2">${F.inp('facultad','Facultad o programa',{ph:'Escriba el nombre'})}${F.inp('grupo','Grupo de investigación',{ph:'Escriba el nombre, si aplica'})}</div>
-    <div class="row2">${F.inp('linea','Línea de investigación',{ph:'Escriba el nombre, si aplica'})}${F.inp('semillero','Semillero de investigación',{ph:'Escriba el nombre, si aplica'})}</div>`,true)}
+    <div class="row2">${selList('facultad','Facultad o programa',Object.keys(GRUPOS),f.facultad,'Otra (escribir)')}${selGrupo(f)}</div>
+    <div class="row2">${selList('linea','Línea de investigación institucional',LINEAS,f.linea,'Otra (escribir)')}${F.inp('semillero','Semillero de investigación',{ph:'Escriba el nombre, si aplica'})}</div>`,true)}
   ${sec(2,'Información del proyecto',`
     ${F.inp('proyectoOrigen','Proyecto que da origen a la creación')}
     ${F.inp('nombre','Nombre del resultado de investigación',{req:true})}
@@ -928,7 +962,7 @@ function buildReport(st,forceRev){
   const leyenda='<div class="legend-row" style="margin:0 0 6px"><span class="lg"><i style="background:var(--c-decl)"></i>Declarado</span><span class="lg"><i style="background:var(--c-evid)"></i>Con evidencia</span>'+(sm.rev?'<span class="lg"><i style="background:var(--c-ver)"></i>Verificado</span>':'')+'</div>';
   return '<div class="rp-head"><div><div class="rp-inst">'+esc(CONFIG.institucion)+'</div><h1>Informe de madurez</h1></div><div class="rp-date">'+esc(hoy)+'</div></div>'+
     '<h2>'+esc(f.nombre||'Resultado de investigación sin nombre')+'</h2>'+
-    '<dl class="kv">'+kv('Creadores',cr)+kv('Área y tipo de resultado',perfilLabel(st))+kv('Descripción',f.descripcion)+kv('Problema que resuelve',f.problema)+'</dl>'+
+    '<dl class="kv">'+kv('Creadores',cr)+kv('Facultad o programa',efectivo(f,'facultad'))+kv('Grupo de investigación',efectivo(f,'grupo'))+kv('Línea de investigación',efectivo(f,'linea'))+kv('Área y tipo de resultado',perfilLabel(st))+kv('Descripción',f.descripcion)+kv('Problema que resuelve',f.problema)+'</dl>'+
     '<div class="res-head">'+headline(sm,'Resultado',st)+'</div>'+
     '<div class="radar-box">'+radarSVG(seriesOf(sm))+leyenda+'</div>'+
     '<table class="t"><thead><tr><th>Dimensión</th><th class="c">Declarado</th><th class="c">Con evid.</th>'+(sm.rev?'<th class="c">Verif.</th>':'')+'<th>Nivel declarado alcanzado</th></tr></thead><tbody>'+resultRows(sm,st)+'</tbody></table>'+
@@ -946,12 +980,16 @@ function printReport(html,title){
 }
 
 /* ════════ Panel en vivo ════════ */
+const SIGLAS={TRL:'Nivel de madurez tecnológica',MRL:'Nivel de madurez de mercado',IPRL:'Nivel de madurez de la propiedad intelectual',TMRL:'Nivel de madurez del equipo de trabajo',FRL:'Nivel de madurez de la financiación',SRL:'Nivel de madurez social'};
 function renderLive(){
   const sm=summary(S);
-  $('#live').innerHTML=`<h3>Tu telaraña, en vivo</h3><p class="muted" style="margin:0 0 4px">Crece a medida que respondes.</p>
-    <div class="radar-box" style="border:0;background:none;padding:0">${radarSVG(seriesOf(sm).filter(s=>s.name!=='Verificado'),{size:270,pad:34,small:true})}</div>
-    <ul class="livelist">${BANK.map((d,i)=>`<li><span>${d.k}</span><span class="bar"><i style="width:${sm.decl[i].reached/9*100}%"></i></span><b>${sm.decl[i].reached}</b></li>`).join('')}</ul>
-    <p class="muted" style="margin:12px 0 0">${sm.conEv} de ${sm.si} respuestas «Sí» con evidencia.</p>`;
+  $('#live').innerHTML='<h3>Tu telaraña, en vivo</h3><p class="muted" style="margin:0 0 2px">Crece a medida que respondes. Cada eje va de 1 a 9.</p>'+
+    '<div class="radar-box">'+radarSVG(seriesOf(sm).filter(s=>s.name!=='Verificado').map(s=>({...s,fill:(s.fill||.14)+.12})),{size:380,pad:34,small:true,fs:17,dot:6,sw:3.2,ld:22,ringfs:11,rf:.41})+'</div>'+
+    '<div class="legend-row" style="margin:0 0 8px;gap:14px"><span class="lg"><i style="background:var(--c-decl)"></i>Declarado</span><span class="lg"><i style="background:var(--c-evid)"></i>Con evidencia</span></div>'+
+    '<table class="gloss"><thead><tr><th>Sigla</th><th>Qué significa</th><th>Nivel</th></tr></thead><tbody>'+
+    BANK.map((d,i)=>'<tr><td><b>'+d.k+'</b></td><td>'+SIGLAS[d.k]+'<small>'+esc(d.long)+'</small></td><td><span class="lvl-cell"><span class="bar"><i style="width:'+(sm.decl[i].reached/9*100)+'%"></i></span><b>'+sm.decl[i].reached+'</b></span></td></tr>').join('')+
+    '</tbody></table>'+
+    '<p class="muted" style="margin:12px 0 0">'+sm.conEv+' de '+sm.si+' respuestas «Sí» con evidencia.</p>';
 }
 
 /* ════════ Navegación ════════ */
@@ -1057,7 +1095,7 @@ function fichaSummary(f,st){
   const kv=(l,v)=>v?`<dt>${l}</dt><dd>${esc(v)}</dd>`:'';
   const pick=(arr,o)=>arr.filter((_,i)=>o&&o[i]===true).join(', ');
   const cr=(f.creadores||[]).filter(c=>c.nombre).map(c=>`${c.nombre}${c.relacion?' ('+c.relacion+')':''}${c.correo?' · '+c.correo:''}${c.tel?' · '+c.tel:''}`).join('\n');
-  return `<dl class="kv">${kv('Creadores',cr)}${kv('Facultad o programa',f.facultad)}${kv('Grupo de investigación',f.grupo)}${kv('Línea de investigación',f.linea)}${kv('Semillero',f.semillero)}${kv('Proyecto de origen',f.proyectoOrigen)}${kv('Área y tipo de resultado',perfilLabel(st))}${kv('Tipo de proyecto',f.tipoProyecto)}${kv('Descripción',f.descripcion)}${kv('Problema que resuelve',f.problema)}${kv('Palabras clave',f.claves)}${kv('Importancia',f.importancia)}${kv('ODS',pick(ODS.map((o,i)=>`${i+1}. ${o}`),f.ods))}${kv('Ventajas',f.ventajas)}${kv('Similares o sustitutas',f.similares)}${kv('Diferencia',f.diferencia)}${kv('Barreras',f.barreras)}${kv('Aplicaciones',f.aplicaciones)}${kv('Destinatarios',f.destinatarios)}${kv('Percepción del investigador',f.percepcion)}${kv('Mecanismos de PI',pick(PI,f.pi))}${kv('Estado de la PI',f.piEstado)}${kv('Confidencialidad',f.confid)}${kv('Cesión de derechos',f.cesion)}${kv('Uso o comercialización',f.usoCom)}${kv('Aportes por autor',f.aportes)}</dl>`;
+  return `<dl class="kv">${kv('Creadores',cr)}${kv('Facultad o programa',efectivo(f,'facultad'))}${kv('Grupo de investigación',efectivo(f,'grupo'))}${kv('Línea de investigación',efectivo(f,'linea'))}${kv('Semillero',f.semillero)}${kv('Proyecto de origen',f.proyectoOrigen)}${kv('Área y tipo de resultado',perfilLabel(st))}${kv('Tipo de proyecto',f.tipoProyecto)}${kv('Descripción',f.descripcion)}${kv('Problema que resuelve',f.problema)}${kv('Palabras clave',f.claves)}${kv('Importancia',f.importancia)}${kv('ODS',pick(ODS.map((o,i)=>`${i+1}. ${o}`),f.ods))}${kv('Ventajas',f.ventajas)}${kv('Similares o sustitutas',f.similares)}${kv('Diferencia',f.diferencia)}${kv('Barreras',f.barreras)}${kv('Aplicaciones',f.aplicaciones)}${kv('Destinatarios',f.destinatarios)}${kv('Percepción del investigador',f.percepcion)}${kv('Mecanismos de PI',pick(PI,f.pi))}${kv('Estado de la PI',f.piEstado)}${kv('Confidencialidad',f.confid)}${kv('Cesión de derechos',f.cesion)}${kv('Uso o comercialización',f.usoCom)}${kv('Aportes por autor',f.aportes)}</dl>`;
 }
 function renderCase(){
   const c=R.cur, st=c.state, sm=summary(st), f=st.ficha||{};
@@ -1149,7 +1187,7 @@ document.addEventListener('click',async e=>{
 });
 document.addEventListener('input',e=>{
   const t=e.target;
-  if(t.dataset.f){ setp(S.ficha,t.dataset.f,t.type==='checkbox'?t.checked:t.value); save(); if(t.type==='checkbox'||t.tagName==='SELECT'){renderSteps()} }
+  if(t.dataset.f){ setp(S.ficha,t.dataset.f,t.type==='checkbox'?t.checked:t.value); save(); if(t.type==='checkbox'||t.tagName==='SELECT'){renderSteps()} if(t.dataset.rr){renderApp(true)} }
   else if(t.dataset.a){const a=S.answers[t.dataset.k]||(S.answers[t.dataset.k]={v:'si'});a[t.dataset.a]=t.value;save();renderLive()}
   else if(t.dataset.ui){UI[t.dataset.ui]=t.checked}
   else if(t.dataset.r){const c=R.cur.state;c.review=c.review||{};(c.review[t.dataset.k]=c.review[t.dataset.k]||{}).c=t.value;rvChanged(false)}
