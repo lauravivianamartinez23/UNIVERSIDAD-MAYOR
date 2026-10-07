@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t=null;try{t=localStorage.getItem("madurez-unimayor:tema")}catch(e){}if(!t){t="light"}document.documentElement.setAttribute("data-theme",t)})();</script>
+<title>Ruta de Madurez · UNIMAYOR</title>
+<meta name="description" content="Diagnóstico de madurez de resultados de investigación de la Universidad Colegio Mayor de Cundinamarca, basado en el modelo KTH Innovation Readiness Level.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── Identidad institucional (UNIMAYOR): azul #3366CC / #004EC4, amarillo #FFCE21, azul claro #6193DA ── */
+:root{
+  --bg:#ffffff; --bg2:#f3f6fc; --card:#ffffff; --card2:#eef2fa; --line:rgba(0,40,120,.16); --soft:rgba(0,40,120,.08);
+  --ink:#0a1c46; --dim:#37476f; --faint:#5b6a94;
+  --accent:#004EC4; --accent-ink:#ffffff; --accent-soft:rgba(0,78,196,.08); --accent-glow:rgba(0,78,196,.30);
+  --hi:#FFCE21; --head:#3366CC; --head-ink:#ffffff;
+  --c-decl:#004EC4; --c-evid:#f0b400; --c-ver:#0f8f66;
+  --warn:#7a5200; --warn-bg:rgba(255,206,33,.28); --ver-bg:rgba(15,143,102,.14); --bad-bg:rgba(192,57,43,.12); --danger:#b3261e;
+  --glow1:rgba(0,78,196,.10); --glow2:rgba(255,206,33,.12);
+  --r-s:10px; --r-m:18px; --r-l:28px; --maxw:1180px;
+  --display:'Outfit',system-ui,sans-serif; --body:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+:root[data-theme=dark]{
+  --bg:#050e26; --bg2:#0a1636; --card:#0d1b42; --card2:#142655; --line:rgba(255,255,255,.14); --soft:var(--soft);
+  --ink:#f3f6ff; --dim:#bcc8ea; --faint:#8d9cc6;
+  --accent:#FFCE21; --accent-ink:#1a1400; --accent-soft:rgba(255,206,33,.12); --accent-glow:rgba(255,206,33,.35);
+  --hi:#FFCE21; --head:#16357d; --head-ink:#ffffff;
+  --c-decl:#6f9bff; --c-evid:#FFCE21; --c-ver:#3ddc97;
+  --warn:#FFCE21; --warn-bg:rgba(255,206,33,.14); --ver-bg:rgba(61,220,151,.15); --bad-bg:rgba(255,138,128,.16); --danger:#ff8a80;
+  --glow1:rgba(97,147,218,.18); --glow2:rgba(255,206,33,.06);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 500px at 85% -10%,var(--glow1),transparent 60%),radial-gradient(700px 500px at -10% 30%,var(--glow2),transparent 60%)}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0 0 .5em;letter-spacing:-.01em}
+h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800}
+h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:600}
+p{margin:0 0 1em;color:var(--dim)}
+a{color:var(--accent)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+.muted{color:var(--faint);font-size:.9em}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;font:600 .78rem var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+
+/* header */
+.top{position:sticky;top:0;z-index:50;background:var(--head);color:var(--head-ink);border-bottom:3px solid var(--hi)}
+.top .wrap{display:flex;align-items:center;gap:16px;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font:700 1.1rem var(--display);color:var(--head-ink);text-decoration:none;cursor:pointer;background:none;border:0;padding:0}
+.brand svg{flex:none}
+.brand small{display:block;font:500 .68rem var(--body);color:rgba(255,255,255,.78);letter-spacing:.04em}
+.top nav{margin-left:auto;display:flex;gap:6px}
+.top nav button{background:none;border:0;color:rgba(255,255,255,.88);font:500 .92rem var(--body);padding:8px 12px;border-radius:999px;cursor:pointer}
+.top nav button:hover,.top nav button.on{color:#fff;background:rgba(255,255,255,.2)}
+.top nav .theme{border:1px solid rgba(255,255,255,.45);margin-left:6px}
+.top :focus-visible{outline-color:var(--hi)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .98rem var(--display);padding:13px 22px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--ink);cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent;box-shadow:0 8px 30px -8px var(--accent-glow)}
+.btn.primary:hover{filter:brightness(1.1);box-shadow:0 12px 36px -8px var(--accent-glow)}
+.btn.small{padding:8px 14px;font-size:.85rem;border-radius:10px}
+.btn.ghost{background:transparent}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+
+/* home */
+.hero{padding:72px 0 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .lead{font-size:1.15rem;max-width:56ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 12px}
+.hero-viz{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:var(--r-l);padding:16px;box-shadow:0 30px 80px -30px rgba(0,30,90,.35)}
+.section{padding:56px 0}
+.section.alt{background:linear-gradient(180deg,transparent,var(--bg2),transparent)}
+.center{text-align:center}.center p{max-width:62ch;margin-inline:auto}
+.grid{display:grid;gap:16px}
+.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:22px}
+.card.gate{cursor:pointer;transition:border-color .2s,transform .2s;text-align:left;font:inherit;color:inherit;width:100%}
+.card.gate:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .ic{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:14px;font:700 1rem var(--display)}
+.step-n{font:800 2.2rem var(--display);color:var(--accent);opacity:.9;line-height:1;margin-bottom:10px}
+.dimcard .k{font:800 1.5rem var(--display);color:var(--accent)}
+.legend-row{display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:18px}
+.lg{display:flex;align-items:center;gap:8px;font-size:.92rem;color:var(--dim)}
+.lg i{width:26px;height:10px;border-radius:3px;display:inline-block}
+details.faq{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:16px 20px;margin-bottom:10px}
+details.faq summary{cursor:pointer;font:600 1rem var(--display);list-style:none}
+details.faq summary::-webkit-details-marker{display:none}
+details.faq p{margin:10px 0 0}
+footer.foot{border-top:1px solid var(--line);padding:32px 0 60px;color:var(--faint);font-size:.85rem}
+
+/* app */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 0 6px}
+.toolbar .sp{flex:1}
+.saved{font-size:.85rem;color:var(--faint)}
+.steps{display:flex;gap:8px;overflow-x:auto;padding:10px 0 14px;scrollbar-width:thin}
+.pill{flex:none;display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--dim);font:600 .88rem var(--display);cursor:pointer}
+.pill b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--soft);font-size:.72rem}
+.pill.on{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+.pill.done b{background:var(--accent);color:var(--accent-ink)}
+.app-grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start;padding-bottom:110px}
+.app-grid.full{grid-template-columns:1fr}.app-grid.full .live{display:none}
+.live{position:sticky;top:84px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:18px}
+.live h3{font-size:1rem;margin-bottom:6px}
+.livelist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
+.livelist li{display:grid;grid-template-columns:44px 1fr 28px;gap:8px;align-items:center;font-size:.85rem;color:var(--dim)}
+.livelist .bar{height:6px;border-radius:99px;background:var(--soft);overflow:hidden}
+.livelist .bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .4s}
+.livelist b{font:700 1rem var(--display);color:var(--ink);text-align:right}
+.navbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.navbar .wrap{display:flex;gap:12px;align-items:center;padding-top:12px;padding-bottom:12px}
+.navbar .info{flex:1;font-size:.88rem;color:var(--faint)}
+
+/* ficha */
+details.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);margin-bottom:14px}
+details.sec>summary{cursor:pointer;list-style:none;padding:18px 22px;font:700 1.1rem var(--display);display:flex;gap:12px;align-items:center}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"＋";margin-left:auto;color:var(--faint)}
+details.sec[open]>summary::after{content:"−"}
+details.sec .body{padding:0 22px 22px;display:grid;gap:14px}
+.num{width:28px;height:28px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-size:.85rem}
+.row2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fld{display:grid;gap:6px;font-size:.88rem;color:var(--dim)}
+.fld>span{font-weight:500}
+.fld input,.fld select,.fld textarea,.link,.note{width:100%;background:var(--bg2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 12px;font:400 .95rem var(--body)}
+.fld textarea{min-height:92px;resize:vertical}
+.fld input:focus,.fld select:focus,.fld textarea:focus,.link:focus,.note:focus{border-color:var(--accent);outline:none}
+.req{color:var(--danger)}
+.help{font-size:.82rem;color:var(--faint);margin:-6px 0 0}
+.rowcard{border:1px dashed var(--line);border-radius:14px;padding:14px;display:grid;gap:12px;position:relative}
+.rowcard .rm{position:absolute;top:8px;right:8px}
+.chks{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.chk{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:var(--dim);padding:9px 12px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.chk input{margin-top:3px;accent-color:var(--accent)}
+.divrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center}
+
+/* dimension */
+.dimhead{display:grid;gap:8px;margin-bottom:18px}
+.dimhead .k{font:800 .9rem var(--display);letter-spacing:.14em;color:var(--accent)}
+.meter{display:grid;grid-template-columns:repeat(9,1fr);gap:4px;margin-top:6px}
+.meter i{height:8px;border-radius:4px;background:var(--soft);position:relative;overflow:hidden}
+.meter i.f{background:var(--accent)}
+.meter i.p::after{content:"";position:absolute;inset:0;width:var(--w);background:var(--accent);opacity:.55}
+.tip{background:var(--accent-soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:.92rem;color:var(--dim);margin-bottom:16px}
+.tip b{color:var(--ink)}
+.lvl{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);margin-bottom:12px;overflow:hidden}
+.lvl>summary,.lvl>.sum{display:flex;gap:12px;align-items:center;padding:16px 18px;cursor:pointer;list-style:none}
+.lvl>summary::-webkit-details-marker{display:none}
+.lvl .n{flex:none;width:34px;height:34px;border-radius:10px;background:var(--soft);display:grid;place-items:center;font:700 .95rem var(--display)}
+.lvl .t{flex:1;font:600 .98rem var(--display);line-height:1.3}
+.lvl .chip{flex:none;font-size:.78rem;padding:3px 10px;border-radius:99px;background:var(--soft);color:var(--dim)}
+.lvl.done .n{background:var(--accent);color:var(--accent-ink)}
+.lvl.current{border-color:var(--accent);box-shadow:0 20px 50px -30px var(--accent-glow)}
+.lvl.locked>.sum{cursor:default;opacity:.5}
+.lvl .lb{padding:0 18px 18px;display:grid;gap:12px}
+.lvl .desc{font-size:.9rem;color:var(--faint);margin:0}
+.q{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px}
+.q.si{border-color:var(--accent)}
+.q.no{border-color:var(--line)}
+.qt{margin:0 0 10px;color:var(--ink);font-size:.97rem}
+.qn{color:var(--accent);font:700 .8rem var(--display);margin-right:8px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{background:var(--card);border:0;color:var(--dim);font:600 .9rem var(--display);padding:8px 22px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed=true][data-v=si]{background:var(--accent);color:var(--accent-ink)}
+.seg button[aria-pressed=true][data-v=no]{background:var(--dim);color:var(--bg)}
+.seg button[disabled]{cursor:default}
+.ev{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);display:grid;gap:10px}
+.ev-h{font-size:.85rem;color:var(--dim)}
+.ev-h b{color:var(--ink)}
+.files{display:flex;flex-wrap:wrap;gap:8px}
+.file{display:inline-flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:5px 8px 5px 10px;font-size:.82rem}
+.file a,.file button.v{color:var(--ink);background:none;border:0;cursor:pointer;font:inherit;text-decoration:underline;padding:0;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file button.x{background:none;border:0;color:var(--faint);cursor:pointer;font-size:1rem;line-height:1}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;padding:3px 10px;border-radius:99px;font-weight:600}
+.badge.warn{background:var(--warn-bg);color:var(--warn)}
+.badge.ok{background:var(--ver-bg);color:var(--c-ver)}
+.badge.bad{background:var(--bad-bg);color:var(--danger)}
+.badge.mint{background:var(--accent-soft);color:var(--accent)}
+.rvbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.rvbar .seg button[aria-pressed=true][data-v=ok]{background:var(--c-ver);color:#fff}
+.rvbar .seg button[aria-pressed=true][data-v=no]{background:var(--danger);color:#fff}
+.rvbar .note{flex:1;min-width:200px}
+
+/* result */
+.res-head{background:linear-gradient(135deg,var(--accent-soft),transparent);border:1px solid var(--accent);border-radius:var(--r-l);padding:28px;margin-bottom:22px}
+.res-head .big{font:800 clamp(1.7rem,4vw,2.6rem) var(--display);line-height:1.1;margin:6px 0 10px}
+.res-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:22px;align-items:start}
+.radar-box{background:var(--card);border:1px solid var(--line);border-radius:var(--r-l);padding:12px}
+.radar-box svg{width:100%;height:auto;display:block}
+table.t{width:100%;border-collapse:collapse;font-size:.9rem}
+table.t th,table.t td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.t th{font:600 .78rem var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+table.t td.c,table.t th.c{text-align:center}
+.lv{display:inline-grid;place-items:center;min-width:32px;height:28px;border-radius:8px;font:700 .95rem var(--display);background:var(--soft)}
+.lv.a{background:var(--c-decl);color:#fff}
+.lv.b{background:var(--c-evid);color:#231a00}
+.lv.c{background:var(--c-ver);color:#fff}
+.next{display:grid;gap:12px}
+.next .card{padding:16px 18px}
+.next ul{margin:8px 0 0;padding-left:1.1em;color:var(--dim);font-size:.9rem}
+.alert{border-left:3px solid var(--hi);background:var(--warn-bg);padding:12px 16px;border-radius:0 12px 12px 0;color:var(--dim);font-size:.93rem;margin:12px 0 0}
+.checks{list-style:none;padding:0;margin:0 0 14px;display:grid;gap:6px;font-size:.92rem;color:var(--dim)}
+.checks li::before{content:"○ ";color:var(--faint)}
+.checks li.ok::before{content:"✓ ";color:var(--accent)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+svg .ring{fill:none;stroke:var(--line)}
+svg .ring.m{stroke:var(--faint);stroke-opacity:.45}
+svg .axis{stroke:var(--line)}
+svg text{fill:var(--dim);font-family:var(--body)}
+svg text.k{fill:var(--ink);font-family:var(--display);font-weight:700}
+svg .poly{animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes grow{from{transform:scale(.05);opacity:0}to{transform:scale(1);opacity:1}}
+.tooltip{position:fixed;z-index:80;pointer-events:none;background:var(--ink);border-radius:10px;padding:6px 10px;font-size:.82rem;color:var(--bg)}
+
+/* review */
+.rv-list td .lv{margin-right:4px}
+.rv-cell small{display:block;color:var(--faint);font-size:.72rem;line-height:1.3}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.tabs button{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--dim);font:600 .85rem var(--display);cursor:pointer}
+.tabs button.on{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+dl.kv{display:grid;grid-template-columns:200px 1fr;gap:8px 16px;margin:0;font-size:.9rem}
+dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-wrap}
+.drop{border:2px dashed var(--line);border-radius:var(--r-m);padding:26px;text-align:center;color:var(--dim)}
+.print-only{display:none}
+.fig{margin:0}
+.fig img{width:100%;height:auto;display:block;border-radius:var(--r-l);border:1px solid var(--line);box-shadow:0 24px 60px -30px rgba(0,30,90,.35);background:var(--bg2)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+.split.rev .fig{order:2}
+.hero-viz img{width:100%;height:auto;display:block;border-radius:calc(var(--r-l) - 8px)}
+.ticks{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:8px;color:var(--dim)}
+.ticks li{display:flex;gap:10px;align-items:flex-start}
+.ticks li::before{content:"✓";flex:none;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:.78rem;font-weight:700;margin-top:2px}
+.ex{margin:-2px 0 10px;font-size:.85rem;color:var(--faint);display:grid;gap:4px;line-height:1.45}
+.ex b{color:var(--accent);font-weight:600}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.opt{text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;color:var(--ink);font:inherit;display:grid;gap:4px;position:relative}
+.opt b{font:600 .95rem var(--display);padding-right:26px}
+.opt small{color:var(--faint);font-size:.8rem;line-height:1.4}
+.opt:hover{border-color:var(--accent)}
+.opt[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
+.opt[aria-pressed=true]::after{content:"✓";position:absolute;top:10px;right:12px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.sug{display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--accent-soft);border:1px dashed var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:18px;color:var(--dim);font-size:.93rem}
+.sug .btn{margin-left:auto}
+.preview{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:8px}
+.grp{margin:22px 0 10px;font:700 1.05rem var(--display)}
+
+@media (max-width:980px){
+  .split{grid-template-columns:1fr}.split.rev .fig{order:0}
+  .hero{grid-template-columns:1fr;padding-top:40px}
+  .g3,.g4{grid-template-columns:1fr 1fr}
+  .app-grid,.res-grid{grid-template-columns:1fr}
+  .live{position:static}
+}
+@media (max-width:620px){
+  .g2,.g3,.g4,.row2,.row3{grid-template-columns:1fr}
+  .divrow{grid-template-columns:1fr}
+  dl.kv{grid-template-columns:1fr}
+  .top nav button{padding:8px 9px;font-size:.84rem}
+  .brand small{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  :root,:root[data-theme=dark]{--bg:#fff;--bg2:#f5f6f7;--card:#fff;--card2:#f3f4f6;--line:#d5d9de;--soft:rgba(0,40,120,.08);--ink:#111;--dim:#333;--faint:#555;--accent:#004EC4;--accent-ink:#fff;--accent-soft:#e8effc;--c-decl:#004EC4;--c-evid:#e0a800;--c-ver:#0f8f66;--warn:#7a5200;--warn-bg:#fff3c4;color-scheme:light}
+  body{background:#fff}body::before{display:none}
+  .top,.navbar,.toolbar,.steps,.live,.actions,.no-print,footer.foot{display:none!important}
+  .app-grid{display:block;padding-bottom:0}
+  .print-only{display:block}
+  .res-head{background:#eef3fc}
+  .card,.radar-box{break-inside:avoid}
+  svg .poly{animation:none}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <button class="brand" data-act="home" aria-label="Ir al inicio">
+      <!-- Reemplace este símbolo por el logo de la Universidad -->
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="10" fill="#004EC4" stroke="#FFCE21" stroke-width="1.5"/><g fill="none" stroke="#FFCE21" stroke-width="1.6"><path d="M17 6l9 5v10l-9 5-9-5V11z"/><path d="M17 11l5 3v5l-5 3-5-3v-5z" opacity=".75"/></g><circle cx="17" cy="16.5" r="1.8" fill="#fff"/></svg>
+      <span>Ruta de Madurez<small>UNIMAYOR · Transferencia</small></span>
+    </button>
+    <nav aria-label="Principal">
+      <button data-act="home" id="nav-home" class="on">Inicio</button>
+      <button data-act="start" id="nav-app">Mi diagnóstico</button>
+      <button data-act="review" id="nav-rv">Modo revisión</button>
+      <button data-act="theme" class="theme" id="nav-theme" aria-label="Cambiar entre modo claro y oscuro">☾ Oscuro</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ───────────────────────── INICIO ───────────────────────── -->
+<section id="v-home" class="view">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <span class="eyebrow">Universidad Colegio Mayor de Cundinamarca · Transferencia de Resultados de Investigación</span>
+        <h1>¿En qué nivel de madurez está tu desarrollo? <em>Respóndelo con hechos, no con intuición.</em></h1>
+        <p class="lead">Cuéntanos qué has logrado. La página calcula el nivel de tu tecnología, mercado, propiedad intelectual, equipo, financiación e impacto social, y lo dibuja en una telaraña. No necesitas saber de antemano en qué nivel estás.</p>
+        <div class="cta-row">
+          <button class="btn primary" data-act="start">Comenzar mi diagnóstico →</button>
+          <button class="btn" data-act="review">Soy del equipo de Transferencia</button>
+        </div>
+        <p class="muted">Sin registro. Puedes hacerlo en varias sesiones: tu avance se guarda en este navegador.</p>
+      </div>
+      <figure class="hero-viz fig"><img src="img/portada.jpg" width="1600" height="893" fetchpriority="high" alt="Ilustración de una investigadora y un investigador en un laboratorio señalando una pantalla con un gráfico de telaraña de madurez."></figure>
+    </div>
+  </div>
+
+  <div class="section alt"><div class="wrap">
+    <div class="center"><span class="eyebrow">Cómo funciona</span><h2>Cuatro pasos, y la página hace la cuenta</h2></div>
+    <div class="grid g4" style="margin-top:26px">
+      <div class="card"><div class="step-n">01</div><h3>Describe tu desarrollo</h3><p>Diligencias la ficha de caracterización: quiénes son los creadores, qué problema resuelve, qué propiedad intelectual tiene y qué redes conoces.</p></div>
+      <div class="card"><div class="step-n">02</div><h3>Dinos qué tipo de resultado es</h3><p>Área de conocimiento y tipo de resultado: un protocolo clínico, un prototipo o una metodología no se miden igual. Adaptamos la escala y ponemos ejemplos de tu campo.</p></div>
+      <div class="card"><div class="step-n">03</div><h3>Responde con ejemplos y sube evidencia</h3><p>Preguntas de Sí o No, cada una con un ejemplo. Si respondes «Sí», adjuntas el soporte: un informe, un acta, un radicado o un enlace.</p></div>
+      <div class="card"><div class="step-n">04</div><h3>Recibe tu telaraña</h3><p>Ves tu nivel en cada dimensión, qué te falta para subir y descargas el paquete para enviarlo a Transferencia.</p></div>
+    </div>
+  </div></div>
+
+  <div class="section"><div class="wrap">
+    <div class="center"><span class="eyebrow">Qué se mide</span><h2>Seis dimensiones, cada una de 1 a 9</h2>
+    <p>Un desarrollo puede ser técnicamente sólido y estar verde en equipo o financiación. Por eso no hay un solo puntaje: hay un perfil.</p></div>
+    <div class="grid g3" style="margin-top:26px" id="dimcards"></div>
+  </div></div>
+
+  <div class="section"><div class="wrap">
+    <div class="split">
+      <figure class="fig"><img src="img/disciplinas.jpg" width="1600" height="893" loading="lazy" alt="Cuatro escenas ilustradas de distintas disciplinas: una profesional de la salud con una tableta, un abogado con una balanza, una docente con estudiantes y un ingeniero con un prototipo."></figure>
+      <div>
+        <span class="eyebrow">Para todas las disciplinas</span>
+        <h2>Un protocolo clínico no se mide como un prototipo</h2>
+        <p>Antes de las preguntas, te pedimos tu área de conocimiento y el tipo de resultado. Con eso adaptamos la escala a tu lenguaje y cada pregunta trae un ejemplo de tu campo.</p>
+        <ul class="ticks"><li>Salud y psicología: protocolos, intervenciones e instrumentos.</li><li>Derecho: propuestas normativas, guías y herramientas jurídicas.</li><li>Sociales, educación, economía y artes: metodologías, programas y modelos.</li><li>Ingeniería y ciencias naturales: prototipos, dispositivos y software.</li></ul>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="section alt"><div class="wrap">
+    <div class="center"><span class="eyebrow">Tres capas</span><h2>Lo que declaras, lo que soportas y lo que se verifica</h2>
+    <p>La telaraña muestra tres niveles de confianza. Así Transferencia sabe en qué puede apoyarse y tú sabes qué evidencia te falta reunir.</p></div>
+    <div class="legend-row">
+      <span class="lg"><i style="background:var(--c-decl)"></i>Declarado: lo que respondes «Sí»</span>
+      <span class="lg"><i style="background:var(--c-evid)"></i>Con evidencia: los «Sí» que traen soporte</span>
+      <span class="lg"><i style="background:var(--c-ver)"></i>Verificado: lo que Transferencia confirma</span>
+    </div>
+    <div class="split rev" style="margin-top:34px">
+      <figure class="fig"><img src="img/evidencia.jpg" width="1600" height="893" loading="lazy" alt="Ilustración de un investigador ante un computador portátil subiendo documentos de soporte a una carpeta digital marcada con un visto bueno."></figure>
+      <div>
+        <h3>Tu «Sí» vale más con evidencia</h3>
+        <p>Cada vez que respondes «Sí», puedes adjuntar el soporte: un informe, un acta, un radicado, una foto del prototipo o un enlace. La Oficina de Transferencia lo revisa y marca lo que verifica.</p>
+        <ul class="ticks"><li>Sin evidencia, tu respuesta cuenta como declarada.</li><li>Con evidencia, sube a la capa amarilla.</li><li>Verificada por Transferencia, aparece en verde.</li></ul>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="section"><div class="wrap" style="max-width:820px">
+    <h2 class="center">Preguntas frecuentes</h2>
+    <details class="faq"><summary>¿Y si no sé en qué nivel estoy?</summary><p>No tienes que saberlo. Respondes por hechos («¿construyó un prototipo de laboratorio?») y la página deduce el nivel: es el más alto en el que cumples todos los criterios de ese nivel y de los anteriores.</p></details>
+    <details class="faq"><summary>Mi desarrollo no es tecnológico (psicología, derecho, sociales…). ¿Aplica?</summary><p>Sí. Al elegir tu área y tu tipo de resultado, las preguntas se acompañan de ejemplos de tu campo y la escala tecnológica se traduce a tu lenguaje: por ejemplo, «prototipo» pasa a ser la versión piloto de tu protocolo, instrumento o metodología.</p></details>
+    <details class="faq"><summary>¿Es obligatorio subir evidencia?</summary><p>No para avanzar, pero sí para que tu «Sí» cuente en la capa «Con evidencia» y pueda ser verificado. Un «Sí» sin soporte queda marcado como pendiente.</p></details>
+    <details class="faq"><summary>¿Dónde quedan mis datos y archivos?</summary><p>En tu navegador, en este equipo. No se envían a ningún servidor. Cuando termines, descargas un paquete (.json) que incluye tus respuestas y tus archivos, y lo envías a la Oficina de Transferencia.</p></details>
+    <details class="faq"><summary>¿Qué pasa si respondo «No» en un nivel?</summary><p>Ahí queda tu nivel actual en esa dimensión. La página te muestra qué criterios te faltan para subir al siguiente. Los niveles superiores se habilitan cuando cumples el actual.</p></details>
+  </div></div>
+  <footer class="foot"><div class="wrap">Modelo basado en el KTH Innovation Readiness Level™ (KTH Royal Institute of Technology) y en las definiciones de TRL de MINCIENCIAS (2019), adaptado por la Universidad Colegio Mayor de Cundinamarca con una sexta dimensión de madurez social.</div></footer>
+</section>
+
+<!-- ───────────────────────── DIAGNÓSTICO ───────────────────────── -->
+<section id="v-app" class="view" hidden>
+  <div class="wrap">
+    <div class="toolbar no-print">
+      <span class="saved" id="saved" aria-live="polite"></span>
+      <span class="sp"></span>
+      <label class="btn small ghost">Cargar avance<input type="file" id="imp-draft" accept=".json,application/json" hidden></label>
+      <button class="btn small ghost" data-act="reset">Empezar de cero</button>
+    </div>
+    <div class="steps no-print" id="steps" role="tablist" aria-label="Pasos"></div>
+    <div class="app-grid">
+      <div id="stage"></div>
+      <aside class="live no-print" id="live" aria-label="Resultado en vivo"></aside>
+    </div>
+  </div>
+  <div class="navbar no-print"><div class="wrap">
+    <button class="btn" id="btn-prev" data-act="prev">← Atrás</button>
+    <span class="info" id="nav-info"></span>
+    <button class="btn primary" id="btn-next" data-act="next">Continuar →</button>
+  </div></div>
+</section>
+
+<!-- ───────────────────────── REVISIÓN ───────────────────────── -->
+<section id="v-review" class="view" hidden>
+  <div class="wrap" style="padding-top:34px;padding-bottom:90px">
+    <span class="eyebrow">Oficina de Transferencia</span>
+    <h1 style="font-size:clamp(1.8rem,4vw,2.6rem)">Modo revisión</h1>
+    <p>Importa los paquetes que envían los investigadores, revisa la evidencia de cada respuesta y marca si la verificas. La telaraña se actualiza con lo que confirmes.</p>
+    <div class="actions" style="margin-bottom:22px">
+      <label class="btn primary">Importar paquete(s) .json<input type="file" id="imp-rv" accept=".json,application/json" multiple hidden></label>
+      <button class="btn" data-act="csv" id="btn-csv">Descargar portafolio (CSV)</button>
+    </div>
+    <p class="muted">Este modo no pide contraseña: cualquier persona con el archivo HTML puede abrirlo. Los casos importados quedan en este navegador.</p>
+    <div id="rv-list"></div>
+    <div id="rv-case" hidden></div>
+  </div>
+</section>
+</main>
+<div class="tooltip" id="tip" hidden></div>
+
+<script>
+const BANK=[{"k":"TRL","name":"Madurez tecnológica","long":"Technology Readiness Level","levels":[{"n":1,"title":"Principios básicos observados","desc":"Este corresponde al nivel más bajo en cuanto al nivel de maduración tecnológica. Comienza la investigación científica básica. Se comienza la transición a investigación aplicada. En esta fase de desarrollo no existe todavía ningún grado de aplicación comercial.","q":["¿Identificó principios científicos o teóricos básicos que pueden dar origen a una nueva tecnología, método o aplicación?","¿Existe una publicación, informe o documento que sustente esos principios (idealmente revisado por pares)?"],"ex":[["la propiedad de un material o un algoritmo que podría aplicarse a un sensor.","un mecanismo fisiológico o una teoría psicológica que podría sustentar una nueva intervención.","un vacío normativo o un principio jurídico que sustenta una nueva propuesta de regulación.","una teoría pedagógica, social o económica que sustenta un nuevo modelo o metodología."],["artículo científico, informe técnico o tesis que sustente el principio.","artículo o revisión sistemática que respalda la intervención o el constructo.","artículo jurídico, análisis de doctrina o de jurisprudencia que sustenta la propuesta.","artículo, capítulo de libro o marco teórico que respalda el modelo."]],"alt":{"sal":{"title":"Fundamento científico o teórico identificado","desc":"Hay una teoría, un mecanismo o una evidencia inicial que sustenta la idea."},"jur":{"title":"Problema o vacío jurídico identificado, con fundamento","desc":"Hay un principio, una doctrina o un vacío normativo que sustenta la idea."},"hum":{"title":"Fundamento teórico identificado","desc":"Hay una teoría o una evidencia inicial que sustenta el modelo o la metodología."}}},{"n":2,"title":"Concepto de tecnología formulado","desc":"En esta fase pueden empezar a formularse eventuales aplicaciones de las tecnologías y herramienta analíticas para la simulación o análisis de la aplicación. Sin embargo, todavía no se cuenta con pruebas o análisis que validen dicha aplicación.","q":["¿Formuló el concepto de su desarrollo (tecnología, método o herramienta), su aplicación y cómo se pondría en práctica?","¿Analizó artículos científicos, modelos o teorías que respaldan la aplicación de su idea?","¿Hizo un análisis del estado del arte y encontró que no existe un desarrollo igual al suyo?","¿Tiene un plan de desarrollo (fases, responsables y tiempos)?","¿Realizó estudios o pequeños experimentos que aportan información para pruebas de concepto posteriores?"],"ex":[["documento que describe el dispositivo o software y cómo se usaría.","documento que describe la intervención o el instrumento, a quién se aplica y cómo.","borrador de la figura, guía o herramienta jurídica y cómo se aplicaría.","documento que describe la metodología, programa o modelo y cómo se pondría en práctica."],["matriz de revisión de literatura con los artículos que respaldan la idea.","revisión de literatura sobre la eficacia de intervenciones o la validez de instrumentos similares.","revisión de doctrina, jurisprudencia y derecho comparado.","revisión de literatura y de experiencias similares."],["búsqueda en Scopus, Google Patents o bases especializadas sin resultados iguales.","búsqueda en PubMed, Scopus o bases de instrumentos sin una intervención igual.","búsqueda en bases jurídicas y de legislación comparada sin una figura igual.","búsqueda en bases académicas y de prácticas sin un modelo igual."],["cronograma con fases de diseño, construcción y pruebas.","cronograma con fases de diseño, piloto y validación.","plan de redacción, socialización y consulta con expertos.","cronograma con fases de diseño, pilotaje y evaluación."],["una prueba sencilla que muestra que el sensor detecta la variable.","un estudio exploratorio con pocos participantes o casos.","análisis de casos reales o simulados aplicando la propuesta.","un ejercicio exploratorio con un grupo pequeño o entrevistas a expertos."]],"alt":{"sal":{"title":"Concepto de la intervención o del instrumento formulado","desc":"Se describe qué es, a quién se aplica y cómo funcionaría, todavía sin pruebas."},"jur":{"title":"Propuesta formulada","desc":"Se describe la figura, herramienta o política y cómo se aplicaría, todavía sin validación."},"hum":{"title":"Concepto del modelo o de la metodología formulado","desc":"Se describe qué es, para quién y cómo se aplicaría, todavía sin pruebas."}}},{"n":3,"title":"Prueba de concepto analítica y experimental de las funciones y / o características esenciales","desc":"Se han comenzado las pruebas preliminares de los componentes tecnológicos y se ha establecido la viabilidad técnica en un entorno de laboratorio.","q":["¿Identificó los componentes o partes de su desarrollo?","¿Realizó pruebas analíticas o de concepto (laboratorio, simulación o ejercicio controlado) que demuestran su factibilidad?","¿Comparó los resultados de sus pruebas con lo que esperaba según el análisis o la teoría?","¿Validó los componentes por separado, aunque todavía no estén integrados en un conjunto completo?","¿Tiene documentados los resultados analíticos o experimentales?"],"ex":[["sensores, actuador y software de control.","sesiones, materiales y criterios de aplicación de la intervención, o ítems de un instrumento.","supuestos, procedimientos y responsables que componen la propuesta.","fases, actores, recursos e instrumentos del modelo."],["simulación o ensayo de laboratorio que muestra que funciona.","prueba de concepto en condiciones controladas, simulación clínica o modelo de laboratorio.","aplicación de la propuesta a casos hipotéticos o en un taller con expertos.","taller o ejercicio controlado que muestra que la metodología es viable."],["los resultados medidos se comparan con los cálculos esperados.","los resultados obtenidos se comparan con los efectos esperados según la literatura.","el resultado de aplicar la propuesta se compara con lo que anticipaba el análisis jurídico.","los resultados del ejercicio se comparan con lo esperado según el marco teórico."],["cada módulo o subsistema probado por separado.","cada componente (una sesión, un grupo de ítems) probado por separado.","cada componente de la propuesta revisado por expertos por separado.","cada componente probado o revisado por separado."],["informe de laboratorio con datos y conclusiones.","informe del estudio con datos y conclusiones.","memorando o informe con el análisis de casos y conclusiones.","informe del ejercicio con datos y conclusiones."]],"alt":{"sal":{"title":"Prueba de concepto en condiciones controladas","desc":"Las primeras pruebas (simulación, laboratorio, muestra pequeña) muestran que la idea es viable."},"jur":{"title":"Análisis y prueba inicial de la propuesta","desc":"Se analizó con casos hipotéticos, doctrina y jurisprudencia, y se confirmó que es viable."},"hum":{"title":"Prueba de concepto inicial","desc":"Un primer ejercicio o taller exploratorio muestra que la idea es viable."}}},{"n":4,"title":"Validación de componente / subsistema en entorno laboratorio","desc":"La prueba inicial del producto / sistema integrado se ha completado en un entorno de laboratorio.","q":["¿Verificó que los componentes pueden funcionar de manera integrada como un conjunto?","¿Construyó una primera versión completa (prototipo, versión piloto o borrador) y la probó en un entorno controlado?","¿Evaluó de forma preliminar el ciclo de vida y el potencial de escalamiento del desarrollo?","¿Tiene documentada una prueba de rendimiento y la definición del entorno relevante?"],"ex":[["sensor, electrónica y software funcionando juntos en banco de pruebas.","la intervención completa (todas las sesiones y materiales) aplicada de forma integrada.","la propuesta completa (norma, procedimiento y formatos) articulada y coherente.","el modelo completo aplicado con todas sus fases y materiales."],["prototipo funcional probado en el laboratorio.","versión piloto del protocolo o instrumento aplicada en un entorno controlado (consultorio, laboratorio, simulación).","primera versión de la herramienta o guía probada en un entorno controlado (clínica jurídica, caso simulado).","versión piloto de la metodología aplicada en un aula o grupo controlado."],["análisis preliminar de costos, materiales y posibilidad de fabricar más unidades.","análisis preliminar de costos, talento requerido y posibilidad de aplicarlo a más pacientes o usuarios.","análisis de lo que se necesitaría para aplicarla en más casos o instituciones.","análisis de lo que se necesitaría para replicarla en otros grupos o instituciones."],["informe de pruebas y descripción del entorno donde funcionaría.","informe del piloto con indicadores y descripción del contexto de aplicación.","informe de validación con expertos y descripción del contexto de uso.","informe del piloto con indicadores y descripción del contexto."]],"alt":{"sal":{"title":"Versión piloto validada en un entorno controlado","desc":"El protocolo o instrumento completo se aplicó en un entorno controlado, con resultados iniciales."},"jur":{"title":"Primera versión validada con expertos","desc":"La propuesta completa fue revisada y probada en un entorno controlado (taller, clínica jurídica)."},"hum":{"title":"Versión piloto validada en un entorno controlado","desc":"El modelo o la metodología completa se aplicó en un aula o grupo controlado."}}},{"n":5,"title":"Validación de componente / subsistema en un entorno relevante","desc":"El producto / sistema integrado a escala de laboratorio demuestra el rendimiento en las aplicaciones previstas.","q":["¿Integró los elementos del desarrollo en una configuración similar a la aplicación final?","¿Probó el desarrollo en un entorno simulado o relevante (parecido al real) con elementos de soporte realistas?","¿Identificó aspectos de seguridad, éticos, ambientales o requisitos regulatorios?","¿Mejoró los modelos técnicos y económicos del diseño inicial?","¿Documentó los requisitos de escala y una prueba de rendimiento que coincide con lo previsto?"],"ex":[["prototipo con carcasa, alimentación y conexiones como el producto final.","protocolo o instrumento con todos sus materiales, listo para aplicarse a usuarios reales.","guía o modelo con formatos y procedimientos completos, listo para usarse en un caso real.","metodología con guías, materiales y formatos completos, lista para aplicarse."],["prueba en un invernadero, planta piloto o aula que imita el entorno real.","aplicación con un grupo reducido de usuarios en un contexto parecido al real (con aval ético).","aplicación en una clínica jurídica, consultorio o taller con casos parecidos a los reales.","aplicación en una institución o comunidad con condiciones parecidas a las reales."],["normas técnicas, riesgos eléctricos, permisos ambientales.","aval del comité de ética, consentimiento informado, normativa de salud y de datos personales.","riesgos legales, confidencialidad y competencia de la entidad que la usaría.","consentimiento, protección de datos y normativa educativa o del sector."],["costo por unidad recalculado tras los ajustes del diseño.","costo por sesión o por paciente recalculado tras los ajustes.","estimación de costos de implementación tras la retroalimentación.","costo por participante recalculado tras los ajustes."],["documento con volumen, materiales y capacidad requerida para producir más.","documento con recursos, personal y tiempos para ampliar la aplicación.","documento con recursos y pasos para adoptarla en otras entidades.","documento con recursos y pasos para ampliar la aplicación."]],"alt":{"sal":{"title":"Validación en un contexto parecido al real","desc":"Se aplicó a un grupo reducido de usuarios en condiciones cercanas a las reales, con aval ético."},"jur":{"title":"Validación en un contexto parecido al real","desc":"Se aplicó a casos parecidos a los reales, con los riesgos legales identificados."},"hum":{"title":"Validación en un contexto parecido al real","desc":"Se aplicó en una institución o comunidad con condiciones cercanas a las reales."}}},{"n":6,"title":"Demostración de modelo o prototipo de sistema / subsistema en un entorno relevante","desc":"El producto / sistema a escala piloto, ha sido probado en las aplicaciones previstas con condiciones cercanas a las reales.","q":["¿Cuenta con una versión piloto que realiza todas las funciones necesarias?","¿La versión piloto superó pruebas de factibilidad en condiciones cercanas a la operación real (pruebas «beta»)?","¿Tiene documentación técnica de la versión piloto (planos, manuales, código, protocolos, guías)?","¿Modeló el desarrollo a escala comercial y refinó el análisis de ciclo de vida y la evaluación económica?"],"ex":[["equipo completo que hace todas sus funciones.","protocolo o instrumento completo, con todos sus módulos, aplicado a usuarios reales.","modelo o herramienta completa aplicada en casos reales con acompañamiento.","programa o metodología completa aplicada con un grupo real."],["pruebas en campo con un cliente aliado.","estudio piloto en una institución de salud o en un servicio real.","uso en un consultorio, juzgado, entidad pública o empresa aliada.","implementación piloto en una institución, empresa o comunidad aliada."],["planos, manual técnico, código documentado.","manual del protocolo, guía de aplicación, manual de calificación del instrumento.","manual de uso, formatos y guía de implementación.","guía del facilitador, manual de implementación y formatos."],["análisis de costos de producción en serie y de ciclo de vida.","análisis de costos de implementarlo en varias instituciones.","análisis de costos y viabilidad de su adopción por varias entidades.","análisis de costos y viabilidad de implementarla a mayor escala."]],"alt":{"sal":{"title":"Estudio piloto en un servicio real","desc":"Se aplicó a usuarios reales en una institución aliada, con todas sus funciones."},"jur":{"title":"Aplicación piloto en casos reales","desc":"Se usó en casos reales con una entidad, consultorio o empresa aliada."},"hum":{"title":"Piloto en un entorno real","desc":"Se implementó con un grupo real en una institución o comunidad aliada."}}},{"n":7,"title":"Sistema de demostración validado en entorno real","desc":"La demostración de un prototipo de producto / sistema a gran escala, se ha completado en las aplicaciones previstas","q":["¿El desarrollo opera, o está próximo a operar, a escala precomercial?","¿Demostró que el desarrollo funciona en el entorno operativo real?","¿Realizó la primera corrida piloto y las pruebas finales reales?","¿Identificó los aspectos de fabricación y perfeccionó la evaluación económica y de ciclo de vida?"],"ex":[["lote piloto de unidades funcionando con usuarios.","aplicación a una muestra amplia de usuarios en varios sitios.","uso sostenido por una o varias entidades en casos reales.","implementación en varias instituciones o grupos."],["funcionamiento continuo en el sitio real del cliente.","resultados en la práctica clínica o en el servicio real, con indicadores.","resultados de su uso en el contexto real, con casos resueltos o decisiones tomadas.","resultados de su uso en el contexto real, con indicadores de aprendizaje o de impacto."],["prueba final de aceptación con el cliente.","estudio piloto completo con análisis de resultados.","implementación piloto completa con evaluación de resultados.","implementación piloto completa con evaluación de resultados."],["proveedores identificados y costo unitario validado.","talento, insumos y costo por aplicación validados.","recursos humanos y costo de implementación validados.","recursos, facilitadores y costo por participante validados."]],"alt":{"sal":{"title":"Validación ampliada en el contexto real","desc":"Se aplicó a una muestra mayor en uno o varios sitios, con resultados documentados."},"jur":{"title":"Uso validado en el entorno real","desc":"Se usa de forma sostenida y hay resultados documentados en el contexto real."},"hum":{"title":"Implementación validada en el entorno real","desc":"Se implementó en varios grupos o sitios, con resultados documentados."}}},{"n":8,"title":"Primer sistema tipo comercial","desc":"Se ha demostrado que el producto / sistema real funciona en su forma casi final bajo un conjunto representativo de condiciones y entornos esperados.","q":["¿El desarrollo está integrado y probado en su forma final bajo las condiciones esperadas?","¿Resolvió las cuestiones operativas y de fabricación?","¿Elaboró los documentos de uso y mantenimiento (manual de usuario, soporte técnico)?","¿El desarrollo cumple los estándares o normas del sector correspondiente?"],"ex":[["producto final probado bajo las condiciones esperadas.","versión final del protocolo o instrumento aplicada bajo condiciones normales de uso.","versión final de la herramienta o propuesta usada en condiciones normales.","versión final usada en condiciones normales."],["proceso de fabricación y control de calidad definido.","procedimientos de aplicación, formación de aplicadores y control de calidad definidos.","procedimientos internos, responsables y control de calidad definidos.","procedimientos, formación de facilitadores y control de calidad definidos."],["manual de usuario y soporte técnico.","manual de aplicación, formación del aplicador y guía para el usuario.","manual de uso, formatos y guía de capacitación.","manual de uso y guía de capacitación."],["certificación técnica o cumplimiento de normas (ISO, NTC, INVIMA).","cumplimiento de normas de salud, buenas prácticas clínicas o validación psicométrica publicada.","adopción o concepto favorable de una entidad competente.","cumplimiento de estándares del sector o aval de una entidad competente."]],"alt":{"sal":{"title":"Versión final lista para uso rutinario","desc":"Versión final documentada, con formación de aplicadores y cumplimiento de normas."},"jur":{"title":"Versión final lista para adopción","desc":"Versión final documentada, con manuales y concepto favorable de una entidad competente."},"hum":{"title":"Versión final lista para replicar","desc":"Versión final documentada, con guías y formación para facilitadores."}}},{"n":9,"title":"Aplicación comercial implementada en el mercado / público objetivo","desc":"El producto / sistema, está en forma final y ha sido operado con éxito bajo una amplia gama de condiciones y entornos operativos.","q":["¿El desarrollo está probado en el entorno real y disponible para comercializarse o aplicarse?","¿Está listo para producirse o replicarse en serie y comercializarse?","¿Tiene documentados los resultados operacionales?"],"ex":[["producto operando y vendiéndose.","protocolo o instrumento en uso regular en instituciones.","propuesta o herramienta en uso regular o adoptada formalmente.","metodología o programa en uso regular en instituciones."],["capacidad de fabricar y distribuir de forma repetida.","capacidad de replicar y formar aplicadores de manera repetida.","capacidad de replicarse y capacitar de manera repetida.","capacidad de replicarse y formar facilitadores."],["informe de operación con indicadores.","informe de resultados en la práctica con indicadores.","informe de resultados de su aplicación.","informe de resultados y de impacto."]],"alt":{"sal":{"title":"En uso regular en la práctica","desc":"Está en uso rutinario en instituciones y disponible para más usuarios."},"jur":{"title":"Adoptada y en uso","desc":"Está adoptada formalmente o en uso regular por varias entidades."},"hum":{"title":"En uso regular","desc":"Se usa de forma regular en instituciones y se puede replicar."}}}]},{"k":"MRL","name":"Madurez de mercado","long":"Market Readiness Level","levels":[{"n":1,"title":"Hipótesis básicas de las necesidades del mercado y usuarios potenciales","desc":"Este corresponde al nivel más bajo de maduración comercial de un resultado de investigación. El conocimiento de las aplicaciones del producto tecnológico, los casos de uso y las limitaciones y restricciones del mercado es limitado e incidental, o no se cuenta con este conocimiento. Conocimiento limitado o inexistente de quienes serán los clientes/ usuarios","q":["¿Identificó, aunque sea de forma general, un segmento de mercado y posibles clientes o usuarios?","¿Tiene una idea general de la oportunidad comercial de su desarrollo?","¿Hizo una descripción inicial de la viabilidad comercial (por ejemplo, un primer lienzo Canvas)?"],"ex":[["«agricultores de pequeña escala que usan agroquímicos».","«pacientes con diabetes tipo 2 atendidos en IPS de primer nivel» o «adolescentes de colegios públicos».","«pequeñas empresas que necesitan cumplir la norma de protección de datos» o «consultorios jurídicos».","«docentes de básica primaria» o «emprendedores de la economía popular»."],["«hay demanda de dosificación precisa que reduce el desperdicio».","«las IPS buscan reducir consultas repetidas y costos de atención».","«las entidades deben cumplir una nueva norma y no tienen herramientas».","«los colegios buscan estrategias para mejorar la convivencia escolar»."],["un lienzo Canvas de una página con segmentos, propuesta de valor e ingresos.","un lienzo Canvas de una página con segmentos, propuesta de valor e ingresos.","un lienzo Canvas de una página con segmentos, propuesta de valor e ingresos.","un lienzo Canvas de una página con segmentos, propuesta de valor e ingresos."]]},{"n":2,"title":"Necesidades específicas identificadas en el mercado y definición de posibles soluciones","desc":"Existe un conocimiento superficial de las posibles aplicaciones del producto tecnológico, los mercados, y productos tecnológicos competidores existentes. La investigación de mercado se deriva principalmente de fuentes secundarias. La idea del producto tecnológico puede existir, pero es especulativa y no se ha validado. Primer concepto de negocio posible descrito. Mercado global identificado y algunos competidores/alternativas.","q":["¿Hizo un análisis de mercado con fuentes secundarias (estructura, segmentos y dinámica del mercado)?","¿Describió con claridad el problema o la necesidad que resuelve su desarrollo?","¿Conoce las ofertas existentes en el mercado, sus fortalezas y debilidades?","¿Identificó y enumeró algunos competidores o alternativas?","¿Estimó de forma general el número de posibles usuarios (mercado total disponible)?"],"ex":[["informes sectoriales, DANE, cámaras de comercio.","estadísticas del Ministerio de Salud, el INS y reportes de prevalencia.","informes de superintendencias, estadísticas de litigios y del sector.","estadísticas del DANE, el MEN o informes sectoriales."],["una frase del tipo «X sufre Y porque Z».","una frase del tipo «X sufre Y porque Z».","una frase del tipo «X sufre Y porque Z».","una frase del tipo «X sufre Y porque Z»."],["tabla comparando 3 equipos o programas actuales.","tabla comparando los protocolos, tests o servicios que hoy se usan.","tabla comparando firmas, herramientas o soluciones actuales.","tabla comparando programas, metodologías o servicios actuales."],["3 empresas o productos que hacen algo parecido.","instrumentos o intervenciones que hoy usan los profesionales.","asesorías, bufetes o plataformas que hoy cubren la necesidad.","otras metodologías, consultores o programas que hoy cubren la necesidad."],["número de fincas o empresas que podrían usarlo en Colombia.","número de pacientes o instituciones que podrían usarlo en Colombia.","número de entidades o empresas obligadas o interesadas.","número de colegios, docentes o participantes potenciales."]]},{"n":3,"title":"Comprensión de la aplicación de la tecnología y primera identificación de competidores","desc":"Existe una comprensión más detallada de las aplicaciones potenciales del producto tecnológico, casos de uso, requisitos y restricciones del mercado, y se cuenta con un mayor conocimiento de las tecnologías competidoras existentes. Se inicia el contacto con clientes potenciales para ampliar el conocimiento de la industria y/o mercado.","q":["¿Ya conversó directamente con posibles clientes, usuarios o expertos del sector?","¿Tiene una hipótesis clara del problema del cliente, respaldada por esa información?","¿Tiene un borrador del modelo de negocio en formato lienzo (Canvas)?","¿Cuantificó el potencial de mercado (TAM y SAM)?","¿Analizó las tecnologías o productos que compiten con el suyo, directos e indirectos?"],"ex":[["5 entrevistas con posibles usuarios y 2 con expertos, con sus actas o formatos.","5 entrevistas con posibles usuarios y 2 con expertos, con sus actas o formatos.","5 entrevistas con posibles usuarios y 2 con expertos, con sus actas o formatos.","5 entrevistas con posibles usuarios y 2 con expertos, con sus actas o formatos."],["«los usuarios pierden X horas o pesos al mes por Y», sustentado con las entrevistas.","«los usuarios pierden X horas o pesos al mes por Y», sustentado con las entrevistas.","«los usuarios pierden X horas o pesos al mes por Y», sustentado con las entrevistas.","«los usuarios pierden X horas o pesos al mes por Y», sustentado con las entrevistas."],["lienzo Canvas o Lean Canvas de una página.","lienzo Canvas o Lean Canvas de una página.","lienzo Canvas o Lean Canvas de una página.","lienzo Canvas o Lean Canvas de una página."],["TAM = todas las fincas del país; SAM = las de la región que podría atender.","TAM = pacientes del país con la condición; SAM = los atendidos en las IPS que podría alcanzar.","TAM = todas las entidades obligadas; SAM = las de su región o sector.","TAM = todos los colegios del país; SAM = los de su ciudad o localidad."],["directas: otro robot o equipo; indirectas: hacerlo a mano.","directas: otro protocolo o test; indirectas: consulta con un especialista.","directas: otra plataforma jurídica; indirectas: contratar un abogado.","directas: otro programa similar; indirectas: capacitaciones informales."]]},{"n":4,"title":"Formulación de la propuesta de valor y conocimiento a profundidad de la competencia","desc":"Se ha identificado una hipótesis de producto y se refina a través del análisis de mercado, producto y tecnología, y discusiones con compradores y/o usuarios potenciales. Se ha realizado una cuantificación del mercado potencial.","q":["¿Estableció contacto con varios posibles clientes o usuarios (por ejemplo, entre 5 y 10 en B2B)?","¿Definió una propuesta de valor clara, confirmada por varios clientes?","¿Tiene un modelo de negocio completo con ingresos y costos?","¿Elaboró primeras proyecciones económicas con cifras (volúmenes, precios)?","¿Hizo un benchmarking con la competencia y mapeó la cadena de valor (proveedores, socios, clientes)?"],"ex":[["lista de contactos con fecha y resultado de cada conversación.","lista de contactos con fecha y resultado de cada conversación.","lista de contactos con fecha y resultado de cada conversación.","lista de contactos con fecha y resultado de cada conversación."],["frase de valor más citas de clientes que la confirman.","frase de valor más citas de clientes que la confirman.","frase de valor más citas de clientes que la confirman.","frase de valor más citas de clientes que la confirman."],["Canvas con venta del equipo, mantenimiento y estructura de costos.","Canvas con pago por aplicación, licencia o convenio con instituciones, y sus costos.","Canvas con suscripción, honorarios o licencia, y sus costos.","Canvas con matrícula, licencia, consultoría o convenio, y sus costos."],["hoja de cálculo con precio, volumen estimado, costos e ingresos a 3 años.","hoja de cálculo con precio, volumen estimado, costos e ingresos a 3 años.","hoja de cálculo con precio, volumen estimado, costos e ingresos a 3 años.","hoja de cálculo con precio, volumen estimado, costos e ingresos a 3 años."],["tabla comparativa con 3 a 5 competidores y mapa de proveedores, aliados y clientes.","tabla comparativa con 3 a 5 competidores y mapa de proveedores, aliados y clientes.","tabla comparativa con 3 a 5 competidores y mapa de proveedores, aliados y clientes.","tabla comparativa con 3 a 5 competidores y mapa de proveedores, aliados y clientes."]]},{"n":5,"title":"Alineación con el mercado- Validación de la problemática – Identificación de barreras y drivers de mercado","desc":"Se logra una comprensión profunda de la aplicación objetivo y el mercado, y se define el producto tecnológico en alineación con el mercado. Se identifican las principales barreras y drivers de entrada al mercado","q":["¿Los clientes o usuarios confirmaron que su solución resuelve su problema?","¿Definió cuáles serán los primeros clientes objetivo y mantiene relación con ellos?","¿Probó su modelo de negocio con clientes y lo ajustó según sus comentarios?","¿Tiene una primera versión del modelo de ingresos con hipótesis de precios?","¿Verificó su diferenciación frente a la competencia con retroalimentación del mercado?"],"ex":[["cartas de intención o pruebas con clientes que dicen que resuelve su problema.","cartas de instituciones o profesionales que confirman que les sirve.","cartas o correos de entidades que confirman que les sirve.","cartas de instituciones o líderes que confirman que les sirve."],["3 organizaciones concretas, con contacto y estado de la relación.","3 organizaciones concretas, con contacto y estado de la relación.","3 organizaciones concretas, con contacto y estado de la relación.","3 organizaciones concretas, con contacto y estado de la relación."],["versión 2 del Canvas con los cambios que pidieron los clientes.","versión 2 del Canvas con los cambios que pidieron los clientes.","versión 2 del Canvas con los cambios que pidieron los clientes.","versión 2 del Canvas con los cambios que pidieron los clientes."],["tabla de precios por plan o por cliente, con su justificación.","tabla de precios por plan o por cliente, con su justificación.","tabla de precios por plan o por cliente, con su justificación.","tabla de precios por plan o por cliente, con su justificación."],["comentarios de clientes que explican por qué prefieren su solución.","comentarios de clientes que explican por qué prefieren su solución.","comentarios de clientes que explican por qué prefieren su solución.","comentarios de clientes que explican por qué prefieren su solución."]]},{"n":6,"title":"Optimización del producto tecnológico- Confirmación de la propuesta de valor – cuantificación del mercado y creación de alianzas","desc":"Se definen y documentan las necesidades y requisitos del mercado. Se optimiza el diseño del producto tecnológico teniendo en cuenta los requisitos detallados del mercado, las concesiones (trade-off) de costo/rendimiento, las concesiones de fabricación, etc. Se genera la formación de vínculos con stakeholders ( socios, clientes, usuarios potenciales).","q":["¿Clientes o usuarios probaron el producto y confirmaron su valor y beneficios?","¿Formó alianzas con actores clave de la cadena de valor (socios, clientes piloto)?","¿Tiene un proceso o ruta de ventas definido y un plan de ventas y mercadeo?","¿Probó el precio con clientes (ventas de prueba o similar)?","¿Tiene proyecciones de ingresos y costos a 1–3 años con supuestos sustentados?","¿Conoce los requisitos regulatorios y de certificación y los pasos para cumplirlos?"],"ex":[["prueba en campo con usuarios y su encuesta de satisfacción.","prueba con usuarios o profesionales y su valoración.","uso por una entidad o consultorio y su valoración.","uso por una institución o grupo y su valoración."],["convenio, carta de compromiso o acta con un socio o cliente piloto.","convenio, carta de compromiso o acta con un socio o cliente piloto.","convenio, carta de compromiso o acta con un socio o cliente piloto.","convenio, carta de compromiso o acta con un socio o cliente piloto."],["documento con canales, metas de venta y actividades de mercadeo.","documento con canales, metas de venta y actividades de mercadeo.","documento con canales, metas de venta y actividades de mercadeo.","documento con canales, metas de venta y actividades de mercadeo."],["cotización aceptada, venta de prueba o encuesta de disposición a pagar.","cotización aceptada, venta de prueba o encuesta de disposición a pagar.","cotización aceptada, venta de prueba o encuesta de disposición a pagar.","cotización aceptada, venta de prueba o encuesta de disposición a pagar."],["estado de resultados proyectado con los supuestos explicados.","estado de resultados proyectado con los supuestos explicados.","estado de resultados proyectado con los supuestos explicados.","estado de resultados proyectado con los supuestos explicados."],["registro INVIMA o ICA, normas técnicas o certificaciones requeridas.","registro sanitario, habilitación, comité de ética o normas de datos de salud.","requisitos de la entidad competente o de reserva de actividad profesional.","requisitos del MEN o del sector, protección de datos y derechos de autor."]]},{"n":7,"title":"Validación del modelo financiero y la unidad de toma de decisiones","desc":"El diseño del producto está completo por lo que se puede finalizar y validar el modelo financiero.","q":["¿Hay clientes que muestran una clara disposición a pagar (ajuste producto–mercado)?","¿Clientes y actores relevantes participaron en pruebas o calificaciones extendidas del producto?","¿Realizó ventas de prueba o primeras ventas de versiones del producto?","¿Validó el modelo financiero y las proyecciones con datos de ventas?","¿Tiene acuerdos con proveedores o canales de venta para poder escalar?"],"ex":[["cartas de intención firmadas, preórdenes o pagos de prueba.","cartas de intención firmadas, preórdenes o pagos de prueba.","cartas de intención firmadas, preórdenes o pagos de prueba.","cartas de intención firmadas, preórdenes o pagos de prueba."],["informe de pruebas con varios clientes durante semanas o meses.","informe de pruebas con varios clientes durante semanas o meses.","informe de pruebas con varios clientes durante semanas o meses.","informe de pruebas con varios clientes durante semanas o meses."],["facturas o contratos de las primeras ventas.","facturas o contratos de las primeras ventas.","facturas o contratos de las primeras ventas.","facturas o contratos de las primeras ventas."],["proyecciones actualizadas con precios y costos reales.","proyecciones actualizadas con precios y costos reales.","proyecciones actualizadas con precios y costos reales.","proyecciones actualizadas con precios y costos reales."],["acuerdo con un distribuidor, proveedor o aliado institucional.","acuerdo con un distribuidor, proveedor o aliado institucional.","acuerdo con un distribuidor, proveedor o aliado institucional.","acuerdo con un distribuidor, proveedor o aliado institucional."]]},{"n":8,"title":"Introducción preliminar al mercado o sociedad","desc":"Las calificaciones de todos los interesados están completas y los primeros productos se fabrican y venden. La preparación para la comercialización continúa madurando para respaldar la producción y ventas a mayor escala.","q":["¿Tiene ventas iniciales a compradores o usuarios objetivo?","¿Cuenta con las certificaciones y el cumplimiento normativo del producto y de su operación?","¿Tiene estrategias para ampliar la producción y las ventas a mayor escala?","¿Sus métricas muestran que el modelo es rentable (por ejemplo, el costo de conseguir clientes es razonable)?"],"ex":[["contratos o facturas con clientes objetivo.","contratos o facturas con clientes objetivo.","contratos o facturas con clientes objetivo.","contratos o facturas con clientes objetivo."],["certificado de conformidad o registro sanitario o agrícola.","registro sanitario, habilitación o resolución del comité de ética.","concepto o autorización de la entidad competente.","aval o registro ante la entidad competente."],["plan de expansión con metas, recursos y canales.","plan de expansión con metas, recursos y canales.","plan de expansión con metas, recursos y canales.","plan de expansión con metas, recursos y canales."],["costo de conseguir un cliente frente a lo que ese cliente deja.","costo de conseguir un cliente frente a lo que ese cliente deja.","costo de conseguir un cliente frente a lo que ese cliente deja.","costo de conseguir un cliente frente a lo que ese cliente deja."]]},{"n":9,"title":"Lanzamiento al mercado / transferencia a la sociedad","desc":"El modelo de negocio es definitivo y se está expandiendo con ingresos recurrentes crecientes que dan como resultado un negocio rentable y sostenible","q":["¿Vende a varios clientes de forma repetible y escalable?","¿Tiene un modelo de negocio definitivo con ingresos crecientes y recurrentes?","¿El negocio crece en nuevos mercados, geografías o segmentos y es rentable y sostenible en el tiempo?"],"ex":[["base de clientes y facturación de los últimos 12 meses.","base de clientes y facturación de los últimos 12 meses.","base de clientes y facturación de los últimos 12 meses.","base de clientes y facturación de los últimos 12 meses."],["ingresos mensuales recurrentes y contratos vigentes.","ingresos mensuales recurrentes y contratos vigentes.","ingresos mensuales recurrentes y contratos vigentes.","ingresos mensuales recurrentes y contratos vigentes."],["ventas en otra ciudad, país o segmento y estado de resultados.","ventas en otra ciudad, país o segmento y estado de resultados.","ventas en otra ciudad, país o segmento y estado de resultados.","ventas en otra ciudad, país o segmento y estado de resultados."]]}]},{"k":"IPRL","name":"Propiedad intelectual","long":"Intellectual Property Readiness Level","levels":[{"n":1,"title":"Hipótesis inicial de propiedad Intelectual","desc":"Se cuenta con una hipótesis inicial sobre posibles mecanismos de protección de la propiedad intelectual que podría tener (como patentes, software, derechos de autor, diseños, secretos comerciales, etc.)","q":["¿Tiene una hipótesis inicial de qué podría protegerse (patente, software, derecho de autor, diseño, secreto)?","¿Tiene alguna descripción, aunque sea general, de los posibles derechos de propiedad intelectual?"],"ex":[["patente del dispositivo y derecho de autor del software.","derecho de autor del protocolo o instrumento, secreto empresarial de la metodología, patente si es un dispositivo.","derecho de autor del texto de la guía o modelo, marca del servicio.","derecho de autor de la metodología y sus materiales, marca del programa."],["un párrafo que explique qué sería protegible y por qué.","un párrafo que explique qué sería protegible y por qué.","un párrafo que explique qué sería protegible y por qué.","un párrafo que explique qué sería protegible y por qué."]]},{"n":2,"title":"Mapeo de formas de protección de propiedad intelectual presentes y futuras","desc":"Se realizó el mapeo de diferentes formas de protección de propiedad intelectual que existen o podrían emanar durante el desarrollo de su innovación específicamente. Existen ideas específicas para proteger la propiedad intelectual, pero no están bien descritas y definidas.","q":["¿Mapeó las formas de protección que existen o podrían surgir durante el desarrollo?","¿Aclaró quiénes son los inventores o autores y conoce las políticas de PI que le aplican?","¿Verificó que los derechos de PI están bajo control de la universidad o del equipo (acuerdos, cesiones)?"],"ex":[["tabla con cada resultado y su posible forma de protección (patente, autor, marca, secreto).","tabla con cada resultado y su posible forma de protección (patente, autor, marca, secreto).","tabla con cada resultado y su posible forma de protección (patente, autor, marca, secreto).","tabla con cada resultado y su posible forma de protección (patente, autor, marca, secreto)."],["lista de autores con su aporte y revisión del reglamento de propiedad intelectual de la universidad.","lista de autores con su aporte y revisión del reglamento de propiedad intelectual de la universidad.","lista de autores con su aporte y revisión del reglamento de propiedad intelectual de la universidad.","lista de autores con su aporte y revisión del reglamento de propiedad intelectual de la universidad."],["contratos con estudiantes, coautores o financiadores que aclaran a quién pertenece.","contratos con estudiantes, coautores o financiadores que aclaran a quién pertenece.","contratos con estudiantes, coautores o financiadores que aclaran a quién pertenece.","contratos con estudiantes, coautores o financiadores que aclaran a quién pertenece."]]},{"n":3,"title":"Identificación de formas de protección de propiedad intelectual y vigilancia tecnológica preliminar","desc":"Identificación de posibles formas de protección de propiedad intelectual. Información detallada para demostrar novedad del desarrollo a través de vigilancia tecnológica (estado de la técnica).","q":["¿Describió la invención o creación con suficiente detalle (divulgación de la invención)?","¿Hizo búsquedas propias de publicaciones y del estado de la técnica?","¿Decidió qué formas de PI son clave y deberían protegerse?"],"ex":[["formato de divulgación de la invención con figuras y reivindicaciones tentativas.","documento que describe el protocolo o instrumento con detalle suficiente para replicarlo.","documento que describe la propuesta o herramienta, su estructura y lo original.","documento que describe la metodología o programa, sus etapas y lo original."],["búsqueda en Google Patents y Scopus con sus resultados.","búsqueda en PubMed, Scopus y bases de instrumentos.","búsqueda en bases jurídicas, repositorios y derecho comparado.","búsqueda en bases académicas y repositorios."],["nota que priorice: 1) patente, 2) derecho de autor, 3) marca.","nota que priorice: 1) patente, 2) derecho de autor, 3) marca.","nota que priorice: 1) patente, 2) derecho de autor, 3) marca.","nota que priorice: 1) patente, 2) derecho de autor, 3) marca."]]},{"n":4,"title":"Estudio preliminar de patentabilidad u otro mecanismo de protección","desc":"Novedad y/o patentabilidad confirmadas mediante búsquedas/análisis por profesionales. Se deciden formas alternativas de protección si las patentes no son adecuadas.","q":["¿Confirmó la novedad y patentabilidad con búsquedas hechas por profesionales?","¿Definió las prioridades de protección y las alternativas si la patente no es adecuada?","¿Presentó una solicitud provisional u otro registro inicial?"],"ex":[["informe de búsqueda de patentabilidad de un profesional o de la oficina de propiedad intelectual.","informe de búsqueda de patentabilidad de un profesional o de la oficina de propiedad intelectual.","informe de búsqueda de patentabilidad de un profesional o de la oficina de propiedad intelectual.","informe de búsqueda de patentabilidad de un profesional o de la oficina de propiedad intelectual."],["documento que explique por qué se protege con derecho de autor o secreto si no procede patente.","documento que explique por qué se protege con derecho de autor o secreto si no procede patente.","documento que explique por qué se protege con derecho de autor o secreto si no procede patente.","documento que explique por qué se protege con derecho de autor o secreto si no procede patente."],["radicado de solicitud de patente ante la SIC.","registro de obra o software ante la Dirección Nacional de Derecho de Autor.","registro de la obra ante la Dirección Nacional de Derecho de Autor.","registro de la obra o de la marca."]]},{"n":5,"title":"Borrador de la estrategia de propiedad intelectual y primera solicitud de protección de PI","desc":"Se cuenta con la estrategia borrador para protección de propiedad intelectual. Se ha consultado la opinión de expertos en propiedad intelectual y la búsqueda de recursos para iniciar el proceso de protección de ser necesario. Se realiza la presentación de la solicitud de protección","q":["¿Tiene un borrador de estrategia de PI revisado por un experto?","¿Presentó la primera solicitud completa (patente u otro registro) con acompañamiento profesional?","¿Tiene acuerdos vigentes que definen el control de los derechos (cesión, titularidad)?"],"ex":[["documento de estrategia con concepto de un abogado o de la oficina de propiedad intelectual.","documento de estrategia con concepto de un abogado o de la oficina de propiedad intelectual.","documento de estrategia con concepto de un abogado o de la oficina de propiedad intelectual.","documento de estrategia con concepto de un abogado o de la oficina de propiedad intelectual."],["solicitud de patente radicada con acompañamiento de un agente.","registro de derecho de autor o solicitud de patente radicada.","registro de derecho de autor de la obra o de la marca radicado.","registro de derecho de autor o de marca radicado."],["contratos de cesión de derechos patrimoniales firmados por los autores.","contratos de cesión de derechos patrimoniales firmados por los autores.","contratos de cesión de derechos patrimoniales firmados por los autores.","contratos de cesión de derechos patrimoniales firmados por los autores."]]},{"n":6,"title":"Implementación de estrategia de propiedad intelectual","desc":"Se cuenta con la primera respuesta positiva de protección de propiedad intelectual. Es posible que se contemplen otras formas de protección de propiedad intelectual teniendo en cuenta el grado de madurez tecnológico, social y comercial","q":["¿Recibió una respuesta positiva de la autoridad sobre su solicitud (o hizo el análisis de la respuesta)?","¿Tiene una estrategia de PI validada por un profesional y vinculada a la estrategia comercial?","¿Hizo una evaluación inicial de libertad para operar o un mapa (paisaje) de patentes?"],"ex":[["concepto favorable de patentabilidad o resolución de registro.","concepto favorable de patentabilidad o resolución de registro.","concepto favorable de patentabilidad o resolución de registro.","concepto favorable de patentabilidad o resolución de registro."],["estrategia de propiedad intelectual que dice cómo se licenciará o transferirá.","estrategia de propiedad intelectual que dice cómo se licenciará o transferirá.","estrategia de propiedad intelectual que dice cómo se licenciará o transferirá.","estrategia de propiedad intelectual que dice cómo se licenciará o transferirá."],["mapa de patentes de terceros en el mismo campo.","revisión de patentes y registros de instrumentos similares.","revisión de obras y marcas similares ya registradas.","revisión de obras y marcas similares ya registradas."]]},{"n":7,"title":"Se presentan todos los derechos de propiedad Intelectual pertinentes","desc":"Ya se cuenta con una protección de propiedad intelectual y se realiza la presentación de otras formas de protección de haber sido identificadas en el anterior nivel.","q":["¿Presentó otras protecciones pertinentes (marcas, diseños, solicitudes complementarias)?","¿Inició fases nacionales o internacionales de la solicitud (por ejemplo, PCT)?"],"ex":[["registro de marca y de diseño industrial.","registro de marca del programa o instrumento y de software.","registro de marca del servicio o de la plataforma.","registro de marca del programa y de sus materiales."],["solicitud PCT o en otros países, con su número de radicado.","solicitud PCT o en otros países, con su número de radicado.","solicitud PCT o en otros países, con su número de radicado.","solicitud PCT o en otros países, con su número de radicado."]]},{"n":8,"title":"Estrategia de propiedad intelectual completamente implementada en el proyecto","desc":"La estrategia de propiedad intelectual está plenamente aplicada y hay una evaluación detallada de libertad de operación.","q":["¿Le concedieron la primera patente u otro derecho con alcance relevante para el negocio?","¿Implementó por completo la estrategia de PI y gestiona los acuerdos de forma profesional?","¿Realizó una evaluación detallada de libertad de operación?"],"ex":[["resolución de concesión o certificado de registro.","resolución de concesión o certificado de registro.","resolución de concesión o certificado de registro.","resolución de concesión o certificado de registro."],["contratos de licencia, confidencialidad y titularidad gestionados por la oficina.","contratos de licencia, confidencialidad y titularidad gestionados por la oficina.","contratos de licencia, confidencialidad y titularidad gestionados por la oficina.","contratos de licencia, confidencialidad y titularidad gestionados por la oficina."],["informe de libertad de operación elaborado por un profesional.","informe de libertad de operación elaborado por un profesional.","informe de libertad de operación elaborado por un profesional.","informe de libertad de operación elaborado por un profesional."]]},{"n":9,"title":"Fuerte apoyo y protección de los derechos de propiedad intelectual","desc":"Concesión de derecho de propiedad intelectual como por ejemplo patentes en los países de potencial aplicación y mantenimiento en vigor de la estrategia de derechos de propiedad intelectual, o secretos empresariales y marcas registradas.","q":["¿Tiene derechos concedidos y en vigor en los países relevantes?","¿El derecho está vigente y sin procedimientos de invalidación?","¿Protege otras formas (marcas, diseños, secretos, acuerdos) que respaldan el negocio?"],"ex":[["certificados vigentes en los países objetivo.","certificados vigentes en los países objetivo.","certificados vigentes en los países objetivo.","certificados vigentes en los países objetivo."],["certificado de vigencia y pago de anualidades al día.","certificado de vigencia y pago de anualidades al día.","certificado de vigencia y pago de anualidades al día.","certificado de vigencia y pago de anualidades al día."],["marcas registradas, secretos con acuerdos y licencias vigentes.","marcas registradas, secretos con acuerdos y licencias vigentes.","marcas registradas, secretos con acuerdos y licencias vigentes.","marcas registradas, secretos con acuerdos y licencias vigentes."]]}]},{"k":"TMRL","name":"Equipo de trabajo","long":"Team Readiness Level","levels":[{"n":1,"title":"Faltan por cubrir roles clave y todavía no se es consciente de la necesidad de un equipo","desc":"Poca percepción de las competencias necesarias (conocimiento, habilidades) y otros recursos que debe tener el equipo de trabajo. No hay consideración o interés en construir un equipo de trabajo con habilidades y experticia enfocada en el área investigativa específica.","q":["¿El equipo tiene claro qué conocimientos, habilidades y recursos necesita el desarrollo?","¿Hay interés en conformar un equipo con experiencia en el área específica de la investigación?"],"ex":[["perfiles que faltan: electrónica, agronomía, software.","perfiles que faltan: clínico, estadístico, metodólogo.","perfiles que faltan: abogado especialista, experto sectorial, estadístico.","perfiles que faltan: pedagogo, estadístico, diseñador."],["invitación a un docente o semillero del área específica.","invitación a un docente o semillero del área específica.","invitación a un docente o semillero del área específica.","invitación a un docente o semillero del área específica."]]},{"n":2,"title":"Visión y primera idea sobre competencias necesarias o recursos externos","desc":"El equipo de trabajo cuenta con una idea de las competencias y/o recursos adicionales necesarios. Se cuenta con competencias limitadas, usualmente sobre un individuo.","q":["¿Tiene una idea de las competencias y recursos adicionales que necesita?","¿Cuenta al menos con una persona que tiene las competencias principales del desarrollo?"],"ex":[["nota con los perfiles o recursos externos que necesita.","nota con los perfiles o recursos externos que necesita.","nota con los perfiles o recursos externos que necesita.","nota con los perfiles o recursos externos que necesita."],["hoja de vida del investigador principal con su experiencia en el tema.","hoja de vida del investigador principal con su experiencia en el tema.","hoja de vida del investigador principal con su experiencia en el tema.","hoja de vida del investigador principal con su experiencia en el tema."]]},{"n":3,"title":"Algunas de las competencias / recursos necesarios están presentes. Competencias / recursos necesarios definidos (y plan para encontrar)","desc":"Se han definido las competencias/recursos existentes y necesarios y se han identificado los espacios que hay que llenar. Se establece un \"plan de equipo\" inicial para lo que más se necesita a corto plazo (<1 año) y cómo encontrar estas competencias prioritarias.","q":["¿Definió las competencias y recursos que ya tiene y los que le faltan?","¿Tiene un plan de equipo inicial (menos de 1 año) con la forma de conseguir las competencias prioritarias?"],"ex":[["tabla de competencias: quién las tiene y cuáles faltan.","tabla de competencias: quién las tiene y cuáles faltan.","tabla de competencias: quién las tiene y cuáles faltan.","tabla de competencias: quién las tiene y cuáles faltan."],["plan a 12 meses con los perfiles a vincular y cómo conseguirlos.","plan a 12 meses con los perfiles a vincular y cómo conseguirlos.","plan a 12 meses con los perfiles a vincular y cómo conseguirlos.","plan a 12 meses con los perfiles a vincular y cómo conseguirlos."]]},{"n":4,"title":"Asignación de líder de equipo e identificación de múltiples competencias. Inicio del plan para contratar u obtener recursos clave adicionales","desc":"Se cuenta con un líder o representante del equipo de trabajo que va a liderar el proceso de validación del resultado de investigación. Se ha iniciado la incorporación de más miembros al equipo de trabajo con las competencias clave (estudiantes de pregrado, maestría, semilleros, aliados externos).El equipo ha iniciado debates sobre la propiedad intelectual de los desarrollos y compromisos a mediano y largo plazo.","q":["¿Designó un líder o representante del equipo para el proceso de validación?","¿Inició la vinculación de más integrantes (estudiantes, semilleros, aliados) con competencias clave?","¿El equipo empezó a conversar sobre propiedad intelectual y compromisos a mediano y largo plazo?"],"ex":[["acta que designa al líder o representante.","acta que designa al líder o representante.","acta que designa al líder o representante.","acta que designa al líder o representante."],["cartas de vinculación de estudiantes, semilleristas o aliados externos.","cartas de vinculación de estudiantes, semilleristas o aliados externos.","cartas de vinculación de estudiantes, semilleristas o aliados externos.","cartas de vinculación de estudiantes, semilleristas o aliados externos."],["acta de reunión donde se habló de autoría y titularidad.","acta de reunión donde se habló de autoría y titularidad.","acta de reunión donde se habló de autoría y titularidad.","acta de reunión donde se habló de autoría y titularidad."]]},{"n":5,"title":"Equipo de trabajo inicial con las principales competencias necesarias. El equipo ha discutido los roles y han alineado objetivos","desc":"El equipo de trabajo está alineado con funciones asignadas, roles, compromisos y tiempos de ejecución. Se ha acordado la participación con base en el compromiso y contribución histórica en el proyecto.","q":["¿Están asignados las funciones, roles, compromisos y tiempos de ejecución?","¿Acordaron la participación de cada integrante según su compromiso y contribución al proyecto?"],"ex":[["matriz de responsabilidades con roles, tareas y fechas.","matriz de responsabilidades con roles, tareas y fechas.","matriz de responsabilidades con roles, tareas y fechas.","matriz de responsabilidades con roles, tareas y fechas."],["acuerdo firmado con los porcentajes o criterios de participación.","acuerdo firmado con los porcentajes o criterios de participación.","acuerdo firmado con los porcentajes o criterios de participación.","acuerdo firmado con los porcentajes o criterios de participación."]]},{"n":6,"title":"Equipo complementario, diverso y comprometido","desc":"Se tienen las competencias/recursos tanto empresariales como tecnológicas. Se ha realizado la contratación de expertos clave en el desarrollo de esta etapa del nivel de madurez de desarrollo tecnológico. Se han adquirido recursos y habilidades a través de convocatorias externas (habilidades de emprendimiento, gestión comercial, transferencia, etc). Identificación de riesgos de rendimiento del equipo.","q":["¿El equipo reúne competencias tecnológicas y empresariales o de gestión?","¿Vinculó expertos clave para esta etapa del desarrollo?","¿Adquirió habilidades o recursos mediante convocatorias externas (emprendimiento, gestión comercial, transferencia)?","¿Identificó los riesgos de desempeño del equipo?"],"ex":[["un perfil técnico y otro de gestión o negocios.","un perfil técnico y otro de gestión o negocios.","un perfil técnico y otro de gestión o negocios.","un perfil técnico y otro de gestión o negocios."],["contrato o carta de un asesor experto en el tema.","contrato o carta de un asesor experto en el tema.","contrato o carta de un asesor experto en el tema.","contrato o carta de un asesor experto en el tema."],["certificado de un programa de emprendimiento o de transferencia.","certificado de un programa de emprendimiento o de transferencia.","certificado de un programa de emprendimiento o de transferencia.","certificado de un programa de emprendimiento o de transferencia."],["matriz de riesgos del equipo (dependencia de una persona, disponibilidad).","matriz de riesgos del equipo (dependencia de una persona, disponibilidad).","matriz de riesgos del equipo (dependencia de una persona, disponibilidad).","matriz de riesgos del equipo (dependencia de una persona, disponibilidad)."]]},{"n":7,"title":"El equipo y la cultura están plenamente implantados y desarrollados proactivamente","desc":"El equipo de trabajo está bien alineado con las metas y visión de proyecto y han adquirido habilidades necesarias para la transferencia del resultado de investigación. Se cuenta con un plan actualizado para construir el equipo necesario a largo plazo.","q":["¿El equipo está alineado con las metas y la visión del proyecto?","¿Adquirió las habilidades necesarias para transferir el resultado de investigación?","¿Tiene un plan actualizado para construir el equipo necesario a largo plazo?"],"ex":[["visión y metas del proyecto firmadas o socializadas al equipo.","visión y metas del proyecto firmadas o socializadas al equipo.","visión y metas del proyecto firmadas o socializadas al equipo.","visión y metas del proyecto firmadas o socializadas al equipo."],["certificados de formación en propiedad intelectual, negociación o emprendimiento.","certificados de formación en propiedad intelectual, negociación o emprendimiento.","certificados de formación en propiedad intelectual, negociación o emprendimiento.","certificados de formación en propiedad intelectual, negociación o emprendimiento."],["plan de talento a 2 o 3 años actualizado.","plan de talento a 2 o 3 años actualizado.","plan de talento a 2 o 3 años actualizado.","plan de talento a 2 o 3 años actualizado."]]},{"n":8,"title":"Hay un claro liderazgo y gestión","desc":"Existen y se utilizan asesores pertinentes principalmente desde el ámbito comercial. Las contrataciones necesarias de acuerdo con un plan a largo plazo están en curso para contar con las competencias necesarias.","q":["¿Existe un liderazgo y una gestión claros?","¿Cuenta con asesores pertinentes, principalmente del ámbito comercial?","¿Están en marcha las contrataciones según un plan a largo plazo?"],"ex":[["organigrama con quién decide y quién ejecuta.","organigrama con quién decide y quién ejecuta.","organigrama con quién decide y quién ejecuta.","organigrama con quién decide y quién ejecuta."],["carta o acta con un asesor comercial o mentor.","carta o acta con un asesor comercial o mentor.","carta o acta con un asesor comercial o mentor.","carta o acta con un asesor comercial o mentor."],["proceso de vinculación abierto según el plan.","proceso de vinculación abierto según el plan.","proceso de vinculación abierto según el plan.","proceso de vinculación abierto según el plan."]]},{"n":9,"title":"Equipo y organización de alto rendimiento y bien estructurado que se mantiene y funciona a lo largo del tiempo","desc":"El equipo está motivado, entrenado y recompensado para alcanzar las metas. Existe una cultura sólida, una estructura clara y funcional (organización, roles, etc.) con procesos, etc","q":["¿El equipo está motivado, entrenado y reconocido por alcanzar las metas?","¿Existe una estructura clara y funcional (roles, procesos) que se mantiene en el tiempo?"],"ex":[["incentivos, reconocimientos o evaluaciones de clima del equipo.","incentivos, reconocimientos o evaluaciones de clima del equipo.","incentivos, reconocimientos o evaluaciones de clima del equipo.","incentivos, reconocimientos o evaluaciones de clima del equipo."],["manual de roles y procesos aplicado de forma regular.","manual de roles y procesos aplicado de forma regular.","manual de roles y procesos aplicado de forma regular.","manual de roles y procesos aplicado de forma regular."]]}]},{"k":"FRL","name":"Financiación","long":"Funding Readiness Level","levels":[{"n":1,"title":"No hay una visión clara de las necesidades de financiación y opciones de financiación","desc":"No hay una visión de la cantidad de financiación necesaria para lograr la madurez del resultado de transferencia de resultados de investigación","q":["¿Tiene una idea comercial inicial descrita de forma comprensible?","¿Tiene una idea de cuánta financiación necesita y para qué?"],"ex":[["una página que explique qué ofrece y a quién.","una página que explique qué ofrece y a quién.","una página que explique qué ofrece y a quién.","una página que explique qué ofrece y a quién."],["estimación en pesos y para qué rubros.","estimación en pesos y para qué rubros.","estimación en pesos y para qué rubros.","estimación en pesos y para qué rubros."]]},{"n":2,"title":"Necesidades de financiación definidas y opciones de financiamiento para hitos iniciales","desc":"Se ha realizado la identificación inicial de las necesidades de financiación y rubros asociado. Se ha realizado un plan presupuestal con hitos clave para el resultado de transferencia de resultados de investigación.","q":["¿Avanzó en el concepto de negocio y en una primera propuesta de valor (por ejemplo, NABC)?","¿Mapeó las necesidades iniciales de financiación (costos y presupuesto) por hitos?","¿Tiene un plan básico con opciones de financiación para los primeros hitos (3 a 6 meses)?"],"ex":[["tabla NABC (necesidad, enfoque, beneficios, competencia).","tabla NABC (necesidad, enfoque, beneficios, competencia).","tabla NABC (necesidad, enfoque, beneficios, competencia).","tabla NABC (necesidad, enfoque, beneficios, competencia)."],["presupuesto por hitos con personal, equipos, ensayos y trámites.","presupuesto por hitos con personal, equipos, ensayos y trámites.","presupuesto por hitos con personal, equipos, ensayos y trámites.","presupuesto por hitos con personal, equipos, ensayos y trámites."],["lista de convocatorias internas o de la universidad a las que aplicará.","lista de convocatorias internas o de la universidad a las que aplicará.","lista de convocatorias internas o de la universidad a las que aplicará.","lista de convocatorias internas o de la universidad a las que aplicará."]]},{"n":3,"title":"Mapeo de herramientas de financiación incluyendo requisitos de entrada","desc":"Visión básica y conocimiento de las diferentes opciones de financiación. Se ha obtenido una primera financiación para el avance en el estado de madurez del desarrollo.","q":["¿Describió bien el concepto de negocio y un plan inicial de verificación (hipótesis y objetivos)?","¿Conoce las opciones de financiación y sus requisitos de entrada?","¿Obtuvo una primera financiación para avanzar en la madurez del desarrollo (por ejemplo, recursos internos)?"],"ex":[["hipótesis por validar con metas y fechas.","hipótesis por validar con metas y fechas.","hipótesis por validar con metas y fechas.","hipótesis por validar con metas y fechas."],["cuadro con convocatorias (Minciencias, iNNpulsa, SENA, cooperación) y sus requisitos.","cuadro con convocatorias (Minciencias, iNNpulsa, SENA, cooperación) y sus requisitos.","cuadro con convocatorias (Minciencias, iNNpulsa, SENA, cooperación) y sus requisitos.","cuadro con convocatorias (Minciencias, iNNpulsa, SENA, cooperación) y sus requisitos."],["resolución o acta de asignación de recursos internos o externos.","resolución o acta de asignación de recursos internos o externos.","resolución o acta de asignación de recursos internos o externos.","resolución o acta de asignación de recursos internos o externos."]]},{"n":4,"title":"Primeros contactos con inversores externos","desc":"Plan estructurado con diferentes opciones de financiación en el tiempo. ( 12-18 meses), con presupuesto y posibles fuentes de financiación. Se planifica la primera oferta para obtención de mayor financiación a través de convocatorias internas, externas, pruebas de concepto, etc.","q":["¿Tiene un discurso breve (pitch) y una presentación escrita del concepto de negocio?","¿Tiene un plan de financiación a 12–18 meses con presupuesto y posibles fuentes?","¿Planeó o hizo contactos con inversionistas o convocatorias para una primera oferta?"],"ex":[["pitch de 3 minutos y resumen ejecutivo de 2 páginas.","pitch de 3 minutos y resumen ejecutivo de 2 páginas.","pitch de 3 minutos y resumen ejecutivo de 2 páginas.","pitch de 3 minutos y resumen ejecutivo de 2 páginas."],["cronograma financiero con fuentes por trimestre.","cronograma financiero con fuentes por trimestre.","cronograma financiero con fuentes por trimestre.","cronograma financiero con fuentes por trimestre."],["correos o actas de reuniones con posibles financiadores.","correos o actas de reuniones con posibles financiadores.","correos o actas de reuniones con posibles financiadores.","correos o actas de reuniones con posibles financiadores."]]},{"n":5,"title":"Presentación orientada a inversionistas y un plan de financiación a largo plazo","desc":"Se cuenta con material de apoyo: Proyecciones financieras y presupuestos. Se obtiene mayor financiación para el avance del desarrollo.","q":["¿Cuenta con una presentación para inversionistas (pitch deck) probada y en ajuste?","¿Está desarrollando proyecciones financieras y presupuestos?","¿Preparó o presentó solicitudes a otras fuentes (subvenciones, convocatorias, préstamos)?"],"ex":[["presentación probada ante mentores o comité, con sus comentarios.","presentación probada ante mentores o comité, con sus comentarios.","presentación probada ante mentores o comité, con sus comentarios.","presentación probada ante mentores o comité, con sus comentarios."],["flujo de caja proyectado a 3 años.","flujo de caja proyectado a 3 años.","flujo de caja proyectado a 3 años.","flujo de caja proyectado a 3 años."],["propuestas radicadas en convocatorias o solicitudes de crédito.","propuestas radicadas en convocatorias o solicitudes de crédito.","propuestas radicadas en convocatorias o solicitudes de crédito.","propuestas radicadas en convocatorias o solicitudes de crédito."]]},{"n":6,"title":"Sólido caso de inversión y discusiones con los inversores potenciales en curso alrededor de una oferta","desc":"Se cuenta con un plan completo de financiación y conversaciones con posibles inversionistas. Existe una alineación de las visiones del equipo en torno a la inversión.","q":["¿Tiene un pitch deck probado que incluye potencial comercial y finanzas?","¿Definió una primera oferta (monto, valoración y uso de los fondos)?","¿El equipo decidió buscar financiación de capital y aceptar nuevos socios?"],"ex":[["pitch deck con mercado, tracción y proyecciones.","pitch deck con mercado, tracción y proyecciones.","pitch deck con mercado, tracción y proyecciones.","pitch deck con mercado, tracción y proyecciones."],["documento con monto buscado, uso de fondos y participación ofrecida.","documento con monto buscado, uso de fondos y participación ofrecida.","documento con monto buscado, uso de fondos y participación ofrecida.","documento con monto buscado, uso de fondos y participación ofrecida."],["acta del equipo que aprueba recibir inversión.","acta del equipo que aprueba recibir inversión.","acta del equipo que aprueba recibir inversión.","acta del equipo que aprueba recibir inversión."]]},{"n":7,"title":"Se mantienen discusiones sobre la hoja de términos con inversores interesados","desc":"Se evidencia un interés claro por parte de los inversionistas interesados. Se dispone de todo el material necesario en el paquete tecnológico que requieren los inversionistas para su oferta.","q":["¿Tiene un plan de negocio completo con finanzas y plan de hitos?","¿Mantiene conversaciones con inversionistas sobre una oferta definida?","¿El equipo y los propietarios están alineados sobre la inversión?"],"ex":[["plan de negocio con finanzas y plan de hitos.","plan de negocio con finanzas y plan de hitos.","plan de negocio con finanzas y plan de hitos.","plan de negocio con finanzas y plan de hitos."],["correspondencia o actas con inversionistas sobre la oferta.","correspondencia o actas con inversionistas sobre la oferta.","correspondencia o actas con inversionistas sobre la oferta.","correspondencia o actas con inversionistas sobre la oferta."],["acuerdo de socios o acta de alineación.","acuerdo de socios o acta de alineación.","acuerdo de socios o acta de alineación.","acuerdo de socios o acta de alineación."]]},{"n":8,"title":"Inversión obtenida y ejecución del plan presentado","desc":"Hay orden corporativo y la estructura que permite la inversión. Se cuenta con discusiones y plan de trabajo con un inversionista(s) interesado.","q":["¿Tiene organizada la estructura y los acuerdos (titularidad, esquema de transferencia como spin-off o licencia)?","¿Tiene discusiones concretas u hoja de términos con inversionistas interesados?","¿Tiene listo el material que piden los inversionistas (finanzas, plan de negocio)?"],"ex":[["documentos de constitución de una spin-off o borrador de contrato de licencia.","documentos de constitución de una spin-off o borrador de contrato de licencia.","documentos de constitución de una spin-off o borrador de contrato de licencia.","documentos de constitución de una spin-off o borrador de contrato de licencia."],["hoja de términos (term sheet) o carta de interés.","hoja de términos (term sheet) o carta de interés.","hoja de términos (term sheet) o carta de interés.","hoja de términos (term sheet) o carta de interés."],["data room con finanzas, plan y documentos legales.","data room con finanzas, plan y documentos legales.","data room con finanzas, plan y documentos legales.","data room con finanzas, plan y documentos legales."]]},{"n":9,"title":"Inversión obtenida y necesidades y opciones de inversión adicionales continuamente consideradas","desc":"Inversión formalmente concluida con toda la documentación pertinente. Se están considerando continuamente las necesidades y opciones de inversión futuras.","q":["¿Cerró formalmente la inversión, con toda la documentación, y recibió los recursos?","¿Evalúa de forma continua las necesidades y opciones de inversión futuras?"],"ex":[["contrato de inversión firmado y soporte del desembolso.","contrato de inversión firmado y soporte del desembolso.","contrato de inversión firmado y soporte del desembolso.","contrato de inversión firmado y soporte del desembolso."],["plan de la siguiente ronda de financiación.","plan de la siguiente ronda de financiación.","plan de la siguiente ronda de financiación.","plan de la siguiente ronda de financiación."]]}]},{"k":"SRL","name":"Madurez social","long":"Societal Readiness Level","levels":[{"n":1,"title":"Identificación de la problemática o necesidad de la sociedad","desc":"Este corresponde al nivel más bajo en cuanto al nivel de maduración social de un resultado de investigación. Comienza la investigación científica básica y con ella, la identificación del problema y la disponibilidad del entorno social para la adopción.","q":["¿Identificó con claridad un problema que afecta a la comunidad, contextualizado en su territorio?","¿Su resultado de investigación está alineado con al menos un Objetivo de Desarrollo Sostenible?"],"ex":[["«los agricultores de la vereda X pierden cosechas por plagas».","«las gestantes del barrio X no acceden a controles prenatales».","«los pequeños comerciantes de la localidad X no conocen sus derechos».","«los estudiantes del colegio X presentan alta deserción»."],["el proyecto contribuye al ODS 3 (salud) o al ODS 4 (educación), con su justificación.","el proyecto contribuye al ODS 3 (salud) o al ODS 4 (educación), con su justificación.","el proyecto contribuye al ODS 3 (salud) o al ODS 4 (educación), con su justificación.","el proyecto contribuye al ODS 3 (salud) o al ODS 4 (educación), con su justificación."]]},{"n":2,"title":"Concepto del potencial de la tecnología","desc":"En esta etapa se inicia la formulación del problema e descripción de la propuesta y su potencial impacto en la comunidad seleccionada. Se realiza la identificación de Stakeholders o partes interesadas relevantes para el proyecto.","q":["¿Identificó a los actores o partes interesadas relevantes del proyecto?","¿El proyecto se construyó a partir de los requerimientos de la universidad o de la comunidad a impactar?"],"ex":[["mapa de actores (comunidad, entidades públicas, empresas, universidad).","mapa de actores (comunidad, entidades públicas, empresas, universidad).","mapa de actores (comunidad, entidades públicas, empresas, universidad).","mapa de actores (comunidad, entidades públicas, empresas, universidad)."],["acta o carta donde la comunidad o una dependencia pidió la solución.","acta o carta donde la comunidad o una dependencia pidió la solución.","acta o carta donde la comunidad o una dependencia pidió la solución.","acta o carta donde la comunidad o una dependencia pidió la solución."]]},{"n":3,"title":"Prueba conceptual inicial de la (s) solución (es) propuesta (s) junto con las partes interesadas relevantes","desc":"Se ha realizado la socialización de la propuesta con los posibles interesados y una validación pre- comercial del desarrollo tecnológico con una porción de la población interesada.","q":["¿Inició el relacionamiento con los actores sociales participantes?","¿Tiene un plan para involucrar a los actores relevantes (investigadores, industria, sociedad civil)?","¿La propuesta evidencia participación de la comunidad?","¿Formuló hipótesis sobre las condiciones sociales y ambientales, positivas y negativas, de aplicar la solución?","¿Tiene un borrador del modelo de negocio social en formato lienzo?"],"ex":[["reuniones con líderes o entidades del territorio, con actas.","reuniones con líderes o entidades del territorio, con actas.","reuniones con líderes o entidades del territorio, con actas.","reuniones con líderes o entidades del territorio, con actas."],["plan de participación con actividades y responsables.","plan de participación con actividades y responsables.","plan de participación con actividades y responsables.","plan de participación con actividades y responsables."],["talleres de co-diseño con listados de asistencia.","talleres de co-diseño con listados de asistencia.","talleres de co-diseño con listados de asistencia.","talleres de co-diseño con listados de asistencia."],["documento con posibles beneficios y riesgos sociales y ambientales.","documento con posibles beneficios y riesgos sociales y ambientales.","documento con posibles beneficios y riesgos sociales y ambientales.","documento con posibles beneficios y riesgos sociales y ambientales."],["lienzo de modelo de negocio social o Canvas social.","lienzo de modelo de negocio social o Canvas social.","lienzo de modelo de negocio social o Canvas social.","lienzo de modelo de negocio social o Canvas social."]]},{"n":4,"title":"Problema validado a través de pruebas piloto en un ambiente controlado","desc":"Se realiza una prueba de concepto inicial con una muestra de la población objetivo, con el fin de corroborar la propuesta, impacto y apropiación social.","q":["¿La solución propuesta es pertinente frente al problema identificado inicialmente?","¿Hizo una primera verificación con actores y proveedores de su hipótesis de impacto social y ambiental?","¿Tiene un modelo de negocio social completo en formato lienzo?","¿Hizo una prueba piloto en un ambiente controlado con una muestra de la población objetivo?"],"ex":[["matriz que relaciona cada problema con la parte de la solución que lo atiende.","matriz que relaciona cada problema con la parte de la solución que lo atiende.","matriz que relaciona cada problema con la parte de la solución que lo atiende.","matriz que relaciona cada problema con la parte de la solución que lo atiende."],["encuestas o entrevistas a actores sobre el impacto esperado.","encuestas o entrevistas a actores sobre el impacto esperado.","encuestas o entrevistas a actores sobre el impacto esperado.","encuestas o entrevistas a actores sobre el impacto esperado."],["lienzo completo con beneficiarios, propuesta de valor e impacto.","lienzo completo con beneficiarios, propuesta de valor e impacto.","lienzo completo con beneficiarios, propuesta de valor e impacto.","lienzo completo con beneficiarios, propuesta de valor e impacto."],["demostración con un grupo de agricultores en la universidad.","taller piloto con un grupo pequeño de usuarios.","taller de socialización con un grupo de ciudadanos o empresarios.","sesión piloto con un grupo pequeño de participantes."]]},{"n":5,"title":"Soluciones propuestas validadas en un entorno relevante","desc":"Se realiza la validación de la propuesta a través de pruebas piloto en entornos reales o relevantes por parte de las partes interesadas o líderes relevantes para la comunidad. Es probable que la sociedad conozca la solución o iniciativas similares, pero no sea consciente de los beneficios.","q":["¿Existe apropiación de la comunidad en la toma de decisiones?","¿Validó la solución con pruebas piloto en entornos reales o relevantes junto con líderes o actores de la comunidad?","¿Probó, al menos en parte, el modelo de negocio social con clientes?","¿Identificó los factores de riesgo de la solución (recursos, redes, ambiente político, cultura)?","¿Definió estrategias de aplicación y cooperación?"],"ex":[["actas donde la comunidad decide ajustes al proyecto.","actas donde la comunidad decide ajustes al proyecto.","actas donde la comunidad decide ajustes al proyecto.","actas donde la comunidad decide ajustes al proyecto."],["piloto en el territorio con líderes locales y su informe.","piloto en el territorio con líderes locales y su informe.","piloto en el territorio con líderes locales y su informe.","piloto en el territorio con líderes locales y su informe."],["prueba de aceptación con clientes o beneficiarios.","prueba de aceptación con clientes o beneficiarios.","prueba de aceptación con clientes o beneficiarios.","prueba de aceptación con clientes o beneficiarios."],["matriz de riesgos (recursos, redes, contexto político, cultura).","matriz de riesgos (recursos, redes, contexto político, cultura).","matriz de riesgos (recursos, redes, contexto político, cultura).","matriz de riesgos (recursos, redes, contexto político, cultura)."],["plan de alianzas con entidades para aplicar la solución.","plan de alianzas con entidades para aplicar la solución.","plan de alianzas con entidades para aplicar la solución.","plan de alianzas con entidades para aplicar la solución."]]},{"n":6,"title":"Solución demostrada en un entorno relevante","desc":"Se realiza la demostración de que la solución propuesta atiende la necesidad o problemática de la sociedad. Se inicia un proceso de retroalimentación de las partes interesadas o líderes relevantes de la comunidad referente al impacto potencial. La sociedad ya conoce la solución y se evidencia un incremento del conocimiento de los beneficios de esta.","q":["¿Demostró que la solución atiende la necesidad o problemática de la sociedad?","¿Los resultados tienen aplicabilidad en el corto o mediano plazo?","¿Actualizó el modelo de negocio social con los comentarios de clientes y usuarios?","¿Describió de forma completa los factores de riesgo de la solución?"],"ex":[["resultados del piloto frente al problema inicial.","resultados del piloto frente al problema inicial.","resultados del piloto frente al problema inicial.","resultados del piloto frente al problema inicial."],["carta de una entidad que lo aplicaría en el próximo año.","carta de una entidad que lo aplicaría en el próximo año.","carta de una entidad que lo aplicaría en el próximo año.","carta de una entidad que lo aplicaría en el próximo año."],["versión 2 del modelo con los cambios pedidos por los usuarios.","versión 2 del modelo con los cambios pedidos por los usuarios.","versión 2 del modelo con los cambios pedidos por los usuarios.","versión 2 del modelo con los cambios pedidos por los usuarios."],["análisis de riesgos con medidas de mitigación.","análisis de riesgos con medidas de mitigación.","análisis de riesgos con medidas de mitigación.","análisis de riesgos con medidas de mitigación."]]},{"n":7,"title":"Refinamiento del proyecto o solución","desc":"Se llevan a cabo acciones de mejoramiento de la solución de acuerdo con la retroalimentación de las partes interesada o líderes relevantes de la comunidad. En esta etapa se hace necesario una segunda validación en un entorno relevante con las partes interesadas.","q":["¿Hay sesiones de revisión, actualización y control de las actividades realizadas?","¿Cuenta con una solución validada en contexto real, con resultados favorables y replicable?","¿Definió una medición de referencia del impacto para hacerle seguimiento y comunicarlo?"],"ex":[["actas de reuniones periódicas de seguimiento.","actas de reuniones periódicas de seguimiento.","actas de reuniones periódicas de seguimiento.","actas de reuniones periódicas de seguimiento."],["informe de implementación en el contexto real con resultados favorables.","informe de implementación en el contexto real con resultados favorables.","informe de implementación en el contexto real con resultados favorables.","informe de implementación en el contexto real con resultados favorables."],["línea de base con indicadores antes de la intervención.","línea de base con indicadores antes de la intervención.","línea de base con indicadores antes de la intervención.","línea de base con indicadores antes de la intervención."]]},{"n":8,"title":"Solución propuesta y plan de adaptación social","desc":"Se ha demostrado que la propuesta funciona en su forma final de la forma esperada y el plan de adaptación social se encuentra en marcha. La comunidad está lista para adoptar la solución.","q":["¿La solución resuelve total o parcialmente una necesidad de una comunidad o sector productivo?","¿Documentó los aprendizajes de implementar la solución en la comunidad?","¿Construyó un plan de adaptación social del resultado de investigación?","¿Comunica de forma transparente los impactos (positivos y negativos) ambientales y sociales?"],"ex":[["evaluación que muestra que el problema disminuyó.","evaluación que muestra que el problema disminuyó.","evaluación que muestra que el problema disminuyó.","evaluación que muestra que el problema disminuyó."],["informe de lecciones aprendidas.","informe de lecciones aprendidas.","informe de lecciones aprendidas.","informe de lecciones aprendidas."],["plan para que la comunidad adopte y mantenga la solución.","plan para que la comunidad adopte y mantenga la solución.","plan para que la comunidad adopte y mantenga la solución.","plan para que la comunidad adopte y mantenga la solución."],["informe público de impacto social y ambiental.","informe público de impacto social y ambiental.","informe público de impacto social y ambiental.","informe público de impacto social y ambiental."]]},{"n":9,"title":"Solución actual del proyecto probada en un entorno relevante","desc":"La solución real ha sido probada en entornos sociales relevantes y la comunidad objetivo ha adoptado o está utilizando la solución disponible en el mercado.","q":["¿La comunidad se apropió del resultado y lo integró en su vida cotidiana?","¿Evaluó la solución con otros actores y generó réplicas o escalamiento?","¿La ejecución generó vínculos con actores externos a la comunidad?"],"ex":[["la comunidad usa la solución sin acompañamiento.","la comunidad usa la solución sin acompañamiento.","la comunidad usa la solución sin acompañamiento.","la comunidad usa la solución sin acompañamiento."],["implementación en otro barrio, colegio o municipio.","implementación en otro barrio, colegio o municipio.","implementación en otro barrio, colegio o municipio.","implementación en otro barrio, colegio o municipio."],["convenios o redes con actores fuera de la comunidad.","convenios o redes con actores fuera de la comunidad.","convenios o redes con actores fuera de la comunidad.","convenios o redes con actores fuera de la comunidad."]]}]}];
+const GLOSS={"tec":[],"sal":[["Prototipo","versión piloto del protocolo o instrumento"],["Laboratorio o entorno controlado","consultorio, simulación clínica o laboratorio"],["Entorno real","servicio de salud o práctica cotidiana"],["Producción en serie","uso rutinario en varias instituciones"]],"jur":[["Prototipo","primera versión de la herramienta, guía o propuesta"],["Laboratorio o entorno controlado","taller con expertos, clínica jurídica o casos simulados"],["Entorno real","casos reales en una entidad, consultorio o empresa"],["Producción en serie","uso regular por varias entidades"]],"hum":[["Prototipo","versión piloto de la metodología, programa o modelo"],["Laboratorio o entorno controlado","aula o grupo piloto"],["Entorno real","institución o comunidad real"],["Producción en serie","replicación en varios sitios"]]};
+</script>
+<script>
+"use strict";
+/* ════════ Configuración ════════ */
+const CONFIG={
+  institucion:'Universidad Colegio Mayor de Cundinamarca',
+  oficina:'Oficina de Transferencia de Resultados de Investigación',
+  correoTransferencia:'',   // p. ej. 'transferencia@…' — si se deja vacío no se muestra el botón de correo
+  maxFileMB:8,
+  umbralDesequilibrio:3,
+};
+const KEY='madurez-unimayor:borrador';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
+const today=()=>new Date().toISOString().slice(0,10);
+const get=(o,p)=>p.split('.').reduce((a,k)=>a==null?undefined:a[k],o);
+const setp=(o,p,v)=>{const ks=p.split('.');let a=o;ks.slice(0,-1).forEach((k,i)=>{if(a[k]==null)a[k]=/^\d+$/.test(ks[i+1])?[]:{};a=a[k]});a[ks[ks.length-1]]=v};
+const fmtSize=b=>b>1048576?(b/1048576).toFixed(1)+' MB':Math.max(1,Math.round(b/1024))+' KB';
+const slug=s=>(s||'desarrollo').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-zA-Z0-9]+/g,'_').replace(/^_|_$/g,'').slice(0,40)||'desarrollo';
+
+/* ════════ Almacenamiento (IndexedDB con respaldo en memoria) ════════ */
+const DB={db:null,mem:new Map(),
+  async open(){ if(this.db!==null) return this.db;
+    try{ this.db=await new Promise((res,rej)=>{const r=indexedDB.open('madurez-unimayor',1);
+      r.onupgradeneeded=()=>{r.result.createObjectStore('files');r.result.createObjectStore('cases')};
+      r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}); }catch(e){ this.db=false }
+    return this.db},
+  async put(store,key,val){const db=await this.open(); if(!db){this.mem.set(store+'|'+key,val);return}
+    return new Promise((res,rej)=>{const t=db.transaction(store,'readwrite');t.objectStore(store).put(val,key);t.oncomplete=res;t.onerror=()=>rej(t.error)})},
+  async get(store,key){const db=await this.open(); if(!db) return this.mem.get(store+'|'+key);
+    return new Promise((res,rej)=>{const r=db.transaction(store).objectStore(store).get(key);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})},
+  async del(store,key){const db=await this.open(); if(!db){this.mem.delete(store+'|'+key);return}
+    return new Promise((res,rej)=>{const t=db.transaction(store,'readwrite');t.objectStore(store).delete(key);t.oncomplete=res;t.onerror=()=>rej(t.error)})},
+  async all(store){const db=await this.open(); if(!db) return [...this.mem].filter(([k])=>k.startsWith(store+'|')).map(([,v])=>v);
+    return new Promise((res,rej)=>{const r=db.transaction(store).objectStore(store).getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})},
+};
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,v);return true}catch(e){return false}};
+
+/* ════════ Estado ════════ */
+const blank=()=>({v:1,id:uid(),step:0,
+  ficha:{fecha:today(),creadores:[{}],entidades:[{}],redes:[{}],ods:{},enfoque:{},pi:{},div:{}},
+  perfil:{area:'',tipos:{}},answers:{},review:{}});
+let S=blank();
+{const raw=lsGet(KEY); if(raw){try{const o=JSON.parse(raw); if(o&&o.ficha&&o.answers) S=o}catch(e){}}}
+S.perfil=S.perfil||{area:'',tipos:{}};
+const UI={open:{},showAll:{},rvTab:0,rvId:null,perfilMsg:false};
+let R={cases:[],cur:null};   // modo revisión
+let mode='home';
+
+let saveT;
+function save(){
+  clearTimeout(saveT);
+  $('#saved').textContent='Guardando…';
+  saveT=setTimeout(()=>{const ok=lsSet(KEY,JSON.stringify(S)); $('#saved').textContent=ok?'Avance guardado en este navegador':'No se pudo guardar automáticamente: descargue su paquete para no perder el avance.'},350);
+}
+
+/* ════════ Modelo de cálculo ════════ */
+const keyOf=(d,n,i)=>`${d}-${n}-${i}`;
+const hasEv=a=>!!a&&((a.files&&a.files.length>0)||(a.link&&a.link.trim()!==''));
+function passes(st,m,k){
+  const a=st.answers[k]; if(!a||a.v!=='si') return false;
+  if(m==='decl') return true;
+  if(m==='evid') return hasEv(a);
+  return st.review&&st.review[k]&&st.review[k].s==='ok';
+}
+function dimLevel(st,d,m){
+  let reached=0,front=null;
+  for(const L of d.levels){
+    if(L.q.every((_,i)=>passes(st,m,keyOf(d.k,L.n,i)))) reached=L.n; else {front=L;break}
+  }
+  const prog=front?front.q.filter((_,i)=>passes(st,m,keyOf(d.k,front.n,i))).length/front.q.length:1;
+  const resolved=!front||front.q.every((_,i)=>{const a=st.answers[keyOf(d.k,front.n,i)];return a&&(a.v==='si'||a.v==='no')});
+  return {reached,front,prog,resolved};
+}
+const hasReview=st=>Object.values(st.review||{}).some(r=>r&&r.s);
+const levelInfo=(d,n)=>d.levels.find(l=>l.n===n);
+
+/* ════════ Perfil: área de conocimiento y tipo de resultado ════════ */
+// Cada área se asocia a una "familia" de lenguaje: tec, sal, jur o hum (ver ejemplos por pregunta).
+const AREAS=[
+  ['ing','Ingeniería y tecnología','tec'],
+  ['nat','Ciencias naturales, agrarias y ambientales','tec'],
+  ['sal','Ciencias de la salud','sal'],
+  ['psi','Psicología','sal'],
+  ['der','Derecho y ciencias políticas','jur'],
+  ['soc','Ciencias sociales y humanas','hum'],
+  ['edu','Educación y pedagogía','hum'],
+  ['eco','Ciencias económicas y administrativas','hum'],
+  ['art','Artes, diseño y comunicación','hum'],
+];
+const TIPOS=[
+  ['proto','Prototipo, dispositivo o equipo físico','tec','Ej.: un robot, un sensor, un equipo de laboratorio, un material.'],
+  ['soft','Software o aplicación','tec','Ej.: una app, una plataforma web, un modelo de inteligencia artificial.'],
+  ['clin','Protocolo clínico o de intervención','sal','Ej.: un protocolo de atención, una terapia, una guía de manejo.'],
+  ['instr','Instrumento, prueba o escala de evaluación','sal','Ej.: un test psicométrico, una escala de valoración, un cuestionario validado.'],
+  ['norm','Propuesta normativa, concepto jurídico o política pública','jur','Ej.: un proyecto de norma, un modelo de contrato, una guía de política.'],
+  ['metod','Metodología, modelo o marco conceptual','hum','Ej.: una metodología de enseñanza, un modelo de gestión, un marco de análisis.'],
+  ['prog','Programa educativo, formativo o de intervención social','hum','Ej.: un curso, un programa comunitario, una estrategia de convivencia.'],
+  ['serv','Servicio, proceso o modelo de negocio','hum','Ej.: un servicio de asesoría, un proceso de mejora, un modelo de emprendimiento.'],
+  ['obra','Obra creativa, diseño o contenido','hum','Ej.: un diseño gráfico, un documental, un material didáctico.'],
+  ['otro','Otro tipo de resultado','','Ej.: cualquier resultado que no encaje en los anteriores.'],
+];
+const TRACKS={tec:'Prototipo o software',sal:'Protocolo o instrumento',jur:'Propuesta jurídica',hum:'Metodología o programa'};
+const TIDX={tec:0,sal:1,jur:2,hum:3};
+function tracksOf(st){
+  const p=st.perfil||{}, a=AREAS.find(x=>x[0]===p.area), at=a?a[2]:'tec', tt=[];
+  TIPOS.forEach(t=>{if(p.tipos&&p.tipos[t[0]]&&t[2]&&!tt.includes(t[2])) tt.push(t[2])});
+  const primary=!tt.length?at:tt.length===1?tt[0]:(tt.includes(at)?at:tt[0]);
+  return {primary,show:tt.length?tt:[at]};
+}
+function perfilLabel(st){
+  const p=st.perfil||{}, a=AREAS.find(x=>x[0]===p.area);
+  const ts=TIPOS.filter(t=>p.tipos&&p.tipos[t[0]]).map(t=>t[1]);
+  return [a&&a[1],ts.join(' + ')].filter(Boolean).join(' · ');
+}
+function lvT(st,d,L){
+  if(d.k==='TRL'&&L.alt){const p=tracksOf(st).primary; if(p!=='tec'&&L.alt[p]) return L.alt[p]}
+  return {title:L.title,desc:L.desc};
+}
+function glossBlock(st,d){
+  if(d.k!=='TRL') return '';
+  const p=tracksOf(st).primary; if(p==='tec'||!GLOSS[p]||!GLOSS[p].length) return '';
+  return '<div class="tip"><b>Cómo leer esta escala en tu campo:</b> '+GLOSS[p].map(g=>'«'+g[0]+'» = '+g[1]).join(' · ')+'.</div>';
+}
+function exFor(st,d,L,i){
+  const arr=(L.ex&&L.ex[i])||[], groups=[];
+  tracksOf(st).show.forEach(tr=>{
+    const txt=arr[TIDX[tr]]; if(!txt) return;
+    const g=groups.find(x=>x.txt===txt); if(g) g.tr.push(tr); else groups.push({txt,tr:[tr]});
+  });
+  if(!groups.length) return '';
+  const many=groups.length>1;
+  return '<p class="ex">'+groups.map(g=>'<span><b>'+(many?g.tr.map(x=>TRACKS[x]).join(' / ')+':':'Ejemplo:')+'</b> '+esc(g.txt)+'</span>').join('')+'</p>';
+}
+const KW_AREA={
+  ing:/software|sensor|rob[oó]t|electr[oó]n|mec[aá]nic|dispositivo|prototipo|algoritm|circuito|energ[ií]a|ingenier|inteligencia artificial|internet de las cosas|hardware/i,
+  nat:/agr[ií]cola|cultivo|suelo|ambiental|biodiversidad|ecosistema|agroqu[ií]mic|qu[ií]mic|biolog|planta|agua/i,
+  sal:/paciente|cl[ií]nic|salud|enfermer|diagn[oó]stic|terapia|hospital|m[eé]dic|bacteriolog|optometr|epidemi|tratamiento/i,
+  psi:/psicol|ansiedad|emocion|conducta|cognitiv|salud mental|depresi[oó]n|estr[eé]s|psicom[eé]tric|bienestar/i,
+  der:/jur[ií]dic|norma|legisla|derecho|contrato|jurisprudencia|pol[ií]tica p[uú]blica|tribunal|constituci|judicial|reglament/i,
+  edu:/pedag|did[aá]ctic|docente|curr[ií]cul|aprendizaje|ense[nñ]anza|aula|escolar|estudiantes/i,
+  eco:/empresa|negocio|emprend|financ|mercado|contab|administra|econom[ií]a|pyme|log[ií]stic/i,
+  art:/dise[nñ]o|arte\b|artes|comunicaci[oó]n|audiovisual|creativ|gr[aá]fic|medios|narrativ/i,
+  soc:/comunidad|social|territorio|cultura|convivencia|v[ií]ctima|paz\b|g[eé]nero|antropol|sociolog|historia|human/i,
+};
+const KW_TIPO={
+  proto:/prototipo|dispositivo|equipo|robot|sensor|m[aá]quina|hardware|material/i,
+  soft:/software|aplicaci[oó]n|\bapp\b|plataforma|web|algoritmo|inteligencia artificial|base de datos/i,
+  clin:/protocolo|paciente|cl[ií]nic|terapia|tratamiento|gu[ií]a de manejo/i,
+  instr:/\btest\b|escala|cuestionario|instrumento|psicom[eé]tric|inventario/i,
+  norm:/norma|proyecto de ley|pol[ií]tica p[uú]blica|concepto jur[ií]dico|reglament|contrato|jurisprudencia/i,
+  metod:/metodolog[ií]a|modelo|marco conceptual|framework|m[eé]todo/i,
+  prog:/programa|curso|taller|formaci[oó]n|intervenci[oó]n social|capacitaci[oó]n|estrategia pedag/i,
+  serv:/servicio|proceso|modelo de negocio|asesor[ií]a|consultor[ií]a/i,
+  obra:/\bobra\b|dise[nñ]o gr[aá]fico|documental|contenido|material did[aá]ctico|narrativa|audiovisual/i,
+};
+function suggest(f){
+  const txt=[f.nombre,f.descripcion,f.problema,f.claves,f.facultad,f.grupo,f.linea,f.importancia,f.ventajas,f.transferibles,f.percepcionDesc].filter(Boolean).join(' ');
+  if(!txt.trim()) return {area:null,tipos:[]};
+  const score=re=>{const m=txt.match(new RegExp(re.source,'gi'));return m?m.length:0};
+  const area=Object.entries(KW_AREA).map(([k,re])=>[k,score(re)]).sort((a,b)=>b[1]-a[1]);
+  const tipo=Object.entries(KW_TIPO).map(([k,re])=>[k,score(re)+(k==='soft'&&f.pi&&f.pi[9]?2:0)+(k==='proto'&&f.pi&&(f.pi[1]||f.pi[2])?1:0)]).sort((a,b)=>b[1]-a[1]);
+  return {area:area[0][1]>0?area[0][0]:null,tipos:tipo.filter(x=>x[1]>0).slice(0,2).map(x=>x[0])};
+}
+function renderPerfil(){
+  const p=S.perfil, sg=suggest(S.ficha), aS=AREAS.find(x=>x[0]===sg.area), tS=TIPOS.filter(t=>sg.tipos.includes(t[0]));
+  const already=p.area&&sg.area===p.area&&tS.every(t=>p.tipos[t[0]]);
+  const hasSug=(aS||tS.length)&&!already;
+  const sample=BANK[0].levels[3];
+  return '<div class="dimhead"><span class="k">PASO 2 DE 9</span><h2>Perfil de tu desarrollo</h2>'+
+   '<p>Cada disciplina entiende la madurez a su manera: un «prototipo» en ingeniería no es lo mismo que en psicología, derecho o educación. Dinos de qué campo es tu desarrollo y qué tipo de resultado es: adaptamos la escala y acompañamos cada pregunta con ejemplos de tu campo.</p></div>'+
+   (UI.perfilMsg?'<div class="alert" role="alert">Elige el área de conocimiento para continuar con el diagnóstico.</div>':'')+
+   (hasSug?'<div class="sug"><span>Según tu ficha, parece un desarrollo de <b>'+esc(aS?aS[1]:'—')+'</b>'+(tS.length?' · <b>'+esc(tS.map(t=>t[1]).join(' + '))+'</b>':'')+'. Es solo una sugerencia: puedes cambiarla.</span><button class="btn small primary" data-act="usesug">Usar sugerencia</button></div>':'')+
+   '<h3 class="grp">1. Área de conocimiento</h3>'+
+   '<div class="opts" role="group" aria-label="Área de conocimiento">'+AREAS.map(a=>'<button class="opt" data-act="area" data-v="'+a[0]+'" aria-pressed="'+(p.area===a[0])+'"><b>'+esc(a[1])+'</b></button>').join('')+'</div>'+
+   '<h3 class="grp">2. Tipo de resultado <span class="muted" style="font:400 .85rem var(--body)">Marca uno o varios, por ejemplo un prototipo y su protocolo de uso.</span></h3>'+
+   '<div class="opts" role="group" aria-label="Tipo de resultado">'+TIPOS.map(t=>'<button class="opt" data-act="tipo" data-v="'+t[0]+'" aria-pressed="'+(!!p.tipos[t[0]])+'"><b>'+esc(t[1])+'</b><small>'+esc(t[3])+'</small></button>').join('')+'</div>'+
+   '<h3 class="grp">Así se verán tus preguntas</h3>'+
+   '<div class="preview">'+glossBlock(S,BANK[0])+'<div class="q"><p class="qt"><span class="qn">4.2</span>'+esc(sample.q[1])+'</p>'+exFor(S,BANK[0],sample,1)+'</div>'+(p.area?'':'<p class="muted" style="margin:10px 0 0">Elige un área para ver el ejemplo de tu campo.</p>')+'</div>';
+}
+function setTheme(th){
+  document.documentElement.setAttribute('data-theme',th);
+  try{localStorage.setItem('madurez-unimayor:tema',th)}catch(e){}
+  const b=document.getElementById('nav-theme'); if(b) b.textContent=th==='dark'?'☀ Claro':'☾ Oscuro';
+}
+function stageOf(trl){
+  if(trl===0) return 'Idea: aún sin principios de investigación básica reportados';
+  if(trl<=3) return 'Investigación básica';
+  if(trl<=5) return 'Investigación aplicada / desarrollo experimental';
+  if(trl<=8) return 'Desarrollo tecnológico';
+  return 'Validación, despliegue y operación';
+}
+function summary(st){
+  const decl=BANK.map(d=>dimLevel(st,d,'decl')), evid=BANK.map(d=>dimLevel(st,d,'evid')), ver=BANK.map(d=>dimLevel(st,d,'ver'));
+  const vals=decl.map(x=>x.reached);
+  const min=Math.min(...vals), max=Math.max(...vals);
+  let si=0,conEv=0,total=0;
+  BANK.forEach(d=>d.levels.forEach(L=>L.q.forEach((_,i)=>{total++;const a=st.answers[keyOf(d.k,L.n,i)];if(a&&a.v==='si'){si++;if(hasEv(a))conEv++}})));
+  return {decl,evid,ver,min,max,weak:BANK.filter((_,i)=>vals[i]===min),strong:BANK.filter((_,i)=>vals[i]===max),si,conEv,total,rev:hasReview(st)};
+}
+
+/* ════════ Radar (telaraña) ════════ */
+function radarSVG(series,o={}){
+  const size=o.size||440,pad=o.pad??80,cx=size/2+pad,cy=size/2,R=size*.36,n=BANK.length;
+  const ang=i=>-Math.PI/2+i*2*Math.PI/n;
+  const pt=(i,v)=>[cx+R*(v/9)*Math.cos(ang(i)),cy+R*(v/9)*Math.sin(ang(i))];
+  const ring=v=>BANK.map((_,i)=>pt(i,v).map(x=>x.toFixed(1)).join(',')).join(' ');
+  let s=`<svg viewBox="0 0 ${size+pad*2} ${size}" role="img" aria-label="Telaraña de madurez con ${n} dimensiones">`;
+  for(let v=1;v<=9;v++) s+=`<polygon class="ring ${v%3===0?'m':''}" points="${ring(v)}"/>`;
+  BANK.forEach((d,i)=>{const [x,y]=pt(i,9);s+=`<line class="axis" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`});
+  [3,6,9].forEach(v=>{s+=`<text x="${cx+4}" y="${(cy-R*v/9-3).toFixed(1)}" font-size="${o.small?8:10}" style="fill:var(--faint)">${v}</text>`});
+  BANK.forEach((d,i)=>{
+    const c=Math.cos(ang(i)),[x,y]=[cx+(R+(o.small?14:20))*c,cy+(R+(o.small?14:20))*Math.sin(ang(i))];
+    const anchor=c>.3?'start':c<-.3?'end':'middle';
+    s+=`<text class="k" x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="${anchor}" font-size="${o.small?11:15}">${d.k}</text>`;
+    if(!o.small) s+=`<text x="${x.toFixed(1)}" y="${(y+19).toFixed(1)}" text-anchor="${anchor}" font-size="11">${esc(d.name)}</text>`;
+  });
+  series.forEach((sr,si)=>{
+    const pts=sr.vals.map((v,i)=>pt(i,v)), poly=pts.map(p=>p.map(x=>x.toFixed(1)).join(',')).join(' ');
+    s+=`<g class="poly" style="transform-origin:${cx}px ${cy}px;animation-delay:${si*.12}s"><polygon points="${poly}" style="fill:${sr.color};fill-opacity:${sr.fill??.16};stroke:${sr.color}" stroke-width="${o.small?1.6:2.4}" ${sr.dash?`stroke-dasharray="${sr.dash}"`:''} stroke-linejoin="round"/>`;
+    pts.forEach((p,i)=>{s+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${o.small?3:4.5}" style="fill:${sr.color};stroke:var(--card)" stroke-width="1.5" data-tip="${esc(sr.name)} · ${BANK[i].k} ${sr.vals[i]}"/>`});
+    s+='</g>';
+  });
+  return s+'</svg>';
+}
+const COLORS={decl:'var(--c-decl)',evid:'var(--c-evid)',ver:'var(--c-ver)'};
+function seriesOf(sm,full){
+  const out=[];
+  if(sm.rev) out.push({name:'Verificado',color:COLORS.ver,vals:sm.ver.map(x=>x.reached),fill:.22});
+  out.push({name:'Con evidencia',color:COLORS.evid,dash:'6 4',vals:sm.evid.map(x=>x.reached),fill:.14});
+  out.push({name:'Declarado',color:COLORS.decl,vals:sm.decl.map(x=>x.reached),fill:.14});
+  return full?out:out;
+}
+
+/* ════════ Ficha de caracterización ════════ */
+const OPT={
+  relacion:['Profesor de planta','Profesor de cátedra','Administrativo','Estudiante','Miembro de semillero','Egresado','Otro'],
+  resultado:['Software','Diseño industrial','Planta piloto','Prototipo industrial','Metodología','Otro'],
+  proyecto:['Proyecto de investigación interno','Proyecto de investigación con empresa o terceros','Tesis de doctorado','Tesis de maestría','Trabajo de grado','Otro'],
+  recursos:['Propio','Público','Privado','Otro'],
+  percep:['Idea','Prototipo experimental','Prueba de concepto','Otro'],
+  particip:['Participación alta','Participación media','Participación baja','Participación nula'],
+  conf:['Sí','No','Parcialmente'],
+  stake:['Proveedores','Fabricantes','Comercializadores','Compradores','Usuario','Cliente','Sustituto','Competidores','Entidad gubernamental','Expertos'],
+};
+const ENFOQUE=[
+  ['Impacto y transformación social','Efecto del resultado sobre la comunidad: resuelve un problema social desde lo ambiental, ético, económico o todos.'],
+  ['Colaboración intersectorial','La innovación se da en colaboración con el sector privado, público y otros colectivos.'],
+  ['Sostenibilidad económica y viabilidad a largo plazo','Resuelve un problema social, es autosuficiente y sus estrategias garantizan su supervivencia.'],
+  ['Innovación abierta','Idea libre de ser copiada y adaptada.'],
+  ['Innovación cerrada','Idea protegida o potencialmente protegible por propiedad intelectual.'],
+  ['Escalabilidad y replicabilidad','Puede desarrollarse en otro ámbito territorial y es escalable.'],
+];
+const ODS=['Fin de la pobreza','Hambre cero','Salud y bienestar','Educación de calidad','Igualdad de género','Agua limpia y saneamiento','Energía asequible y no contaminante','Trabajo decente y crecimiento económico','Industria, innovación e infraestructura','Reducción de las desigualdades','Ciudades y comunidades sostenibles','Producción y consumo responsables','Acción por el clima','Vida submarina','Vida de ecosistemas terrestres','Paz, justicia e instituciones sólidas','Alianzas para lograr los objetivos'];
+const PI=['Derecho de autor','Patente de invención','Modelo de utilidad','Marca','Diseño industrial','Secreto industrial','Variedad vegetal','Derechos conexos','Esquema de trazado de circuito integrado','Software','Ninguna de las anteriores'];
+const DIV=['Artículos','Evento (interno, nacional o internacional)','Publicaciones (internas o externas)','Participación en conferencias','Trabajo de grado (pregrado o posgrado)','Medios digitales','Muestras distribuidas o fabricación a través de terceros','Presentaciones o demostraciones para promover la creación','Otros'];
+
+const F={
+  inp:(p,l,o={})=>`<label class="fld"><span>${l}${o.req?' <b class="req" title="Obligatorio">*</b>':''}</span><input data-f="${p}" type="${o.type||'text'}" value="${esc(get(S.ficha,p))}" ${o.ph?`placeholder="${esc(o.ph)}"`:''} ${o.req?'required':''}></label>`,
+  area:(p,l,o={})=>`<label class="fld"><span>${l}${o.req?' <b class="req" title="Obligatorio">*</b>':''}</span><textarea data-f="${p}" ${o.ph?`placeholder="${esc(o.ph)}"`:''}>${esc(get(S.ficha,p))}</textarea></label>${o.help?`<p class="help">${o.help}</p>`:''}`,
+  sel:(p,l,opts)=>`<label class="fld"><span>${l}</span><select data-f="${p}"><option value="">Seleccione…</option>${opts.map(x=>`<option ${get(S.ficha,p)===x?'selected':''}>${esc(x)}</option>`).join('')}</select></label>`,
+  chk:(p,l,d)=>`<label class="chk"><input type="checkbox" data-f="${p}" ${get(S.ficha,p)?'checked':''}><span>${l}${d?`<br><small class="muted">${d}</small>`:''}</span></label>`,
+};
+function sec(n,title,body,open){return `<details class="sec" data-sec="${n}" ${open||UI.open['sec'+n]?'open':''}><summary><span class="num">${n}</span>${title}</summary><div class="body">${body}</div></details>`}
+function renderFicha(){
+  const f=S.ficha;
+  const creators=f.creadores.map((c,i)=>`<div class="rowcard">${f.creadores.length>1?`<button class="btn small ghost rm" data-act="delrow" data-list="creadores" data-i="${i}" aria-label="Quitar creador">Quitar</button>`:''}
+    <strong>Creador ${i+1}</strong>
+    <div class="row2">${F.inp(`creadores.${i}.nombre`,'Nombres y apellidos',{req:i===0})}${F.inp(`creadores.${i}.id`,'Número de identificación')}</div>
+    <div class="row3">${F.sel(`creadores.${i}.relacion`,'Relación con la universidad',OPT.relacion)}${F.inp(`creadores.${i}.tel`,'Teléfono o extensión')}${F.inp(`creadores.${i}.correo`,'Correo electrónico',{type:'email',req:i===0})}</div>
+    ${F.inp(`creadores.${i}.aporte`,'Contribución en la investigación')}</div>`).join('');
+  const ents=f.entidades.map((c,i)=>`<div class="rowcard">${f.entidades.length>1?`<button class="btn small ghost rm" data-act="delrow" data-list="entidades" data-i="${i}">Quitar</button>`:''}
+    <div class="row3">${F.inp(`entidades.${i}.nombre`,'Entidad participante')}${F.sel(`entidades.${i}.origen`,'Origen de los recursos',OPT.recursos)}${F.inp(`entidades.${i}.monto`,'Monto de financiación')}</div></div>`).join('');
+  const redes=f.redes.map((c,i)=>`<div class="rowcard">${f.redes.length>1?`<button class="btn small ghost rm" data-act="delrow" data-list="redes" data-i="${i}">Quitar</button>`:''}
+    <div class="row3">${F.sel(`redes.${i}.tipo`,'Tipo de contacto',OPT.stake)}${F.inp(`redes.${i}.nombre`,'Empresa, red o contacto')}${F.inp(`redes.${i}.contacto`,'Teléfono, correo o página web')}</div>
+    ${F.inp(`redes.${i}.obs`,'Observaciones del relacionamiento (¿hubo un contacto inicial o un proceso preliminar?)')}</div>`).join('');
+  return `<div class="dimhead"><span class="k">PASO 1 DE 9</span><h2>Ficha de caracterización</h2>
+    <p>Cuéntanos sobre tu resultado de investigación. Los campos con <b class="req">*</b> son necesarios para enviar tu paquete. Puedes dejar el resto en blanco y volver luego.</p></div>
+  ${sec(1,'Información de los creadores',`
+    ${F.inp('fecha','Fecha de diligenciamiento',{type:'date'})}
+    ${creators}
+    <div><button class="btn small" data-act="addrow" data-list="creadores" ${f.creadores.length>=7?'disabled':''}>+ Agregar creador</button></div>
+    <div class="row2">${F.inp('facultad','Facultad o programa',{ph:'Escriba el nombre'})}${F.inp('grupo','Grupo de investigación',{ph:'Escriba el nombre, si aplica'})}</div>
+    <div class="row2">${F.inp('linea','Línea de investigación',{ph:'Escriba el nombre, si aplica'})}${F.inp('semillero','Semillero de investigación',{ph:'Escriba el nombre, si aplica'})}</div>`,true)}
+  ${sec(2,'Información del proyecto',`
+    ${F.inp('proyectoOrigen','Proyecto que da origen a la creación')}
+    ${F.inp('nombre','Nombre del resultado de investigación',{req:true})}
+    <div class="row2">${F.sel('tipoProyecto','Tipo de proyecto',OPT.proyecto)}</div><p class="help">El área de conocimiento y el tipo de resultado (prototipo, protocolo, metodología…) los defines en el siguiente paso.</p>`)}
+  ${sec(3,'Información de terceros',`<p class="help" style="margin:0">Instituciones que han colaborado o colaboran en el desarrollo, si aplica.</p>${ents}
+    <div><button class="btn small" data-act="addrow" data-list="entidades">+ Agregar entidad</button></div>${F.area('terceroObs','Observaciones')}`)}
+  ${sec(4,'Información de la creación',`
+    ${F.area('descripcion','Descripción de la creación',{req:true,help:'¿Qué es? ¿Qué hace? ¿Cuál es su principal aplicación? ¿Es un producto final o un componente? Si es un proceso, describa sus etapas y resultados.'})}
+    ${F.area('problema','Problema que resuelve',{req:true,help:'¿Qué problema resuelve? ¿Cómo se resuelve hoy?'})}
+    ${F.inp('claves','Palabras clave',{ph:'Separadas por comas'})}
+    ${F.area('importancia','Importancia de la solución',{help:'Impacto que tendría sobre el problema, con datos concretos si los tiene.'})}
+    <div><strong style="font-size:.95rem">Enfoque social de la innovación</strong><p class="help">Marque las variables a las que apunta su innovación.</p><div class="chks">${ENFOQUE.map((e,i)=>F.chk(`enfoque.${i}`,e[0],e[1])).join('')}</div></div>
+    ${F.area('enfoqueJust','Justificación del enfoque social')}
+    <div><strong style="font-size:.95rem">Objetivos de Desarrollo Sostenible</strong><p class="help">Áreas de impacto.</p><div class="chks">${ODS.map((e,i)=>F.chk(`ods.${i}`,`${i+1}. ${e}`)).join('')}</div></div>
+    ${F.area('transferibles','Productos transferibles derivados del proyecto',{help:'¿Podría dar lugar a nuevos productos, servicios o aplicaciones? ¿Cuáles?'})}
+    ${F.area('ventajas','Ventajas o beneficios frente a las soluciones actuales',{help:'Diferenciación.'})}`)}
+  ${sec(5,'Cómo percibe hoy su desarrollo',`
+    <p class="help" style="margin:0">Es solo su impresión. El nivel real lo calcularán las preguntas de los siguientes pasos.</p>
+    <div class="row2">${F.sel('percepcion','¿En qué punto cree que está?',OPT.percep)}</div>${F.area('percepcionDesc','Descripción breve del estado de desarrollo')}`)}
+  ${sec(6,'Información de mercados',`
+    ${F.area('similares','Creaciones similares o sustitutas',{help:'Productos o procedimientos que ya existen y cómo resuelven hoy el problema.'})}
+    ${F.area('diferencia','¿Qué la hace diferente de lo que ya existe?',{help:'Costos más bajos, disponibilidad de materiales, otro enfoque…'})}
+    ${F.area('barreras','Barreras de entrada y desventajas',{help:'Retos o riesgos políticos, económicos, sociales, tecnológicos, ambientales, legales o de infraestructura.'})}
+    ${F.area('aplicaciones','Aplicaciones actuales y futuras',{help:'¿En cuánto tiempo estima que se logre la adopción?'})}
+    ${F.area('destinatarios','¿Para quién es esta solución y por qué?',{help:'Perfil de empresas o personas interesadas y posibles clientes.'})}
+    <div class="row2">${F.sel('participacion','Participación deseada del investigador en la transferencia',OPT.particip)}</div>${F.area('participacionDesc','Describa el involucramiento que desea tener')}`)}
+  ${sec(7,'Propiedad intelectual',`
+    <div><strong style="font-size:.95rem">Mecanismos de protección que aplican</strong><div class="chks" style="margin-top:8px">${PI.map((e,i)=>F.chk(`pi.${i}`,e)).join('')}</div></div>
+    ${F.area('piEstado','Estado de la protección y territorios',{help:'Si empleó algún mecanismo: ¿en qué estado está y en qué territorios fue solicitado u otorgado?'})}
+    <div><strong style="font-size:.95rem">¿Ha divulgado información sobre la investigación o creación?</strong><p class="help">Divulgación pública, escrita u oral, que permita duplicar los resultados. Marque el tipo e indique fecha y medio.</p>
+      <div style="display:grid;gap:8px">${DIV.map((e,i)=>`<div class="divrow">${F.chk(`div.${i}.on`,e)}<input class="link" data-f="div.${i}.det" placeholder="Fecha y nombre del medio" value="${esc(get(f,`div.${i}.det`))}"></div>`).join('')}</div></div>
+    ${F.area('divProx','¿Piensa divulgar en los próximos 6 meses?',{help:'Indique tipo y nombre del medio.'})}
+    <div class="row3">${F.sel('confid','¿Firmaron acuerdos de confidencialidad los involucrados?',OPT.conf)}${F.sel('cesion','¿Existe cesión de derechos?',OPT.conf)}</div>
+    ${F.area('usoCom','¿Ha utilizado o comercializado alguna parte de su creación?',{help:'Si la respuesta es sí, explique.'})}
+    ${F.area('aportes','Aportes intelectuales de cada autor',{help:'Si están discriminados, describa el porcentaje por autor.'})}
+    ${F.area('piObs','Observaciones generales')}`)}
+  ${sec(8,'Construcción de redes de valor',`
+    <p class="help" style="margin:0">¿Conoce entidades, redes, empresas o asociaciones que hayan manifestado interés, o puedan hacerlo, en apropiar o comercializar la creación?</p>${redes}
+    <div><button class="btn small" data-act="addrow" data-list="redes">+ Agregar contacto</button></div>`)}`;
+}
+function fichaMissing(f=S.ficha){
+  const m=[]; const c=(f.creadores&&f.creadores[0])||{};
+  if(!c.nombre) m.push('Nombre del primer creador'); if(!c.correo) m.push('Correo del primer creador');
+  if(!f.nombre) m.push('Nombre del resultado de investigación'); if(!f.descripcion) m.push('Descripción de la creación'); if(!f.problema) m.push('Problema que resuelve');
+  return m;
+}
+
+/* ════════ Cuestionario por dimensión ════════ */
+const EVHINT={
+  TRL:'Informe de pruebas, fotos o video del prototipo, planos, código, protocolos, artículos.',
+  MRL:'Estudio de mercado, encuestas, cartas de intención, cotizaciones, Canvas, proyecciones.',
+  IPRL:'Radicados, búsquedas de patentabilidad, acuerdos de cesión, contratos, conceptos de expertos.',
+  TMRL:'Actas, organigrama, compromisos firmados, hojas de vida, plan de equipo.',
+  FRL:'Presupuestos, propuestas presentadas, pitch deck, cartas o resoluciones de financiación.',
+  SRL:'Actas y listados con la comunidad, cartas de apoyo, informes de pilotos, fotos de las jornadas.',
+};
+const DEFS={
+  TRL:'Qué tan avanzado está el desarrollo, desde sus principios científicos o teóricos (1) hasta su operación en el entorno real (9).',
+  MRL:'Qué tanto conoces el mercado, tus clientes y tu modelo de negocio, desde una hipótesis (1) hasta ventas escalables (9).',
+  IPRL:'Qué tan protegido y bien gestionado está lo que creaste, desde una hipótesis de protección (1) hasta derechos concedidos y vigentes (9).',
+  TMRL:'Si el equipo tiene las competencias, los roles y el liderazgo que el desarrollo necesita, del primer esbozo (1) a una organización estable (9).',
+  FRL:'Qué tan clara y asegurada está la financiación, desde no saber cuánto se necesita (1) hasta inversión obtenida (9).',
+  SRL:'Qué tanto la comunidad conoce, valida y se apropia de la solución, desde identificar la problemática (1) hasta su adopción (9).',
+};
+function evBlock(st,k,mode,dk){
+  const a=st.answers[k]||{}; const files=a.files||[];
+  const chips=files.map(f=>`<span class="file"><button class="v" data-act="view" data-fid="${f.id}" title="Abrir ${esc(f.name)}">${esc(f.name)}</button><small class="muted">${fmtSize(f.size)}</small>${mode==='edit'?`<button class="x" data-act="rmfile" data-k="${k}" data-fid="${f.id}" aria-label="Quitar ${esc(f.name)}">×</button>`:''}</span>`).join('');
+  const link=a.link&&a.link.trim()?`<span class="file"><a href="${esc(a.link)}" target="_blank" rel="noopener noreferrer">${esc(a.link.length>46?a.link.slice(0,46)+'…':a.link)}</a></span>`:'';
+  if(mode==='review') return `<div class="ev"><div class="ev-h"><b>Evidencia del investigador</b> ${hasEv(a)?'':'<span class="badge warn">Sin evidencia adjunta</span>'}</div>
+    <div class="files">${chips}${link}</div>${a.note?`<div class="ev-h">Nota: ${esc(a.note)}</div>`:''}</div>`;
+  return `<div class="ev"><div class="ev-h"><b>Evidencia</b> ${hasEv(a)?'<span class="badge mint">Adjunta</span>':'<span class="badge warn">Pendiente</span>'} <span class="muted">Ej.: ${esc(EVHINT[dk])}</span></div>
+    ${chips||link?`<div class="files">${chips}${link}</div>`:''}
+    <div><label class="btn small ghost">Adjuntar archivo(s)<input type="file" data-act="upload" data-k="${k}" multiple hidden></label> <span class="muted">Máx. ${CONFIG.maxFileMB} MB por archivo</span></div>
+    <input class="link" data-a="link" data-k="${k}" type="url" placeholder="…o pegue un enlace (Drive, repositorio, video)" value="${esc(a.link||'')}" aria-label="Enlace a la evidencia">
+    <input class="note" data-a="note" data-k="${k}" type="text" placeholder="Nota breve: ¿qué demuestra esta evidencia?" value="${esc(a.note||'')}" aria-label="Nota sobre la evidencia"></div>`;
+}
+function renderQ(st,d,L,i,mode){
+  const k=keyOf(d.k,L.n,i), a=st.answers[k]||{}, rv=(st.review||{})[k];
+  let head=`<p class="qt"><span class="qn">${L.n}.${i+1}</span>${esc(L.q[i])}</p>`+exFor(st,d,L,i);
+  let body='';
+  if(mode==='edit'){
+    body=`<div class="seg" role="group" aria-label="Respuesta"><button data-act="ans" data-k="${k}" data-v="si" aria-pressed="${a.v==='si'}">Sí</button><button data-act="ans" data-k="${k}" data-v="no" aria-pressed="${a.v==='no'}">No</button></div>`;
+    if(a.v==='si') body+=evBlock(st,k,mode,d.k);
+    if(rv&&rv.s) body+=`<div class="rvbar"><span class="badge ${rv.s==='ok'?'ok':'bad'}">${rv.s==='ok'?'Verificado por Transferencia':'No verificado'}</span>${rv.c?`<span class="muted">${esc(rv.c)}</span>`:''}</div>`;
+  }else{
+    const ans=a.v==='si'?'<span class="badge mint">Responde Sí</span>':a.v==='no'?'<span class="badge">Responde No</span>':'<span class="badge">Sin responder</span>';
+    body=ans;
+    if(a.v==='si'){
+      body+=evBlock(st,k,mode,d.k)+`<div class="rvbar"><div class="seg" role="group" aria-label="Verificación"><button data-act="rev" data-k="${k}" data-v="ok" aria-pressed="${rv&&rv.s==='ok'}">Verificado</button><button data-act="rev" data-k="${k}" data-v="no" aria-pressed="${rv&&rv.s==='no'}">No verificado</button></div>
+        <input class="note" data-r="c" data-k="${k}" placeholder="Observación para el investigador (opcional)" value="${esc(rv&&rv.c||'')}" aria-label="Observación"></div>`;
+    }
+  }
+  return `<div class="q ${a.v||''}" data-qk="${k}">${head}${body}</div>`;
+}
+function renderDim(i,mode){
+  const st=mode==='review'?R.cur.state:S, d=BANK[i], res=dimLevel(st,d,'decl'), all=!!UI.showAll[d.k+mode];
+  const meter=d.levels.map(L=>L.n<=res.reached?'<i class="f"></i>':(res.front&&L.n===res.front.n&&res.prog>0?`<i class="p" style="--w:${Math.round(res.prog*100)}%"></i>`:'<i></i>')).join('');
+  let h=`<div class="dimhead"><span class="k">${mode==='edit'?`PASO ${i+3} DE 9 · `:''}${d.k} · ${esc(d.long.toUpperCase())}</span><h2>${esc(d.name)}</h2><p>${esc(DEFS[d.k])}</p>
+    <div class="meter" aria-label="Nivel alcanzado ${res.reached} de 9">${meter}</div>
+    <p class="muted" style="margin:0">${res.reached===0?'Aún no alcanza el nivel 1':`Nivel actual: <b style="color:var(--ink)">${d.k} ${res.reached}</b> · ${esc(lvT(st,d,levelInfo(d,res.reached)).title)}`}</p></div>`;
+  if(mode==='edit') h+=`<div class="tip"><b>Cómo responder:</b> marque <b>Sí</b> solo si puede demostrarlo. Cada «Sí» abre un espacio para adjuntar la evidencia; sin ella, Transferencia no podrá verificarlo. Verá el siguiente nivel cuando cumpla el actual.</div>`;
+  h+=glossBlock(st,d);
+  d.levels.forEach(L=>{
+    const tt=lvT(st,d,L);
+    const cnt=L.q.filter((_,j)=>passes(st,'decl',keyOf(d.k,L.n,j))).length;
+    const status=L.n<=res.reached?'done':(res.front&&L.n===res.front.n?'current':'locked');
+    const unlocked=status!=='locked'||all||mode==='review';
+    if(!unlocked){ h+=`<div class="lvl locked"><div class="sum"><span class="n">${L.n}</span><span class="t">${esc(tt.title)}</span><span class="chip">🔒 Se habilita al cumplir el nivel ${L.n-1}</span></div></div>`; return; }
+    const id=`${d.k}-${L.n}${mode}`; const open=UI.open[id]!==undefined?UI.open[id]:(status==='current');
+    h+=`<details class="lvl ${status}" data-lid="${id}" ${open?'open':''}><summary><span class="n">${status==='done'?'✓':L.n}</span><span class="t">Nivel ${L.n} · ${esc(tt.title)}</span><span class="chip">${cnt}/${L.q.length} cumple</span></summary>
+      <div class="lb">${tt.desc?`<p class="desc">${esc(tt.desc)}</p>`:''}${L.q.map((_,j)=>renderQ(st,d,L,j,mode)).join('')}</div></details>`;
+  });
+  if(mode==='edit'&&res.front) h+=`<div style="margin-top:8px"><button class="btn small ghost" data-act="showall" data-d="${d.k}">${all?'Ocultar niveles superiores':'Responder también los niveles superiores'}</button></div>`;
+  return h;
+}
+
+/* ════════ Resultado ════════ */
+function nextSteps(st){
+  const out=[];
+  BANK.forEach(d=>{
+    const r=dimLevel(st,d,'decl'); if(!r.front) return;
+    const missing=r.front.q.filter((_,i)=>!passes(st,'decl',keyOf(d.k,r.front.n,i)));
+    out.push(`<div class="card"><span class="badge mint">${d.k}</span> <b>Para llegar a ${d.k} ${r.front.n}</b> · ${esc(lvT(st,d,r.front).title)}<ul>${missing.slice(0,4).map(q=>`<li>${esc(q.replace(/^¿|\?$/g,''))}</li>`).join('')}${missing.length>4?`<li class="muted">…y ${missing.length-4} más</li>`:''}</ul></div>`);
+  });
+  return out.join('')||'<p>Has cumplido todos los niveles en todas las dimensiones.</p>';
+}
+function resultRows(sm,st){
+  return BANK.map((d,i)=>`<tr><td><b>${d.k}</b><br><span class="muted">${esc(d.name)}</span></td>
+    <td class="c"><span class="lv a">${sm.decl[i].reached}</span></td><td class="c"><span class="lv b">${sm.evid[i].reached}</span></td>
+    ${sm.rev?`<td class="c"><span class="lv c">${sm.ver[i].reached}</span></td>`:''}
+    <td>${sm.decl[i].reached?esc(lvT(st,d,levelInfo(d,sm.decl[i].reached)).title):'<span class="muted">Sin nivel alcanzado</span>'}</td></tr>`).join('');
+}
+function headline(sm,name,st){
+  const trl=sm.decl[0].reached;
+  const weak=sm.weak.map(d=>`${d.k} ${sm.min}`).join(', ');
+  const strong=sm.strong.map(d=>`${d.k} ${sm.max}`).join(', ');
+  const gap=sm.max-sm.min>=CONFIG.umbralDesequilibrio;
+  return `<span class="eyebrow">${esc(name||'Tu desarrollo')}</span>
+    <div class="big">${trl?`TRL ${trl} · ${esc(stageOf(trl))}`:esc(stageOf(0))}</div>
+    <p style="margin:0">${trl?esc(lvT(st,BANK[0],levelInfo(BANK[0],trl)).title)+'.':''} Dimensión más rezagada: <b style="color:var(--ink)">${esc(weak)}</b>. Más avanzada: <b style="color:var(--ink)">${esc(strong)}</b>.</p>
+    ${gap?`<div class="alert"><b>Perfil desequilibrado:</b> hay ${sm.max-sm.min} niveles de diferencia entre tu dimensión más alta y la más baja. Antes de seguir avanzando en la tecnología, conviene fortalecer ${sm.weak.map(d=>d.name.toLowerCase()).join(' y ')}.</div>`:''}`;
+}
+function renderResult(){
+  const sm=summary(S), miss=fichaMissing(), noEv=sm.si-sm.conEv;
+  const unresolved=BANK.filter((d,i)=>!sm.decl[i].resolved).map(d=>d.k);
+  return `<div class="dimhead"><span class="k">PASO 9 DE 9</span><h2>Tu telaraña de madurez</h2></div>
+  <div class="res-head">${headline(sm,S.ficha.nombre,S)}</div>
+  <div class="res-grid">
+    <div class="radar-box">${radarSVG(seriesOf(sm))}
+      <div class="legend-row" style="margin:0 0 10px"><span class="lg"><i style="background:var(--c-decl)"></i>Declarado</span><span class="lg"><i style="background:var(--c-evid)"></i>Con evidencia</span>${sm.rev?'<span class="lg"><i style="background:var(--c-ver)"></i>Verificado</span>':''}</div></div>
+    <div><table class="t"><thead><tr><th>Dimensión</th><th class="c">Declarado</th><th class="c">Con evid.</th>${sm.rev?'<th class="c">Verif.</th>':''}<th>Nivel declarado alcanzado</th></tr></thead><tbody>${resultRows(sm,S)}</tbody></table>
+    <p class="muted" style="margin-top:12px">«Declarado» cuenta tus respuestas «Sí». «Con evidencia» solo cuenta los «Sí» que tienen un archivo o enlace adjunto. ${sm.rev?'«Verificado» es lo que Transferencia confirmó.':'«Verificado» lo completa la Oficina de Transferencia al revisar.'}</p></div>
+  </div>
+  <h3 style="margin:30px 0 12px">Qué te falta para subir al siguiente nivel</h3><div class="next">${nextSteps(S)}</div>
+  <h3 style="margin:30px 0 12px" class="no-print">Enviar a Transferencia</h3>
+  <div class="card no-print">
+    <ul class="checks">
+      <li class="${miss.length?'':'ok'}">Ficha de caracterización ${miss.length?`incompleta: falta ${miss.map(esc).join(', ').toLowerCase()}`:'con los datos mínimos'}</li>
+      <li class="${S.perfil.area?'ok':''}">Perfil: área de conocimiento y tipo de resultado ${S.perfil.area?'('+esc(perfilLabel(S))+')':'sin definir'}</li>
+      <li class="${unresolved.length?'':'ok'}">Dimensiones respondidas ${unresolved.length?`(faltan por completar: ${unresolved.join(', ')})`:'por completo'}</li>
+      <li class="${noEv?'':'ok'}">Evidencia adjunta en ${sm.conEv} de ${sm.si} respuestas «Sí» ${noEv?`(${noEv} sin soporte)`:''}</li>
+    </ul>
+    <p>Al descargar el paquete se guarda un archivo <b>.json</b> con tu ficha, tus respuestas y tus archivos. Envíalo a la ${esc(CONFIG.oficina)}.</p>
+    <div class="actions"><button class="btn primary" data-act="export">Descargar paquete para Transferencia</button>
+      ${CONFIG.correoTransferencia?`<a class="btn" href="mailto:${esc(CONFIG.correoTransferencia)}?subject=${encodeURIComponent('Diagnóstico de madurez: '+(S.ficha.nombre||''))}">Abrir correo</a>`:''}
+      <button class="btn ghost" data-act="print">Imprimir o guardar en PDF</button></div>
+  </div>
+  <div class="print-only" style="margin-top:20px"><p>Diligenciado el ${esc(S.ficha.fecha||'')} · ${esc(CONFIG.institucion)} · Este informe es una autoevaluación pendiente de verificación.</p></div>`;
+}
+
+/* ════════ Panel en vivo ════════ */
+function renderLive(){
+  const sm=summary(S);
+  $('#live').innerHTML=`<h3>Tu telaraña, en vivo</h3><p class="muted" style="margin:0 0 4px">Crece a medida que respondes.</p>
+    <div class="radar-box" style="border:0;background:none;padding:0">${radarSVG(seriesOf(sm).filter(s=>s.name!=='Verificado'),{size:270,pad:34,small:true})}</div>
+    <ul class="livelist">${BANK.map((d,i)=>`<li><span>${d.k}</span><span class="bar"><i style="width:${sm.decl[i].reached/9*100}%"></i></span><b>${sm.decl[i].reached}</b></li>`).join('')}</ul>
+    <p class="muted" style="margin:12px 0 0">${sm.conEv} de ${sm.si} respuestas «Sí» con evidencia.</p>`;
+}
+
+/* ════════ Navegación ════════ */
+const STEPS=['Ficha','Perfil',...BANK.map(d=>d.k),'Resultado'];
+function stepDone(i){
+  if(i===0) return fichaMissing().length===0;
+  if(i===1) return !!S.perfil.area;
+  if(i===8) return false;
+  const r=dimLevel(S,BANK[i-2],'decl'); return r.resolved&&Object.keys(S.answers).some(k=>k.startsWith(BANK[i-2].k+'-'));
+}
+function renderSteps(){
+  $('#steps').innerHTML=STEPS.map((t,i)=>`<button class="pill ${S.step===i?'on':''} ${stepDone(i)?'done':''}" data-act="go" data-i="${i}" role="tab" aria-selected="${S.step===i}"><b>${stepDone(i)?'✓':i+1}</b>${t}</button>`).join('');
+  const on=$('.pill.on',$('#steps')); if(on&&on.scrollIntoView) on.scrollIntoView({inline:'center',block:'nearest'});
+}
+function renderApp(keepScroll){
+  const y=window.scrollY;
+  const stage=$('#stage');
+  stage.innerHTML=S.step===0?renderFicha():S.step===1?renderPerfil():S.step<=7?renderDim(S.step-2,'edit'):renderResult();
+  renderSteps(); renderLive();
+  $('.app-grid').classList.toggle('full',S.step===8);
+  $('#btn-prev').disabled=S.step===0;
+  $('#btn-next').hidden=S.step===8;
+  $('#btn-next').textContent=S.step===7?'Ver mi telaraña →':'Continuar →';
+  $('#nav-info').textContent=S.step<=1?'':S.step<=7?`${BANK[S.step-2].k} ${dimLevel(S,BANK[S.step-2],'decl').reached} de 9`:'';
+  if(keepScroll) window.scrollTo(0,y);
+}
+function show(v){
+  mode=v;
+  ['home','app','review'].forEach(x=>{$('#v-'+x).hidden=x!==v;});
+  $('#nav-home').classList.toggle('on',v==='home');$('#nav-app').classList.toggle('on',v==='app');$('#nav-rv').classList.toggle('on',v==='review');
+  window.scrollTo(0,0);
+  if(v==='app') renderApp();
+  if(v==='review') renderReview();
+  if(v==='home') drawHero();
+}
+function drawHero(){const hr=$('#hero-radar');if(!hr)return;hr.innerHTML=radarSVG([{name:'Ejemplo',color:COLORS.decl,vals:[5,3,4,3,2,4],fill:.18},{name:'Ejemplo con evidencia',color:COLORS.evid,dash:'6 4',vals:[4,2,3,3,1,3],fill:.1}],{size:400,pad:60})}
+function goStep(i){
+  i=Math.max(0,Math.min(8,i));
+  if(i>=2&&!S.perfil.area){i=1;UI.perfilMsg=true}
+  S.step=i;save();renderApp();window.scrollTo(0,0);
+}
+
+/* ════════ Archivos ════════ */
+async function addFiles(k,fileList){
+  const a=S.answers[k]||(S.answers[k]={v:'si'}); a.files=a.files||[];
+  const rej=[];
+  for(const f of fileList){
+    if(f.size>CONFIG.maxFileMB*1048576){rej.push(`${f.name} (${fmtSize(f.size)})`);continue}
+    const id=uid(); await DB.put('files',id,{name:f.name,type:f.type,blob:f});
+    a.files.push({id,name:f.name,size:f.size,type:f.type});
+  }
+  if(rej.length) alert(`No se adjuntaron por superar ${CONFIG.maxFileMB} MB:\n- ${rej.join('\n- ')}\n\nPuede subirlos a Drive y pegar el enlace.`);
+  save(); renderApp(true);
+}
+async function openFile(id){
+  const rec=await DB.get('files',id); if(!rec){alert('No se encontró el archivo en este navegador.');return}
+  const url=URL.createObjectURL(rec.blob);
+  if(/^(image|video|audio)\//.test(rec.type)||rec.type==='application/pdf'||rec.type.startsWith('text/')){window.open(url,'_blank','noopener')}
+  else{const a=document.createElement('a');a.href=url;a.download=rec.name;document.body.appendChild(a);a.click();a.remove()}
+  setTimeout(()=>URL.revokeObjectURL(url),60000);
+}
+const blobToDataURL=b=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=()=>rej(r.error);r.readAsDataURL(b)});
+async function buildPackage(st){
+  const files={};
+  for(const a of Object.values(st.answers)) for(const f of (a.files||[])){
+    const rec=await DB.get('files',f.id); if(rec) files[f.id]={name:rec.name,type:rec.type,data:await blobToDataURL(rec.blob)};
+  }
+  return {app:'madurez-unimayor',version:1,exportedAt:new Date().toISOString(),institucion:CONFIG.institucion,state:st,files};
+}
+function download(name,text,type='application/json'){
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+}
+async function importPackage(file){
+  const pkg=JSON.parse(await file.text());
+  if(pkg.app!=='madurez-unimayor'||!pkg.state) throw new Error('El archivo no es un paquete de esta herramienta.');
+  pkg.state.perfil=pkg.state.perfil||{area:'',tipos:{}};
+  for(const [id,f] of Object.entries(pkg.files||{})){
+    const blob=await (await fetch(f.data)).blob(); await DB.put('files',id,{name:f.name,type:f.type,blob});
+  }
+  return pkg.state;
+}
+
+/* ════════ Modo revisión ════════ */
+async function loadCases(){R.cases=(await DB.all('cases')).sort((a,b)=>(b.importedAt||0)-(a.importedAt||0))}
+async function saveCase(c){await DB.put('cases',c.id,c)}
+function dimCell(sm,i){
+  const d=sm.decl[i].reached,e=sm.evid[i].reached,v=sm.ver[i].reached;
+  return `<td class="rv-cell c"><span class="lv a">${d}</span><small>evid. ${e}${sm.rev?` · verif. ${v}`:''}</small></td>`;
+}
+async function renderReview(){
+  await loadCases();
+  const box=$('#rv-list'), cs=$('#rv-case');
+  if(R.cur&&UI.rvId){cs.hidden=false;box.hidden=true;return renderCase()}
+  cs.hidden=true;box.hidden=false;
+  if(!R.cases.length){box.innerHTML='<div class="drop">Aún no hay casos. Importe uno o varios paquetes <b>.json</b> enviados por los investigadores.</div>';return}
+  box.innerHTML=`<table class="t rv-list"><thead><tr><th>Resultado de investigación</th><th>Creador</th><th>Fecha</th>${BANK.map(d=>`<th class="c">${d.k}</th>`).join('')}<th></th></tr></thead><tbody>${R.cases.map(c=>{
+    const sm=summary(c.state),f=c.state.ficha||{};
+    return `<tr><td><b>${esc(f.nombre||'(Sin nombre)')}</b><br><span class="muted">${esc(perfilLabel(c.state))}</span></td><td>${esc((f.creadores&&f.creadores[0]&&f.creadores[0].nombre)||'')}</td><td>${esc(f.fecha||'')}</td>${BANK.map((_,i)=>dimCell(sm,i)).join('')}
+      <td><button class="btn small" data-act="rvopen" data-id="${c.id}">Revisar</button></td></tr>`}).join('')}</tbody></table>
+    <p class="muted" style="margin-top:10px">Cada celda muestra el nivel declarado; debajo, el nivel con evidencia${R.cases.some(c=>hasReview(c.state))?' y el verificado':''}.</p>`;
+}
+function fichaSummary(f,st){
+  const kv=(l,v)=>v?`<dt>${l}</dt><dd>${esc(v)}</dd>`:'';
+  const pick=(arr,o)=>arr.filter((_,i)=>o&&o[i]===true).join(', ');
+  const cr=(f.creadores||[]).filter(c=>c.nombre).map(c=>`${c.nombre}${c.relacion?' ('+c.relacion+')':''}${c.correo?' · '+c.correo:''}${c.tel?' · '+c.tel:''}`).join('\n');
+  return `<dl class="kv">${kv('Creadores',cr)}${kv('Facultad o programa',f.facultad)}${kv('Grupo de investigación',f.grupo)}${kv('Línea de investigación',f.linea)}${kv('Semillero',f.semillero)}${kv('Proyecto de origen',f.proyectoOrigen)}${kv('Área y tipo de resultado',perfilLabel(st))}${kv('Tipo de proyecto',f.tipoProyecto)}${kv('Descripción',f.descripcion)}${kv('Problema que resuelve',f.problema)}${kv('Palabras clave',f.claves)}${kv('Importancia',f.importancia)}${kv('ODS',pick(ODS.map((o,i)=>`${i+1}. ${o}`),f.ods))}${kv('Ventajas',f.ventajas)}${kv('Similares o sustitutas',f.similares)}${kv('Diferencia',f.diferencia)}${kv('Barreras',f.barreras)}${kv('Aplicaciones',f.aplicaciones)}${kv('Destinatarios',f.destinatarios)}${kv('Percepción del investigador',f.percepcion)}${kv('Mecanismos de PI',pick(PI,f.pi))}${kv('Estado de la PI',f.piEstado)}${kv('Confidencialidad',f.confid)}${kv('Cesión de derechos',f.cesion)}${kv('Uso o comercialización',f.usoCom)}${kv('Aportes por autor',f.aportes)}</dl>`;
+}
+function renderCase(){
+  const c=R.cur, st=c.state, sm=summary(st), f=st.ficha||{};
+  $('#rv-case').innerHTML=`<div class="actions" style="margin:18px 0"><button class="btn small" data-act="rvback">← Volver a la lista</button><button class="btn small ghost" data-act="rvdel">Eliminar caso</button></div>
+    <div class="res-head">${headline(sm,f.nombre,st)}</div>
+    <div class="res-grid"><div class="radar-box">${radarSVG(seriesOf({...sm,rev:true}))}<div class="legend-row" style="margin:0 0 10px"><span class="lg"><i style="background:var(--c-decl)"></i>Declarado</span><span class="lg"><i style="background:var(--c-evid)"></i>Con evidencia</span><span class="lg"><i style="background:var(--c-ver)"></i>Verificado</span></div></div>
+    <div><table class="t"><thead><tr><th>Dimensión</th><th class="c">Declarado</th><th class="c">Con evid.</th><th class="c">Verif.</th><th>Nivel declarado</th></tr></thead><tbody>${resultRows({...sm,rev:true},st)}</tbody></table>
+    <div class="actions"><button class="btn primary" data-act="rvexport">Descargar paquete revisado</button></div>
+    <p class="muted">El paquete revisado conserva las marcas de verificación: el investigador puede cargarlo para ver sus observaciones.</p></div></div>
+    <details class="sec" style="margin-top:22px"><summary><span class="num">i</span>Ficha diligenciada</summary><div class="body">${fichaSummary(f,st)}</div></details>
+    <div class="tabs" role="tablist">${BANK.map((d,i)=>`<button data-act="rvtab" data-i="${i}" class="${UI.rvTab===i?'on':''}" role="tab">${d.k} · ${sm.decl[i].reached}</button>`).join('')}</div>
+    <div id="rv-dim">${renderDim(UI.rvTab,'review')}</div>`;
+}
+let rvSaveT;
+function rvChanged(rerender){clearTimeout(rvSaveT);rvSaveT=setTimeout(()=>saveCase(R.cur),300);if(rerender){const y=scrollY;renderCase();scrollTo(0,y)}}
+
+/* ════════ CSV ════════ */
+function csvCell(v){v=String(v??'');return /[",\n;]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function exportCSV(){
+  const head=['Resultado','Creador','Correo','Fecha',...BANK.flatMap(d=>[d.k+' declarado',d.k+' con evidencia',d.k+' verificado'])];
+  const rows=R.cases.map(c=>{const sm=summary(c.state),f=c.state.ficha||{},cr=(f.creadores&&f.creadores[0])||{};
+    return [f.nombre,cr.nombre,cr.correo,f.fecha,...BANK.flatMap((_,i)=>[sm.decl[i].reached,sm.evid[i].reached,sm.ver[i].reached])]});
+  download('portafolio_madurez.csv','﻿'+[head,...rows].map(r=>r.map(csvCell).join(';')).join('\n'),'text/csv;charset=utf-8');
+}
+
+/* ════════ Eventos ════════ */
+document.addEventListener('click',async e=>{
+  const t=e.target.closest('[data-act]'); if(!t) return;
+  const act=t.dataset.act;
+  if(t.tagName==='INPUT') return;
+  switch(act){
+    case 'home': show('home');break;
+    case 'start': show('app');break;
+    case 'review': show('review');break;
+    case 'theme': setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');break;
+    case 'area': S.perfil.area=t.dataset.v;UI.perfilMsg=false;save();renderApp(true);break;
+    case 'tipo': S.perfil.tipos[t.dataset.v]=!S.perfil.tipos[t.dataset.v];save();renderApp(true);break;
+    case 'usesug':{const sg=suggest(S.ficha);if(sg.area)S.perfil.area=sg.area;sg.tipos.forEach(k=>{S.perfil.tipos[k]=true});UI.perfilMsg=false;save();renderApp(true);break}
+    case 'go': goStep(+t.dataset.i);break;
+    case 'next': goStep(S.step+1);break;
+    case 'prev': goStep(S.step-1);break;
+    case 'ans':{const k=t.dataset.k,v=t.dataset.v;const a=S.answers[k]||(S.answers[k]={});a.v=a.v===v?undefined:v;if(!a.v&&!hasEv(a)&&!a.note)delete S.answers[k];save();renderApp(true);const b=$(`[data-act="ans"][data-k="${k}"][data-v="${v}"]`);if(b)b.focus();break}
+    case 'rmfile':{const a=S.answers[t.dataset.k];a.files=a.files.filter(f=>f.id!==t.dataset.fid);DB.del('files',t.dataset.fid);save();renderApp(true);break}
+    case 'view': openFile(t.dataset.fid);break;
+    case 'showall': UI.showAll[t.dataset.d+'edit']=!UI.showAll[t.dataset.d+'edit'];renderApp(true);break;
+    case 'addrow':{const l=S.ficha[t.dataset.list];if(l.length<7){l.push({});save();renderApp(true)}break}
+    case 'delrow':{S.ficha[t.dataset.list].splice(+t.dataset.i,1);save();renderApp(true);break}
+    case 'reset': if(confirm('Se borrará el avance guardado en este navegador (ficha, respuestas y archivos). ¿Desea empezar de cero?')){S=blank();lsSet(KEY,JSON.stringify(S));renderApp();window.scrollTo(0,0)}break;
+    case 'print': window.print();break;
+    case 'export':{
+      const miss=fichaMissing(); if(miss.length&&!confirm('Faltan datos obligatorios de la ficha:\n- '+miss.join('\n- ')+'\n\n¿Descargar el paquete de todos modos?')) break;
+      t.disabled=true;const old=t.textContent;t.textContent='Preparando…';
+      try{const pkg=await buildPackage(S);const txt=JSON.stringify(pkg);
+        if(txt.length>40e6&&!confirm('El paquete pesa '+fmtSize(txt.length)+', es posible que no lo reciba por correo. ¿Descargarlo?')){}else download(`Madurez_${slug(S.ficha.nombre)}_${today()}.json`,txt);
+      }catch(err){alert('No se pudo generar el paquete: '+err.message)}
+      t.disabled=false;t.textContent=old;break}
+    case 'rev':{const k=t.dataset.k,v=t.dataset.v,c=R.cur.state;c.review=c.review||{};const cur=c.review[k]||{};cur.s=cur.s===v?'':v;c.review[k]=cur;rvChanged(true);break}
+    case 'rvopen':{R.cur=R.cases.find(c=>c.id===t.dataset.id);UI.rvId=R.cur.id;UI.rvTab=0;renderReview();window.scrollTo(0,0);break}
+    case 'rvback': R.cur=null;UI.rvId=null;renderReview();break;
+    case 'rvtab': UI.rvTab=+t.dataset.i;renderCase();break;
+    case 'rvdel': if(confirm('¿Eliminar este caso de este navegador?')){await DB.del('cases',R.cur.id);R.cur=null;UI.rvId=null;renderReview()}break;
+    case 'rvexport':{t.disabled=true;try{const pkg=await buildPackage(R.cur.state);pkg.reviewedAt=new Date().toISOString();download(`Revisado_${slug(R.cur.state.ficha.nombre)}_${today()}.json`,JSON.stringify(pkg))}catch(err){alert('No se pudo exportar: '+err.message)}t.disabled=false;break}
+    case 'csv': exportCSV();break;
+  }
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.f){ setp(S.ficha,t.dataset.f,t.type==='checkbox'?t.checked:t.value); save(); if(t.type==='checkbox'||t.tagName==='SELECT'){renderSteps()} }
+  else if(t.dataset.a){const a=S.answers[t.dataset.k]||(S.answers[t.dataset.k]={v:'si'});a[t.dataset.a]=t.value;save();renderLive()}
+  else if(t.dataset.r){const c=R.cur.state;c.review=c.review||{};(c.review[t.dataset.k]=c.review[t.dataset.k]||{}).c=t.value;rvChanged(false)}
+});
+document.addEventListener('change',async e=>{
+  const t=e.target;
+  if(t.dataset.act==='upload'&&t.files.length){await addFiles(t.dataset.k,[...t.files]);t.value=''}
+  if(t.id==='imp-draft'&&t.files[0]){
+    try{const st=await importPackage(t.files[0]); if(confirm('Se reemplazará el avance actual por el del archivo cargado. ¿Continuar?')){S=st;S.step=0;save();renderApp();window.scrollTo(0,0)}}catch(err){alert('No se pudo cargar: '+err.message)} t.value='';
+  }
+  if(t.id==='imp-rv'&&t.files.length){
+    for(const f of t.files){try{const st=await importPackage(f);const old=R.cases.find(c=>c.id===st.id);const c={id:st.id||uid(),state:st,importedAt:Date.now()};if(old&&hasReview(old.state)&&!hasReview(st)&&!confirm(`Ya hay una revisión guardada de «${st.ficha&&st.ficha.nombre||'este caso'}». ¿Reemplazarla con el archivo importado?`))continue;await saveCase(c)}catch(err){alert(`${f.name}: ${err.message}`)}}
+    t.value='';UI.rvId=null;R.cur=null;renderReview();
+  }
+});
+document.addEventListener('toggle',e=>{const t=e.target;if(t.dataset&&t.dataset.lid)UI.open[t.dataset.lid]=t.open;if(t.dataset&&t.dataset.sec)UI.open['sec'+t.dataset.sec]=t.open},true);
+const tip=$('#tip');
+document.addEventListener('mouseover',e=>{const t=e.target.closest('[data-tip]');if(!t){tip.hidden=true;return}tip.textContent=t.dataset.tip;tip.hidden=false});
+document.addEventListener('mousemove',e=>{if(!tip.hidden){tip.style.left=e.clientX+14+'px';tip.style.top=e.clientY+14+'px'}});
+
+/* ════════ Inicio ════════ */
+$('#dimcards').innerHTML=BANK.map(d=>`<div class="card dimcard"><div class="k">${d.k}</div><h3>${esc(d.name)}</h3><p style="margin:0">${esc(DEFS[d.k])}</p></div>`).join('');
+setTheme(document.documentElement.getAttribute('data-theme')||'light');
+drawHero();
+</script>
+</body>
+</html>
