@@ -368,7 +368,7 @@ dl.kv dt{color:var(--faint)}dl.kv dd{margin:0;color:var(--ink);white-space:pre-w
     <details class="faq"><summary>¿Y si no sé en qué nivel estoy?</summary><p>No tienes que saberlo. Respondes por hechos («¿construyó un prototipo de laboratorio?») y la página deduce el nivel: es el más alto en el que cumples todos los criterios de ese nivel y de los anteriores.</p></details>
     <details class="faq"><summary>Mi desarrollo no es tecnológico (psicología, derecho, sociales…). ¿Aplica?</summary><p>Sí. Al elegir tu área y tu tipo de resultado, las preguntas se acompañan de ejemplos de tu campo y la escala tecnológica se traduce a tu lenguaje: por ejemplo, «prototipo» pasa a ser la versión piloto de tu protocolo, instrumento o metodología.</p></details>
     <details class="faq"><summary>¿Es obligatorio subir evidencia?</summary><p>No para avanzar, pero sí para que tu «Sí» cuente en la capa «Con evidencia» y pueda ser verificado. Un «Sí» sin soporte queda marcado como pendiente.</p></details>
-    <details class="faq"><summary>¿Dónde quedan mis datos y archivos?</summary><p>En tu navegador, en este equipo. No se envían a ningún servidor. Cuando termines, descargas un paquete (.json) que incluye tus respuestas y tus archivos, y lo envías a la Oficina de Transferencia.</p></details>
+    <details class="faq"><summary>¿Dónde quedan mis datos y archivos?</summary><p>Mientras diligencias, todo queda guardado solo en tu navegador, en este equipo. Tus datos y archivos salen de tu equipo únicamente cuando tú pulsas «Enviar» (o descargas el paquete) para entregarlos a la Oficina de Transferencia, y antes debes autorizar el tratamiento de tus datos.</p></details>
     <details class="faq"><summary>¿Qué pasa si respondo «No» en un nivel?</summary><p>Ahí queda tu nivel actual en esa dimensión. La página te muestra qué criterios te faltan para subir al siguiente. Los niveles superiores se habilitan cuando cumples el actual.</p></details>
   </div></div>
   <footer class="foot"><div class="wrap">Modelo basado en el KTH Innovation Readiness Level™ (KTH Royal Institute of Technology) y en las definiciones de TRL de MINCIENCIAS (2019), adaptado por la Universidad Colegio Mayor de Cundinamarca con una sexta dimensión de madurez social.</div></footer>
@@ -427,7 +427,13 @@ const CONFIG={
   correoTransferencia:'',   // p. ej. 'transferencia@…' — si se deja vacío no se muestra el botón de correo
   maxFileMB:8,
   umbralDesequilibrio:3,
+  // ── Envío automático a Transferencia (n8n → Google Drive) ──
+  webhookUrl:'',            // URL de producción del webhook de n8n. Si está vacía, no se muestra el botón «Enviar».
+  webhookToken:'',          // Debe coincidir con TOKEN del flujo de n8n. No es un secreto fuerte: va en el código de la página.
+  maxEnvioMB:14,            // Tamaño máximo del envío; n8n acepta 16 MB por defecto.
+  politicaDatosUrl:'',      // Enlace a la política de tratamiento de datos de la universidad (opcional).
 };
+const CONSENT_TEXT='Autorizo a la '+CONFIG.institucion+' el tratamiento de los datos personales y de los archivos que envío, con la finalidad de evaluar la madurez de mi resultado de investigación y gestionar su posible transferencia, conforme a la Ley 1581 de 2012.';
 const KEY='madurez-unimayor:borrador';
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -866,8 +872,13 @@ function renderResult(){
       <li class="${unresolved.length?'':'ok'}">Dimensiones respondidas ${unresolved.length?`(faltan por completar: ${unresolved.join(', ')})`:'por completo'}</li>
       <li class="${noEv?'':'ok'}">Evidencia adjunta en ${sm.conEv} de ${sm.si} respuestas «Sí» ${noEv?`(${noEv} sin soporte)`:''}</li>
     </ul>
-    <p>Al descargar el paquete se guarda un archivo <b>.json</b> con tu ficha, tus respuestas y tus archivos. Envíalo a la ${esc(CONFIG.oficina)}.</p>
-    <div class="actions"><button class="btn primary" data-act="export">Descargar paquete para Transferencia</button>
+    <p>${CONFIG.webhookUrl?`Al pulsar <b>Enviar</b>, tu ficha, tus respuestas y tus archivos llegan directamente a la ${esc(CONFIG.oficina)}. También puedes descargar el paquete como respaldo.`:`Al descargar el paquete se guarda un archivo <b>.json</b> con tu ficha, tus respuestas y tus archivos. Envíalo a la ${esc(CONFIG.oficina)}.`}</p>
+    ${CONFIG.webhookUrl?`<div class="sendbox" style="margin:6px 0 18px">
+      ${S.enviado?`<div class="alert" style="margin:0 0 12px">Ya enviaste este diagnóstico el ${esc(S.enviado.fecha.slice(0,10))}. Si hiciste cambios, puedes volver a enviarlo.</div>`:''}
+      <label class="chk"><input type="checkbox" data-ui="consent" ${UI.consent?'checked':''}><span>${esc(CONSENT_TEXT)}${CONFIG.politicaDatosUrl?` <a href="${esc(CONFIG.politicaDatosUrl)}" target="_blank" rel="noopener noreferrer">Política de datos</a>`:''}</span></label>
+      <div class="actions"><button class="btn primary" data-act="send">Enviar a Transferencia</button></div>
+      <p id="send-msg" role="status" aria-live="polite" class="muted" style="margin:8px 0 0"></p></div>`:''}
+    <div class="actions"><button class="btn ${CONFIG.webhookUrl?'':'primary'}" data-act="export">Descargar paquete para Transferencia</button>
       ${CONFIG.correoTransferencia?`<a class="btn" href="mailto:${esc(CONFIG.correoTransferencia)}?subject=${encodeURIComponent('Diagnóstico de madurez: '+(S.ficha.nombre||''))}">Abrir correo</a>`:''}
       <button class="btn ghost" data-act="print">Imprimir o guardar en PDF</button></div>
   </div>
@@ -1036,6 +1047,29 @@ document.addEventListener('click',async e=>{
     case 'delrow':{S.ficha[t.dataset.list].splice(+t.dataset.i,1);save();renderApp(true);break}
     case 'reset': if(confirm('Se borrará el avance guardado en este navegador (ficha, respuestas y archivos). ¿Desea empezar de cero?')){S=blank();lsSet(KEY,JSON.stringify(S));renderApp();window.scrollTo(0,0)}break;
     case 'print': window.print();break;
+    case 'send':{
+      const msg=$('#send-msg'), say=(m,c)=>{const e=$('#send-msg');if(e){e.textContent=m;e.style.color=c||''}};
+      if(!UI.consent){say('Marca la autorización de tratamiento de datos para poder enviar.','var(--danger)');break}
+      const faltan=fichaMissing(); if(faltan.length){say('Antes de enviar completa: '+faltan.join(', ').toLowerCase()+'.','var(--danger)');break}
+      t.disabled=true;const prev=t.textContent;t.textContent='Enviando…';say('Preparando el paquete…');
+      try{
+        const pkg=await buildPackage(S);
+        pkg.autorizacion={aceptada:true,fecha:new Date().toISOString(),texto:CONSENT_TEXT};
+        pkg.token=CONFIG.webhookToken;
+        const body=JSON.stringify(pkg);
+        if(body.length>CONFIG.maxEnvioMB*1048576){say('El paquete pesa '+fmtSize(body.length)+' y supera el máximo para enviar ('+CONFIG.maxEnvioMB+' MB). Descárgalo y compártelo por Drive, o reemplaza los archivos pesados por enlaces.','var(--danger)');break}
+        say('Enviando '+fmtSize(body.length)+'…');
+        const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),120000);
+        let res; try{res=await fetch(CONFIG.webhookUrl,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body,signal:ctl.signal})}finally{clearTimeout(to)}
+        if(!res.ok) throw new Error('el servidor respondió '+res.status);
+        let data={}; try{data=await res.json()}catch(e){}
+        if(data&&data.ok===false) throw new Error(data.error||'el servidor rechazó el envío');
+        S.enviado={fecha:new Date().toISOString(),carpeta:(data&&data.carpeta)||''};save();
+        renderApp(true);say('✓ Enviado a Transferencia. Gracias.','var(--c-ver)');
+      }catch(err){
+        say('No se pudo enviar ('+(err.name==='AbortError'?'tardó demasiado':err.message)+'). Tu avance sigue guardado: descarga el paquete y envíalo manualmente.','var(--danger)');
+      }finally{t.disabled=false;t.textContent=prev}
+      break}
     case 'export':{
       const miss=fichaMissing(); if(miss.length&&!confirm('Faltan datos obligatorios de la ficha:\n- '+miss.join('\n- ')+'\n\n¿Descargar el paquete de todos modos?')) break;
       t.disabled=true;const old=t.textContent;t.textContent='Preparando…';
@@ -1056,6 +1090,7 @@ document.addEventListener('input',e=>{
   const t=e.target;
   if(t.dataset.f){ setp(S.ficha,t.dataset.f,t.type==='checkbox'?t.checked:t.value); save(); if(t.type==='checkbox'||t.tagName==='SELECT'){renderSteps()} }
   else if(t.dataset.a){const a=S.answers[t.dataset.k]||(S.answers[t.dataset.k]={v:'si'});a[t.dataset.a]=t.value;save();renderLive()}
+  else if(t.dataset.ui){UI[t.dataset.ui]=t.checked}
   else if(t.dataset.r){const c=R.cur.state;c.review=c.review||{};(c.review[t.dataset.k]=c.review[t.dataset.k]||{}).c=t.value;rvChanged(false)}
 });
 document.addEventListener('change',async e=>{
