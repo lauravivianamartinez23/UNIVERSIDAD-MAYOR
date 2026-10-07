@@ -722,20 +722,21 @@ function summary(st){
 }
 
 /* ════════ Radar (telaraña) ════════ */
+const AXIS={TRL:'Madurez tecnológica',CRL:'Comercial o de mercado',IPRL:'Propiedad intelectual',TeamRL:'Equipo de trabajo',IRL:'Inversión y financiamiento',SRL:'Madurez social'};
 function radarSVG(series,o={}){
-  const size=o.size||440,pad=o.pad??80,cx=size/2+pad,cy=size/2,R=size*(o.rf||.36),n=BANK.length;
+  const size=o.size||440,pad=o.pad??96,cx=size/2+pad,cy=size/2,R=size*(o.rf||.36),n=BANK.length;
   const ang=i=>-Math.PI/2+i*2*Math.PI/n;
   const pt=(i,v)=>[cx+R*(v/9)*Math.cos(ang(i)),cy+R*(v/9)*Math.sin(ang(i))];
   const ring=v=>BANK.map((_,i)=>pt(i,v).map(x=>x.toFixed(1)).join(',')).join(' ');
   let s=`<svg viewBox="0 0 ${size+pad*2} ${size}" role="img" aria-label="Telaraña de madurez con ${n} dimensiones">`;
   for(let v=1;v<=9;v++) s+=`<polygon class="ring ${v%3===0?'m':''}" points="${ring(v)}"/>`;
   BANK.forEach((d,i)=>{const [x,y]=pt(i,9);s+=`<line class="axis" x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"/>`});
-  [3,6,9].forEach(v=>{s+=`<text x="${cx+4}" y="${(cy-R*v/9-3).toFixed(1)}" font-size="${o.ringfs||(o.small?8:10)}" style="fill:var(--faint)">${v}</text>`});
+  (o.small?[3,6,9]:[3,6]).forEach(v=>{s+=`<text x="${cx+4}" y="${(cy-R*v/9-3).toFixed(1)}" font-size="${o.ringfs||(o.small?8:10)}" style="fill:var(--faint)">${v}</text>`});
   BANK.forEach((d,i)=>{
     const c=Math.cos(ang(i)),[x,y]=[cx+(R+(o.ld||(o.small?14:20)))*c,cy+(R+(o.ld||(o.small?14:20)))*Math.sin(ang(i))];
     const anchor=c>.3?'start':c<-.3?'end':'middle';
     s+=`<text class="k" x="${x.toFixed(1)}" y="${(y+4).toFixed(1)}" text-anchor="${anchor}" font-size="${o.fs||(o.small?11:15)}">${d.k}</text>`;
-    if(!o.small) s+=`<text x="${x.toFixed(1)}" y="${(y+19).toFixed(1)}" text-anchor="${anchor}" font-size="11">${esc(d.name)}</text>`;
+    if(!o.small) s+=`<text x="${x.toFixed(1)}" y="${(y+19).toFixed(1)}" text-anchor="${anchor}" font-size="11">${esc(AXIS[d.k]||d.name)}</text>`;
   });
   series.forEach((sr,si)=>{
     const pts=sr.vals.map((v,i)=>pt(i,v)), poly=pts.map(p=>p.map(x=>x.toFixed(1)).join(',')).join(' ');
@@ -824,8 +825,8 @@ function renderFicha(){
   const creators=f.creadores.map((c,i)=>`<div class="rowcard">${f.creadores.length>1?`<button class="btn small ghost rm" data-act="delrow" data-list="creadores" data-i="${i}" aria-label="Quitar creador">Quitar</button>`:''}
     <strong>Creador ${i+1}</strong>
     <div class="row2">${F.inp(`creadores.${i}.nombre`,'Nombres y apellidos',{req:i===0})}${F.inp(`creadores.${i}.id`,'Número de identificación')}</div>
-    <div class="row3">${F.sel(`creadores.${i}.relacion`,'Relación con la universidad',OPT.relacion)}${F.inp(`creadores.${i}.tel`,'Teléfono o extensión')}${F.inp(`creadores.${i}.correo`,'Correo electrónico',{type:'email',req:i===0})}</div>
-    ${F.inp(`creadores.${i}.aporte`,'Contribución en la investigación')}</div>`).join('');
+    <div class="row2">${F.sel(`creadores.${i}.relacion`,'Relación con la universidad',OPT.relacion)}${F.inp(`creadores.${i}.correo`,'Correo electrónico',{type:'email',req:i===0})}</div>
+    <div class="row2">${F.inp(`creadores.${i}.tel`,'Teléfono o extensión')}${F.inp(`creadores.${i}.aporte`,'Contribución en la investigación')}</div></div>`).join('');
   const ents=f.entidades.map((c,i)=>`<div class="rowcard">${f.entidades.length>1?`<button class="btn small ghost rm" data-act="delrow" data-list="entidades" data-i="${i}">Quitar</button>`:''}
     <div class="row3">${F.inp(`entidades.${i}.nombre`,'Entidad participante')}${F.sel(`entidades.${i}.origen`,'Origen de los recursos',OPT.recursos)}${F.inp(`entidades.${i}.monto`,'Monto de financiación')}</div></div>`).join('');
   const redes=f.redes.map((c,i)=>`<div class="rowcard">${f.redes.length>1?`<button class="btn small ghost rm" data-act="delrow" data-list="redes" data-i="${i}">Quitar</button>`:''}
