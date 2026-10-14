@@ -1192,7 +1192,8 @@ async function buildPackage(st){
   for(const a of Object.values(st.answers)) for(const f of (a.files||[])){
     const rec=await DB.get('files',f.id); if(rec) files[f.id]={name:rec.name,type:rec.type,data:await blobToDataURL(rec.blob)};
   }
-  return {app:'madurez-unimayor',version:1,exportedAt:new Date().toISOString(),institucion:CONFIG.institucion,state:st,files};
+  const niveles={}; BANK.forEach(d=>{niveles[d.k]=dimLevel(st,d,'decl').reached});
+  return {app:'madurez-unimayor',version:1,exportedAt:new Date().toISOString(),institucion:CONFIG.institucion,niveles,state:st,files};
 }
 function download(name,text,type='application/json'){
   const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),5000);
