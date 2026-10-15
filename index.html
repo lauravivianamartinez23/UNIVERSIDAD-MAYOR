@@ -1117,7 +1117,8 @@ function stepDone(i){
 }
 function renderSteps(){
   $('#steps').innerHTML=STEPS.map((t,i)=>`<button class="pill ${S.step===i?'on':''} ${stepDone(i)?'done':''}" data-act="go" data-i="${i}" role="tab" aria-selected="${S.step===i}"><b>${stepDone(i)?'✓':i+1}</b>${t}</button>`).join('');
-  const on=$('.pill.on',$('#steps')); if(on&&on.scrollIntoView) on.scrollIntoView({inline:'center',block:'nearest'});
+  // Centra el paso activo solo en horizontal: scrollIntoView subía toda la página hasta la barra.
+  const bar=$('#steps'), on=$('.pill.on',bar); if(on) bar.scrollLeft+=on.getBoundingClientRect().left-bar.getBoundingClientRect().left-(bar.clientWidth-on.offsetWidth)/2;
 }
 function renderApp(keepScroll){
   const y=window.scrollY;
